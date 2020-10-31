@@ -1,4 +1,4 @@
-import {_dash_name} from './imm_dom_core.mjs'
+import {_dash_name} from './_imm_utils.mjs'
 
 const _imm_pxy = {
   get(tag_fn, key, ns) {

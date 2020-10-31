@@ -52,7 +52,7 @@ Inspired by:
 To be embedded in each web component custom elemenet,
 the individual pieces must be small.
 
-The entire library is ~ **2000 bytes** minified; ~ **1000 brotli**.
+The entire library is ~ **3000 bytes** minified; ~ **1300 brotli**.
 However, the library is _designed to include only the parts actually used_.
 
   - `imm_tmpl` alone costs ~ 1100 bytes minified; ~ 600 brotli.
@@ -63,9 +63,10 @@ See auto-generated [compressed size report](./docs/compressed.md).
 
 | module          |  bytes |    min | gziped | brotli |
 |:----------------|-------:|-------:|-------:|-------:|
-| `index`         |   4622 |   1933 |   1062 |    956 |
-| `imm_tmpl`      |   3098 |   1092 |    672 |    574 |
+| `index`         |   6408 |   2904 |   1445 |   1301 |
+| `imm_tmpl`      |   3156 |   1093 |    672 |    570 |
 | `imm_dom`       |   1142 |    589 |    391 |    313 |
+| `imm_elem`      |   1559 |    879 |    502 |    404 |
 | `imm_raf`       |    567 |    292 |    236 |    194 |
 
 

@@ -6,14 +6,21 @@ const configs = []
 export default configs
 
 
-add_mjs('index')
+add_mjs('imm_pxy')
+add_mjs('imm_raf')
+
 add_mjs('imm_dom_core')
 add_mjs('imm_dom')
 add_mjs('imm_dom_ns')
-add_mjs('imm_pxy')
+
 add_mjs('imm_tmpl_core')
 add_mjs('imm_tmpl')
-add_mjs('imm_raf')
+
+add_mjs('imm_elem_core')
+add_mjs('imm_elem')
+add_mjs('imm_elem_raf')
+
+add_mjs('index')
 
 
 function add_mjs(src_name) {
