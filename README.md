@@ -10,13 +10,13 @@ Designed to be embedded piecewise in self-contained Web Components.
 
 ```javascript
 imm_html.article({class: 'awesome'},
-  imm_html.h3('title'),
+  imm_html.h3('my demo title'),
   'some body text')
 
 // or
 
 tag('article', {class: 'awesome'},
-  tag('h3', 'title'),
+  tag('h3', 'my demo title'),
   'some body text')
 ```
 
@@ -34,7 +34,7 @@ Inspired by:
 ```javascript
 imm_tmpl`
   <article ${ {class: 'awesome'} }>
-    <h3>${ 'title' }</h3>
+    <h3>${ 'my demo title' }</h3>
     ${ 'some body text' }
   </article>`
 ```

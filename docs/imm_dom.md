@@ -14,8 +14,8 @@ let el_article = document.createElement('article')
 let el_h3 = document.createElement('h3')
 
 el_article.setAttribute('class', 'awesome')
-el_h3.append('title')
-el_article.append('title')
+el_h3.append('my demo title')
+el_article.append('some body text')
 ```
 
 ##### Using `imm` from `imm_dom_core.mjs`
@@ -25,7 +25,7 @@ let el_article = document.createElement('article')
 let el_h3 = document.createElement('h3')
 
 imm(el_article, {class: 'awesome'},
-  imm(el_h3, 'title'),
+  imm(el_h3, 'my demo title'),
   'some body text')
 ```
 
@@ -33,7 +33,7 @@ imm(el_article, {class: 'awesome'},
 
 ```javascript
 tag('article', {class: 'awesome'},
-  tag('h3', 'title'),
+  tag('h3', 'my demo title'),
   'some body text')
 ```
 
@@ -41,7 +41,7 @@ tag('article', {class: 'awesome'},
 
 ```javascript
 imm_html.article({class: 'awesome'},
-  imm_html.h3('title'),
+  imm_html.h3('my demo title'),
   'some body text')
 ```
 

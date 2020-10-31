@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>imm_dom_ns</code></h2>
+    <div id='demo_dom_ns'></div>
+    <script type=module>
+      import {imm_html} from './code/imm_dom_ns.mjs'
+
+      const el =
+        imm_html.article({class: 'awesome'},
+          imm_html.h3('my demo title'),
+          'some body text')
+
+      document.getElementById('demo_dom_ns')
+        .replaceWith(el)
+    </script>
+  </section>
+
+  <section>
+    <h2>Demo of <code>imm_tmpl</code></h2>
+    <div id='demo_tmpl'></div>
+
+    <script type=module>
+      import {imm_tmpl} from './code/imm_tmpl.mjs'
+
+      let my_widget = ns =>
+        imm_tmpl`
+          <article ${ {class: ns.class} }>
+            <h3>${ ns.title }</h3>
+            ${ ns.body }
+          </article>`
+
+      let el = my_widget({
+        class: 'awesome',
+        title: 'my demo title',
+        body: 'some body text' })
+
+      document.getElementById('demo_tmpl')
+        .replaceWith(el)
+    </script>
+  </section>
+</body>
+</html>

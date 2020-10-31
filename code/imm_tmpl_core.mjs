@@ -19,12 +19,12 @@ export function imm_tmpl_link(invoke_arg) {
       let tgt_elem = nodes[idx], a = args[idx]
 
       // remove the tag key -- intentionally ugly!
-      tgt_elem.removeAttribute(tkey)
+      tgt_elem.removeAttribute(_tkey)
 
       // replace attribute
       invoke_arg(
-        tgt_elem, tkey === tgt_elem.tagName,
-        null == a ? a : a.valueOf(), i)
+        tgt_elem, _tkey === tgt_elem.tagName,
+        null == a ? a : a.valueOf(), idx)
     }
     return el
   }
