@@ -22,6 +22,12 @@ Inspired by:
 imm_html.article({class: 'awesome'},
   imm_html.h3('title'),
   'some body text')
+
+// or
+
+tag('article', {class: 'awesome'},
+  tag('h3', 'title'),
+  'some body text')
 ```
 
 Inspired by:
