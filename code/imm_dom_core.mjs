@@ -1,4 +1,4 @@
-import {_dash_name} from './_imm_utils.mjs'
+import {_dash_name} from './imm_utils.mjs'
 
 export function imm(el, attrs, children=[]) {
   if (null == attrs) ;
