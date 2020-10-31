@@ -21,7 +21,7 @@ export function imm_tmpl_link(invoke_arg) {
       // remove the tag key -- intentionally ugly!
       tgt_elem.removeAttribute(_tkey)
 
-      // replace attribute
+      // update/replace target node with arg
       invoke_arg(
         tgt_elem, _tkey === tgt_elem.tagName,
         null == a ? a : a.valueOf(), idx)
