@@ -73,7 +73,8 @@ Inspired by:
 
 - `imm_raf()` returns a promise for the next `requestAnimationFrame` tick.
 
-## Sizes
+
+## Size Cost in Bytes
 
 To be embedded in each web component custom elemenet,
 the individual pieces must be small.
