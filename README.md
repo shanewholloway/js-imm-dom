@@ -83,6 +83,7 @@ However, the library is _designed to include only the parts actually used_.
 
   - `imm_tmpl` alone costs ~ 1100 bytes minified; ~ 600 brotli.
   - `imm_dom` costs ~ 600 bytes minified; ~ 350 brotli.
+  - `imm_elem` costs ~ 900 bytes minified; ~ 400 brotli.
 
 Perfect for paring with a tree-shaking tool like [rollup][]
 See auto-generated [compressed size report](./docs/compressed.md).
