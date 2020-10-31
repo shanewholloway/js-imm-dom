@@ -1,7 +1,8 @@
 let _raf_p, _raf_set = new Set()
 
 export function imm_raf(obj) {
-  _raf_set.add(obj)
+  if (null != obj)
+    _raf_set.add(obj)
 
   if (undefined === _raf_p)
     _raf_p = new Promise(requestAnimationFrame)

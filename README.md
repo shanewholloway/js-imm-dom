@@ -44,8 +44,34 @@ Inspired by:
   and [uhtml](https://github.com/WebReflection/uhtml#readme)
 
 
-### [Immediate Utility API](docs/imm_utils.md):
+### [Immediate Custom Element Web Componet API](docs/imm_elem.md):
 
+```html
+<section>
+  <imm-demo-cdn data-demo=yes kind=awesome title='my demo title'>
+    some body text for the CDN demo
+  </imm-demo-cdn>
+
+  <script type=module>
+    import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+
+    ImmElem.shadow('imm-demo-cdn', ns =>
+      imm_tmpl`
+        <article ${ {class: ns.kind} }>
+          <h3>${ ns.title }</h3>
+          <slot>Body text Slot</slot>
+        </article>` )
+  </script>
+</section>
+```
+
+Inspired by:
+- [uce](https://github.com/WebReflection/uce#readme)
+
+
+### [Immediate Utility API](docs/imm_utils.md)
+
+- `imm_raf()` returns a promise for the next `requestAnimationFrame` tick.
 
 ## Sizes
 

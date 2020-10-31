@@ -60,10 +60,10 @@
 
   <section>
     <h2>Demo of <code>imm_elem</code></h2>
-    <imm-demo kind=awesome title='my demo custom element title'>
+    <imm-demo data-demo=yes kind=awesome title='my demo custom element title'>
       some custom element body text
     </imm-demo>
-    <imm-demo-alt kind=awesome title='my demo shadow title'>
+    <imm-demo-alt data-demo=yes kind=awesome title='my demo shadow title'>
       some shadow custom element body text
     </imm-demo-alt>
 
@@ -76,6 +76,8 @@
           <article ${ {class: ns.kind} }>
             <h3>${ ns.title }</h3>
             <slot>Body text Slot</slot>
+            <br />
+            <time>${ns.timestamp}</time>
           </article>` )
 
       ImmElem.shadow('imm-demo-alt', ns =>
@@ -83,6 +85,8 @@
           <article ${ {class: ns.kind} }>
             <h3>${ ns.title }</h3>
             <slot>Body alt text Slot</slot>
+            <br />
+            <time>${ns.timestamp}</time>
           </article>` )
     </script>
   </section>
@@ -115,5 +119,33 @@
       }})
     </script>
   </section>
+  <section>
+    <imm-demo-cdn data-demo=yes kind=awesome title='my demo title'>
+      some body text for the CDN demo
+    </imm-demo-cdn>
+
+    <script type=module>
+      import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+
+      ImmElem.shadow('imm-demo-cdn', ns =>
+        imm_tmpl`
+          <article ${ {class: ns.kind} }>
+            <h3>${ ns.title }</h3>
+            <slot>Body text Slot</slot>
+            <br />
+            <time>${ns.timestamp}</time>
+          </article>` )
+    </script>
+  </section>
+
+  <script type=module>
+    setInterval(
+      () => {
+        let ts = new Date().toLocaleTimeString()
+        console.log('Updating timestamps of demo elements to:', ts)
+        for (let node of document.querySelectorAll('[data-demo]'))
+          node.setAttribute('timestamp', ts)
+      }, 1000)
+  </script>
 </body>
 </html>
