@@ -13,6 +13,7 @@ add_mjs('imm_dom_ns')
 add_mjs('imm_pxy')
 add_mjs('imm_tmpl_core')
 add_mjs('imm_tmpl')
+add_mjs('imm_raf')
 
 
 function add_mjs(src_name) {
