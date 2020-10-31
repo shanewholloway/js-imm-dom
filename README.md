@@ -3,16 +3,6 @@
 Lightweight tooling around `document.createElement()`.
 Designed to be embedded piecewise in self-contained Web Components.
 
-Inspired by:
-- [uce](https://github.com/WebReflection/uce#readme)
-  and [uhtml](https://github.com/WebReflection/uhtml#readme)
-- [crel](https://github.com/KoryNunn/crel#readme)
-- [jaml](https://github.com/edspencer/jaml#readme)
-- [superfine](https://github.com/jorgebucaran/superfine#readme)
-- [hyperscript](https://github.com/hyperhype/hyperscript#readme)
-- [jsonml](http://www.jsonml.org)
-- [hast](https://github.com/syntax-tree/hast#readme)
-
 
 ## API
 
@@ -31,8 +21,12 @@ tag('article', {class: 'awesome'},
 ```
 
 Inspired by:
+- [hyperscript](https://github.com/hyperhype/hyperscript#readme)
+- [superfine](https://github.com/jorgebucaran/superfine#readme)
 - [crel](https://github.com/KoryNunn/crel#readme)
 - [jaml](https://github.com/edspencer/jaml#readme)
+- [jsonml](http://www.jsonml.org)
+- [hast](https://github.com/syntax-tree/hast#readme)
 
 
 ### [Immediate Template API](docs/imm_tmpl.md):
