@@ -1,7 +1,24 @@
 # Immediate-mode DOM tools
 
-Lightweight tooling around `document.createElement()`.
+Lightweight tooling around DOM creation.
 Designed to be embedded piecewise in self-contained Web Components.
+
+I love virtual DOM libraries like [superfine][], [preact][], and [inferno][],
+but some creations do not need the effecient updating logic.
+Creations like self-suffecient Web Components, *where every byte of superfulous logic is wasted*.
+
+The `imm-dom` library enables concise expression of DOM creation,
+while never setting `innerHTML` with uncontrolled content.
+Elements are created using `createElement()` or `createElementNS()`.
+Strings become `Text` nodes via `createTextNode()` or `elem.append()`.
+Attributes are set using `elem.setAttribute()`.
+DOM injection is protected against, in conjunction with caution and expertise, to provide tools for dynamic content.
+
+
+ [superfine]: https://github.com/jorgebucaran/superfine#readme
+ [preact]: https://preactjs.com/
+ [inferno]: https://infernojs.org/
+ [rollup]: https://rollupjs.org
 
 
 ## API
@@ -22,7 +39,7 @@ tag('article', {class: 'awesome'},
 
 Inspired by:
 - [hyperscript](https://github.com/hyperhype/hyperscript#readme)
-- [superfine](https://github.com/jorgebucaran/superfine#readme)
+- [superfine][]
 - [crel](https://github.com/KoryNunn/crel#readme)
 - [jaml](https://github.com/edspencer/jaml#readme)
 - [jsonml](http://www.jsonml.org)
@@ -102,5 +119,3 @@ See auto-generated [compressed size report](./docs/compressed.md).
 
 [BSD 2-clause](LICENSE)
 
-
- [rollup]: https://rollupjs.org
