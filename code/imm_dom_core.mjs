@@ -1,6 +1,6 @@
 import {_dash_name} from './imm_utils.mjs'
 
-export function imm(el, attrs, children=[]) {
+export function imm(el, attrs, children) {
   if (null == attrs) ;
   else if ('object' !== typeof attrs || attrs.nodeType)
     children.unshift(attrs)
@@ -10,7 +10,7 @@ export function imm(el, attrs, children=[]) {
       set(_dash_name(k), v)
   }
 
-  if (0 !== children.length) {
+  if (children) {
     let append = el.append.bind(el)
     for (let c of children) {
       if (null != c) {
