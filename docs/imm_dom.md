@@ -52,14 +52,14 @@ imm_html.article({class: 'awesome'},
 
 - `imm_dom(host=document, namespaceURI)`
 
-  Returns a tag function `tag_fn(tag : string | HTMLElement, attributes={}, ...children) : HTMLElement`
+  Returns a tag function `tag_fn(tag : string | HTMLElement, attributes, ...children) : HTMLElement`
   that invokes `imm(el, attributes, children)` using bound `host.createElementNS`.
 
   Also includes `tag_fn.text` bound to `host.createTextNode`.
 
   See `imm_dom.imm_tag` and `imm_dom.imm_svg_tag`.
 
-- `imm(element : HTMLElement, attributes={}, children=[]) : HTMLElement`
+- `imm(element : HTMLElement, attributes, children) : HTMLElement`
 
   Utility to iterate through attributes and call `element.setAttribute()`,
   then iterate children and call `element.append()`.
