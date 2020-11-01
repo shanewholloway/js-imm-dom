@@ -47,8 +47,8 @@ export class ImmCoreElem extends HTMLElement {
 
   _rendered_as(el_res) {
     let self = this.shadowRoot || this
-    self.textContent = ''
-    self.append(el_res)
+    self.textContent = '' // clear all content
+    self.append(el_res) // set as only content
   }
 }
 

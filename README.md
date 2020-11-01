@@ -14,11 +14,15 @@ Strings become `Text` nodes via `createTextNode()` or `elem.append()`.
 Attributes are set using `elem.setAttribute()`.
 DOM injection is protected against, in conjunction with caution and expertise, to provide tools for dynamic content.
 
-
  [superfine]: https://github.com/jorgebucaran/superfine#readme
  [preact]: https://preactjs.com/
  [inferno]: https://infernojs.org/
  [rollup]: https://rollupjs.org
+
+
+## Demo
+
+See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo's index.html source](index.html).
 
 
 ## API
