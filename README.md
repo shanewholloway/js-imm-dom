@@ -23,44 +23,6 @@ DOM injection is protected against, in conjunction with caution and expertise, t
 
 ## API
 
-### [Immediate DOM API](docs/imm_dom.md):
-
-```javascript
-imm_html.article({class: 'awesome'},
-  imm_html.h3('my demo title'),
-  'some body text')
-
-// or
-
-tag('article', {class: 'awesome'},
-  tag('h3', 'my demo title'),
-  'some body text')
-```
-
-Inspired by:
-- [hyperscript](https://github.com/hyperhype/hyperscript#readme)
-- [superfine][]
-- [crel](https://github.com/KoryNunn/crel#readme)
-- [jaml](https://github.com/edspencer/jaml#readme)
-- [jsonml](http://www.jsonml.org)
-- [hast](https://github.com/syntax-tree/hast#readme)
-
-
-### [Immediate Template API](docs/imm_tmpl.md):
-
-```javascript
-imm_tmpl`
-  <article ${ {class: 'awesome'} }>
-    <h3>${ 'my demo title' }</h3>
-    ${ 'some body text' }
-  </article>`
-```
-
-Inspired by:
-- [uce](https://github.com/WebReflection/uce#readme)
-  and [uhtml](https://github.com/WebReflection/uhtml#readme)
-
-
 ### [Immediate Custom Element Web Componet API](docs/imm_elem.md):
 
 ```html
@@ -84,6 +46,43 @@ Inspired by:
 
 Inspired by:
 - [uce](https://github.com/WebReflection/uce#readme)
+
+
+### [Immediate Template API](docs/imm_tmpl.md):
+
+```javascript
+imm_tmpl`
+  <article ${ {class: 'awesome'} }>
+    <h3>${ 'my demo title' }</h3>
+    ${ 'some body text' }
+  </article>`
+```
+
+Inspired by:
+- [uce](https://github.com/WebReflection/uce#readme) and [uhtml](https://github.com/WebReflection/uhtml#readme)
+
+
+### [Immediate DOM API](docs/imm_dom.md):
+
+```javascript
+imm_html.article({class: 'awesome'},
+  imm_html.h3('my demo title'),
+  'some body text')
+
+// or
+
+tag('article', {class: 'awesome'},
+  tag('h3', 'my demo title'),
+  'some body text')
+```
+
+Inspired by:
+- [hyperscript](https://github.com/hyperhype/hyperscript#readme)
+- [superfine][]
+- [crel](https://github.com/KoryNunn/crel#readme)
+- [jaml](https://github.com/edspencer/jaml#readme)
+- [jsonml](http://www.jsonml.org)
+- [hast](https://github.com/syntax-tree/hast#readme)
 
 
 ### [Immediate Utility API](docs/imm_utils.md)
