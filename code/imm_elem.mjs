@@ -1,5 +1,3 @@
-const _render_sym = Symbol('imm_elem')
-
 import {ImmCoreElem} from './imm_elem_core.mjs'
 
 export class ImmElem extends ImmCoreElem  {
