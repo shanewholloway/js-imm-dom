@@ -97,22 +97,16 @@ the individual pieces must be small.
 
 The entire library is ~ **3000 bytes** minified; ~ **1300 brotli**.
 However, the library is _designed to include only the parts actually used_.
+Perfect for paring with a tree-shaking tool like [rollup][].
 
-  - `imm_tmpl` alone costs ~ 1100 bytes minified; ~ 600 brotli.
-  - `imm_dom` costs ~ 600 bytes minified; ~ 350 brotli.
-  - `imm_elem` costs ~ 900 bytes minified; ~ 400 brotli.
+| module          |   brotli | minified |   source |
+|:----------------|---------:|---------:|---------:|
+| `index`         |   1303 B |   2913 B |   6429 B |
+| `imm_elem`      |    404 B |    879 B |   1559 B |
+| `imm_tmpl`      |    570 B |   1093 B |   3156 B |
+| `imm_dom`       |    313 B |    589 B |   1142 B |
 
-Perfect for paring with a tree-shaking tool like [rollup][]
 See auto-generated [compressed size report](./docs/compressed.md).
-
-| module          |  bytes |    min | gziped | brotli |
-|:----------------|-------:|-------:|-------:|-------:|
-| `index`         |   6408 |   2904 |   1445 |   1301 |
-| `imm_tmpl`      |   3156 |   1093 |    672 |    570 |
-| `imm_dom`       |   1142 |    589 |    391 |    313 |
-| `imm_elem`      |   1559 |    879 |    502 |    404 |
-| `imm_raf`       |    567 |    292 |    236 |    194 |
-
 
 ## License
 

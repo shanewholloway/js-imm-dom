@@ -38,10 +38,10 @@ async function show_stat_table(by_name) {
 
   out.write(`# Size of Immediate-mode DOM tools\n`)
   out.write(`\n`)
-  out.write(`| module          |  bytes |    min | gziped | brotli |\n`)
-  out.write(`|:----------------|-------:|-------:|-------:|-------:|\n`)
+  out.write(`| module          |   brotli | minified |   source |\n`)
+  out.write(`|:----------------|---------:|---------:|---------:|\n`)
   for (let o of Object.values(by_name))
-    out.write(`| ${o.name} | ${o.raw} | ${o.min} | ${o.gz} | ${o.br} |\n`)
+    out.write(`| ${o.name} | ${o.br} B | ${o.min} B | ${o.raw} B |\n`)
   out.write(`\n`)
 
   out.end()
