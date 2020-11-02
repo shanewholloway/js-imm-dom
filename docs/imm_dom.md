@@ -90,5 +90,4 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg` for practical use.
 - `html` alias for `imm_html = imm_pxy(imm_tag)`
 - `svg` alias for `imm_svg = imm_pxy(imm_svg_tag)`
 
-Syntatic sugar to express a tags as a function calls.
-
+Syntactic sugar to express a tags as a function calls.
