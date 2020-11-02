@@ -1,11 +1,11 @@
-# Immediate-mode DOM tools
+# Immediate-Mode DOM Tools
 
 Lightweight tooling around DOM creation.
 Designed to be embedded piecewise in self-contained Web Components.
 
 I love virtual DOM libraries like [superfine][], [preact][], and [inferno][],
-but some creations do not need the effecient updating logic.
-Creations like self-suffecient Web Components, *where every byte of superfulous logic is wasted*.
+but some creations do not need the efficient updating logic.
+Creations like self-sufficient Web Components, *where every byte of superfluous logic is wasted*.
 
 The `imm-dom` library enables concise expression of DOM creation,
 while never setting `innerHTML` with uncontrolled content.
@@ -96,12 +96,12 @@ Inspired by:
 
 ## Size Cost in Bytes
 
-To be embedded in each web component custom elemenet,
+To be embedded in each web component custom element,
 the individual pieces must be small.
 
 The entire library is ~ **3000 bytes** minified; ~ **1300 brotli**.
 However, the library is _designed to include only the parts actually used_.
-Perfect for paring with a tree-shaking tool like [rollup][].
+Perfect for pairing with a tree-shaking tool like [rollup][].
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
