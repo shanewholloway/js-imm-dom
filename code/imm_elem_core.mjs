@@ -8,8 +8,14 @@ export class ImmCoreElem extends HTMLElement {
 
     let ImmCE = class extends this {}
     ImmCE.observedAttributes = [... attrs]
-    ImmCE.prototype[_render_sym] = fn_render
-    if (init) ImmCE.prototype._init = init
+
+    let {prototype} = ImmCE
+    prototype[_render_sym] = fn_render
+
+    if (init && !prototype._init) {
+      // don't overwrite if defined by subclass
+      ImmCE.prototype._init = init
+    }
     return ImmCE
   }
 
@@ -18,19 +24,26 @@ export class ImmCoreElem extends HTMLElement {
     return this
   }
 
-  static shadow(tag_name, fn_render) {
-    return this
-      .imm_c(fn_render, _init_shadow)
-      ._define(tag_name) }
 
   static dom(tag_name, fn_render) {
     return this
-      .imm_c(fn_render)
-      ._define(tag_name) }
+      .imm_c(fn_render, this._init_dom)
+      ._define(tag_name)
+  }
+  static _init_dom(el_self) { }
+
+
+  static elem(tag_name, fn_render) {
+    return this
+      .imm_c(fn_render, this._init_elem)
+      ._define(tag_name)
+  }
+  static _init_elem(el_self) {
+    el_self.attachShadow({mode: 'open'})
+  }
 
 
   constructor() { super(); this._init(this) }
-  _init() {}
 
   render(... args) {
     let {_pxy_} = this
@@ -46,12 +59,10 @@ export class ImmCoreElem extends HTMLElement {
   }
 
   _rendered_as(el_res) {
-    let self = this.shadowRoot || this
-    self.textContent = '' // clear all content
-    self.append(el_res) // set as only content
+    let el_tgt = this.shadowRoot || this
+    el_tgt.textContent = '' // clear all content
+    el_tgt.append(el_res) // set as only content
   }
 }
-
-function _init_shadow() { this.attachShadow({mode: 'open'}) }
 
 export default ImmCoreElem
