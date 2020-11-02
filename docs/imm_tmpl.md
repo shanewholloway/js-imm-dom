@@ -36,7 +36,7 @@ imm_tmpl`
 
 - `imm_tmpl(parts, ...args) : HTMLElement | HTMLDocumentFragment`
 
-  Invokes javascript template string and subsitutes attributes
+  Invokes javascript template string and substitutes attributes
   and nodes corresponding to `parts` using values from `args`.
 
   The arguments may be `HTMLElement` instances, strings,
