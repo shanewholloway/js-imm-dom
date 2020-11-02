@@ -1,5 +1,10 @@
 import {_dash_name} from './imm_utils.mjs'
 
+export function imm_set(el, attrs, children) {
+  el.textContent = '' // clear all content
+  return imm(el, attrs, children)
+}
+
 export function imm(el, attrs, children) {
   if (null == attrs) ;
   else if ('object' !== typeof attrs || attrs.nodeType)

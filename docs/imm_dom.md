@@ -64,6 +64,10 @@ imm_html.article({class: 'awesome'},
   Utility to iterate through attributes and call `element.setAttribute()`,
   then iterate children and call `element.append()`.
 
+- `imm_set(element : HTMLElement, attributes, children) : HTMLElement`
+
+  Utility to clear all inner content, then `imm(element, attributes, children)`.
+
 
 ### Module `imm_dom.mjs`
 
