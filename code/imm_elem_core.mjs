@@ -1,14 +1,9 @@
+import {imm_set1} from './imm_dom_core.mjs'
 const _render_sym = Symbol('imm_elem')
 
 export class ImmCoreElem extends HTMLElement {
   static imm_c(fn_render, init) {
-    // Proxy spy to grab observed attrs names
-    let attrs = new Set()
-    fn_render(new Proxy({}, {get(t,n) { attrs.add(n) }}))
-
     let ImmCE = class extends this {}
-    ImmCE.observedAttributes = [... attrs]
-
     let {prototype} = ImmCE
     prototype[_render_sym] = fn_render
 
@@ -16,6 +11,11 @@ export class ImmCoreElem extends HTMLElement {
       // don't overwrite if defined by subclass
       ImmCE.prototype._init = init
     }
+
+    // Proxy spy to find observed attributes
+    let attrs = new Set()
+    fn_render(new Proxy({}, {get(t,n) { attrs.add(n) }}))
+    ImmCE.observedAttributes = [... attrs]
     return ImmCE
   }
 
@@ -59,9 +59,9 @@ export class ImmCoreElem extends HTMLElement {
   }
 
   _rendered_as(el_res) {
-    let el_tgt = this.shadowRoot || this
-    el_tgt.textContent = '' // clear all content
-    el_tgt.append(el_res) // set as only content
+    imm_set1(
+      this._render_tgt || this.shadowRoot || this,
+      el_res)
   }
 }
 
