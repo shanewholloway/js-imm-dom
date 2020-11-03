@@ -1,5 +1,11 @@
 import {_dash_name} from './imm_utils.mjs'
 
+export function imm_set1(el, node) {
+  el.textContent = '' // clear all content
+  el.append(node.valueOf())
+  return el
+}
+
 export function imm_set(el, attrs, children) {
   el.textContent = '' // clear all content
   return imm(el, attrs, children)
@@ -38,6 +44,7 @@ export function imm_dom(host, namespaceURI) {
   let tag_fn = (tag, attrs, ...children) =>
     imm(tag.nodeType ? tag : _el_(tag), attrs, children)
 
+  tag_fn.fragment = host.createDocumentFragment.bind(host)
   tag_fn.text = host.createTextNode.bind(host)
   return tag_fn.tag = tag_fn
 }
