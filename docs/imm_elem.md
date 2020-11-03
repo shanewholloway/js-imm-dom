@@ -40,7 +40,7 @@ Inspired by:
     import {imm_tmpl} from './code/imm_tmpl.mjs'
     import {ImmElem} from './code/imm_elem.mjs'
 
-    ImmElem.shadow('imm-demo-alt', ns =>
+    ImmElem.elem('imm-demo-alt', ns =>
       imm_tmpl`
         <article ${ {class: ns.kind} }>
           <h3>${ ns.title }</h3>

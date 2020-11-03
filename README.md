@@ -38,7 +38,7 @@ See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo'
   <script type=module>
     import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
 
-    ImmElem.shadow('imm-demo-cdn', ns =>
+    ImmElem.elem('imm-demo-cdn', ns =>
       imm_tmpl`
         <article ${ {class: ns.kind} }>
           <h3>${ ns.title }</h3>
