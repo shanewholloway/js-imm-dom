@@ -1,15 +1,18 @@
-import {imm_set1} from './imm_dom_core.mjs'
-const _render_sym = Symbol('imm_elem')
+import {imm_clear} from './imm_dom_core.mjs'
+import {imm_pxy_attr} from './imm_pxy.mjs'
 
 export class ImmCoreElem extends HTMLElement {
-  static imm_c(fn_render, init) {
+  static imm_c(fn_render, with_proto) {
     let ImmCE = class extends this {}
     let {prototype} = ImmCE
-    prototype[_render_sym] = fn_render
+    prototype._render_fn = fn_render
 
-    if (init && !prototype._init) {
-      // don't overwrite if defined by subclass
-      ImmCE.prototype._init = init
+    if (with_proto) {
+      let fn_init = with_proto(prototype, ImmCE)
+      if (fn_init && ! prototype._init) {
+        // don't overwrite if defined by subclass
+        prototype._init = fn_init
+      }
     }
 
     // Proxy spy to find observed attributes
@@ -19,7 +22,7 @@ export class ImmCoreElem extends HTMLElement {
     return ImmCE
   }
 
-  static _define(tag_name) {
+  static define(tag_name) {
     customElements.define(tag_name, this)
     return this
   }
@@ -27,41 +30,35 @@ export class ImmCoreElem extends HTMLElement {
 
   static dom(tag_name, fn_render) {
     return this
-      .imm_c(fn_render, this._init_dom)
-      ._define(tag_name)
+      .imm_c(fn_render, proto => proto._init_dom)
+      .define(tag_name)
   }
-  static _init_dom(el_self) { }
+  _init_dom() {}
 
 
   static elem(tag_name, fn_render) {
     return this
-      .imm_c(fn_render, this._init_elem)
-      ._define(tag_name)
+      .imm_c(fn_render, proto => proto._init_elem)
+      .define(tag_name)
   }
-  static _init_elem(el_self) {
-    el_self.attachShadow({mode: 'open'})
+  _init_elem() {
+    this._render_tgt = this.attachShadow({mode: 'open'})
   }
 
 
   constructor() { super(); this._init(this) }
 
   render(... args) {
-    let {_pxy_} = this
-    if (!_pxy_) {
-      let gattr = this.getAttribute.bind(this)
-      this._pxy_ = _pxy_ =
-        new Proxy({}, { get: (t,k) => gattr(k) })
-    }
-
-    let el_res = this[_render_sym](_pxy_, this, ... args)
-    if (this !== el_res && null != el_res)
-      this._rendered_as(el_res)
+    this._rendered_as(
+      this._render_fn(
+        imm_pxy_attr(this),
+        this, ... args) )
   }
 
-  _rendered_as(el_res) {
-    imm_set1(
-      this._render_tgt || this.shadowRoot || this,
-      el_res)
+  _rendered_as(node) {
+    if (this !== node && null != node)
+      imm_clear(this._render_tgt || this)
+        .append(node)
   }
 }
 
