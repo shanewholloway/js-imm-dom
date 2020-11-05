@@ -139,13 +139,15 @@
   </section>
 
   <script type=module>
-    setInterval(
-      () => {
+    const timestamp_tick = () => {
         let ts = new Date().toLocaleTimeString()
         console.log('Updating timestamps of demo elements to:', ts)
         for (let node of document.querySelectorAll('[data-demo]'))
           node.setAttribute('timestamp', ts)
-      }, 1000)
+      }
+
+    setTimeout(timestamp_tick, 0)
+    setInterval(timestamp_tick, 1000)
   </script>
 </body>
 </html>
