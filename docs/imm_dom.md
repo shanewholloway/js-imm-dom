@@ -64,9 +64,13 @@ imm_html.article({class: 'awesome'},
   Utility to iterate through attributes and call `element.setAttribute()`,
   then iterate children and call `element.append()`.
 
+- `imm_clear(element : HTMLElement) : HTMLElement`
+
+  Utility to clear all inner content, returning original element.
+
 - `imm_set(element : HTMLElement, attributes, children) : HTMLElement`
 
-  Utility to clear all inner content, then `imm(element, attributes, children)`.
+  Utility alias for `imm(imm_clear(element), attributes, children)`.
 
 
 ### Module `imm_dom.mjs`
@@ -86,7 +90,13 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
   the proxy prototype binds `tag_fn` for a tag matching `key` and
   caches it on the namespace object as `key`.
 
-See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg` for practical use.
+  See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg` for practical use.
+
+- `imm_pxy_attr(element : HTMLElement)`
+
+  Returns a `Proxy` returning `element.getAttribute()` for property get requests.
+
+  See `imm_elem_core.ImmCoreElem::render` for practical use.
 
 
 ### Module `imm_dom_ns.mjs`
