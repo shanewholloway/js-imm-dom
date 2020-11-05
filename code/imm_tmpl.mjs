@@ -1,7 +1,7 @@
 import { imm } from './imm_dom_core.mjs'
 import { imm_tmpl_link } from './imm_tmpl_core.mjs'
 
-function _invoke_arg(el_tgt, is_replace, arg) {
+const imm_tmpl = imm_tmpl_link((el_tgt, is_replace, arg) => {
   if ('function' === typeof arg) {
     // delegate to function
     let el_new = arg(el_tgt, is_replace, imm)
@@ -16,8 +16,7 @@ function _invoke_arg(el_tgt, is_replace, arg) {
     // update the node's attributes
     imm(el_tgt, arg)
   }
-}
+})
 
-const imm_tmpl = imm_tmpl_link(_invoke_arg)
 export {imm_tmpl, imm_tmpl as default}
 
