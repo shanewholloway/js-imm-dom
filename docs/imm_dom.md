@@ -48,6 +48,22 @@ imm_html.article({class: 'awesome'},
 
 ## Docs
 
+### Module `imm_dom_ns.mjs`
+
+- `html` alias for `imm_html = imm_pxy(imm_tag)`
+- `svg` alias for `imm_svg = imm_pxy(imm_svg_tag)`
+
+Syntactic sugar to express a tags as a function calls.
+
+
+### Module `imm_dom.mjs`
+
+- `tag` alias for `imm_tag = imm_dom(document)`
+- `tsvg` alias for `imm_svg_tag = imm_dom(document, 'http://www.w3.org/2000/svg')`
+
+See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
+
+
 ### Module `imm_dom_core.mjs`
 
 - `imm_dom(host=document, namespaceURI)`
@@ -73,14 +89,6 @@ imm_html.article({class: 'awesome'},
   Utility alias for `imm(imm_clear(element), attributes, children)`.
 
 
-### Module `imm_dom.mjs`
-
-- `tag` alias for `imm_tag = imm_dom(document)`
-- `tsvg` alias for `imm_svg_tag = imm_dom(document, 'http://www.w3.org/2000/svg')`
-
-See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
-
-
 ### Module `imm_pxy.mjs`
 
 - `imm_pxy(tag_fn, kw=tag_fn)`
@@ -99,9 +107,3 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
   See `imm_elem_core.ImmCoreElem::render` for practical use.
 
 
-### Module `imm_dom_ns.mjs`
-
-- `html` alias for `imm_html = imm_pxy(imm_tag)`
-- `svg` alias for `imm_svg = imm_pxy(imm_svg_tag)`
-
-Syntactic sugar to express a tags as a function calls.
