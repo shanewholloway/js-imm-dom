@@ -99,7 +99,7 @@ Inspired by:
 To be embedded in each web component custom element,
 the individual pieces must be small.
 
-The entire library is ~ **3000 bytes** minified; ~ **1300 brotli**.
+The entire library is ~ **3500 bytes** minified; ~ **1500 brotli**.
 However, the library is _designed to include only the parts actually used_.
 Perfect for pairing with a tree-shaking tool like [rollup][].
 
