@@ -11,8 +11,13 @@ const _imm_pxy = {
 export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
   ({ __proto__: new Proxy(tag_fn, _imm_pxy), ... kw })
 
-export function imm_pxy_attr(el) {
-  let gattr = el.getAttribute.bind(el)
-  return new Proxy({}, { get: (t,k) => gattr(k) })
-}
+export const _imm_pxy_get = (gattr, host) =>
+  new Proxy(host || {}, { get: (t,k) => gattr(k) })
+
+export const imm_pxy_attr = el =>
+  _imm_pxy_get(el.getAttribute.bind(el))
+
+export function imm_pxy_css(css_style) {
+  let _css_prop = css_style.getPropertyValue.bind(css_style)
+  return _imm_pxy_get(k => _css_prop(_dash_name(k))) }
 

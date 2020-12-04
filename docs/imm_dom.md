@@ -91,7 +91,7 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
 
 ### Module `imm_pxy.mjs`
 
-- `imm_pxy(tag_fn, kw=tag_fn)`
+- `imm_pxy_tag(tag_fn, kw=tag_fn)`
 
   Returns a namespace object with a `Proxy` prototype.
   When a `key` is requested that does not exist on the namespace,
@@ -105,5 +105,9 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
   Returns a `Proxy` returning `element.getAttribute()` for property get requests.
 
   See `imm_elem_core.ImmCoreElem::render` for practical use.
+
+- `imm_pxy_css(element : HTMLElement)`
+
+  Returns a `Proxy` returning `element.getPropertyValue()` for CSS `var(--css-prop-name)` requests.
 
 
