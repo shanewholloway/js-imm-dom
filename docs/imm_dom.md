@@ -88,6 +88,15 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
 
   Utility alias for `imm(imm_clear(element), attributes, children)`.
 
+- `imm_frag(iterable, host : HTMLElement | HTMLDocument)`
+
+  Utility to transform an iterable into a DocumentFragment
+
+- `imm_flat(tgt : HTMLElement | string | null | iterable, host : HTMLElement | HTMLDocument)`
+
+  Transform a `string`, `null`, `HTMLElement`, or iterable into an object compatible with `.replaceWith()` or `.append()`.
+  Uses `imm_frag(tgt, host)` if the target is not an `HTMLElement`, `string`, or `null`.
+
 
 ### Module `imm_pxy.mjs`
 

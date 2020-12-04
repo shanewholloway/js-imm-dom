@@ -38,6 +38,18 @@ export function imm(el, attrs, children) {
   return el
 }
 
+export function imm_flat(tgt, host) {
+  return ('string' === typeof tgt || tgt == null || tgt.nodeType) ? tgt
+    : imm_frag(iterable, host)
+}
+
+export function imm_frag(iterable, host=document) {
+  let fragment = (host.ownerDocument || host).createDocumentFragment()
+  for (let e of iterable)
+    fragment.append(e)
+  return fragment
+}
+
 export function imm_dom(host, namespaceURI) {
   let _el_ = namespaceURI
     ? host.createElementNS.bind(host, namespaceURI)

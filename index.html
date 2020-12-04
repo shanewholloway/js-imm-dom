@@ -25,7 +25,7 @@
       import {imm_html} from './code/imm_dom_ns.mjs'
 
       const el =
-        imm_html.article({class: 'awesome'},
+        imm_html.article({class: 'awesome', data_awesome: 1942},
           imm_html.h3('my demo title'),
           'some body text')
 
@@ -43,7 +43,7 @@
 
       let my_widget = ns =>
         imm_tmpl`
-          <article ${ {class: ns.kind} }>
+          <article ${ {class: ns.kind, data_awesome: 1942} }>
             <h3>${ ns.title }</h3>
             ${ ns.body }
           </article>`
@@ -129,7 +129,7 @@
 
       ImmElem.elem('imm-demo-cdn', ns =>
         imm_tmpl`
-          <article ${ {class: ns.kind} }>
+          <article ${ {class: ns.kind, data_awesome: 1942} }>
             <h3>${ ns.title }</h3>
             <slot>Body text Slot</slot>
             <br />
