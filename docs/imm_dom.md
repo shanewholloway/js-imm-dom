@@ -80,22 +80,9 @@ See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
   Utility to iterate through attributes and call `element.setAttribute()`,
   then iterate children and call `element.append()`.
 
-- `imm_clear(element : HTMLElement) : HTMLElement`
-
-  Utility to clear all inner content, returning original element.
-
 - `imm_set(element : HTMLElement, attributes, children) : HTMLElement`
 
-  Utility alias for `imm(imm_clear(element), attributes, children)`.
-
-- `imm_frag(iterable, host : HTMLElement | HTMLDocument)`
-
-  Utility to transform an iterable into a DocumentFragment
-
-- `imm_flat(tgt : HTMLElement | string | null | iterable, host : HTMLElement | HTMLDocument)`
-
-  Transform a `string`, `null`, `HTMLElement`, or iterable into an object compatible with `.replaceWith()` or `.append()`.
-  Uses `imm_frag(tgt, host)` if the target is not an `HTMLElement`, `string`, or `null`.
+  Clear all inner content then return `imm(element, attributes, children)`.
 
 
 ### Module `imm_pxy.mjs`

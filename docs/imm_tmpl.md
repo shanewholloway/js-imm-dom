@@ -43,6 +43,11 @@ imm_tmpl`
   objects of `{attributeName: attributeValue}` pairs,
   or a `function(node, is_replace, imm)`.
 
+- `imm_flat(tgt : HTMLElement | string | null | iterable, host : HTMLElement | HTMLDocument)`
+
+  Transform a `string`, `null`, `HTMLElement`, or iterable into an object compatible with `.replaceWith()` or `.append()`.
+  Iterables become a `DocumentFragment`.
+
 
 
 ### Module `imm_tmpl_core.mjs`
