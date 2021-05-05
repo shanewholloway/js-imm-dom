@@ -1,4 +1,3 @@
-import {imm_clear} from './imm_dom_core.mjs'
 import {imm_pxy_attr} from './imm_pxy.mjs'
 
 export class ImmCoreElem extends HTMLElement {
@@ -56,9 +55,12 @@ export class ImmCoreElem extends HTMLElement {
   }
 
   _rendered_as(node) {
-    if (this !== node && null != node)
-      imm_clear(this._render_tgt || this)
-        .append(node)
+    if (this !== node && null != node) {
+      // inlined optimized version of imm_set()
+      let el = this._render_tgt || this
+      el.textContent = '' // clear all inner content (text and html)
+      el.append(node)
+    }
   }
 }
 
