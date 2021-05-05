@@ -1,6 +1,8 @@
 import {imm_svg_tag, imm_tag} from './imm_dom.mjs'
 import {imm_pxy_tag} from './imm_pxy.mjs'
 
+export {imm_set} from './imm_dom_core.mjs'
+
 export const imm_html = imm_pxy_tag(imm_tag)
 export const imm_svg = imm_pxy_tag(imm_svg_tag)
 
