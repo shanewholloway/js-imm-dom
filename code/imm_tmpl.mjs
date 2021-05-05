@@ -1,4 +1,4 @@
-import { imm, imm_flat } from './imm_dom_core.mjs'
+import { imm } from './imm_dom_core.mjs'
 import { imm_tmpl_link } from './imm_tmpl_core.mjs'
 
 const imm_tmpl = imm_tmpl_link((el_tgt, is_replace, arg) => {
@@ -24,6 +24,16 @@ const imm_tmpl = imm_tmpl_link((el_tgt, is_replace, arg) => {
     }
   }
 })
+
+export function imm_flat(tgt, host) {
+  if ('string' === typeof tgt || tgt == null || tgt.nodeType)
+    return tgt
+
+  let fragment = (host.ownerDocument || host).createDocumentFragment()
+  for (let e of tgt)
+    fragment.append(e)
+  return fragment
+}
 
 export {imm_tmpl, imm_tmpl as default}
 
