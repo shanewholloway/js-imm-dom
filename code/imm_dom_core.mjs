@@ -7,9 +7,13 @@ export function imm_set(el, ...args) {
 
 export function imm(el, ...args) {
   if ('object' === typeof args[0] && null !== args[0] && !args[0].nodeType) {
-    let set = el.setAttribute.bind(el)
-    for (let [k,v] of Object.entries(args.shift()))
-      set(_dash_name(k), v)
+    for (let [k,v] of Object.entries(args.shift())) {
+      if ('function' === typeof v) {
+        el.addEventListener(k, v)
+      } else {
+        el.setAttribute(_dash_name(k), v)
+      }
+    }
   }
 
   if (0 !== args.length) {
