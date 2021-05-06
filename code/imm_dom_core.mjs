@@ -5,8 +5,15 @@ export function imm_set(el, ...args) {
   return imm(el, ...args)
 }
 
+const _is_array = Array.isArray
+const _is_attr_dict = a =>
+  'object' === typeof a
+    && null !== a
+    && !a.nodeType
+    && !_is_array(a)
+
 export function imm(el, ...args) {
-  if ('object' === typeof args[0] && null !== args[0] && !args[0].nodeType) {
+  if (_is_attr_dict(args[0])) {
     for (let [k,v] of Object.entries(args.shift())) {
       if ('function' === typeof v) {
         el.addEventListener(k, v)
