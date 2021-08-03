@@ -17,6 +17,8 @@ export function imm(el, ...args) {
     for (let [k,v] of Object.entries(args.shift())) {
       if ('function' === typeof v) {
         el.addEventListener(k, v)
+      } else if ('$' === k[0]) {
+        args.unshift(v)
       } else {
         el.setAttribute(_dash_name(k), v)
       }
