@@ -48,6 +48,19 @@ imm_html.article({class: 'awesome'},
 
 ## Docs
 
+Core `imm` interface `imm(el, ...args)`:
+
+- `args[0]` may be an attribute object, enumerated by `Object.entries()` as `[key, value]` pairs.
+  - Given a function value, `addEventListener(key, value)` is called.
+  - Given a name starting with `$`, children are collected in order of enumeration.
+  - Otherwise, `setAttribute(dashed_key, value)` is called, where `_` are replaced with `-` to match web semantics.
+
+- The rest of the arguments are children, prepended by those collected above
+  - Given `null` or `undefined`, skip
+  - Given an object with a trueish `.nodeType`, pass to `el.append()`
+  - Otherwise, convert to a string, pass to `el.append()` to add as a text element.
+
+
 ### Module `imm_dom_ns.mjs`
 
 - `html` alias for `imm_html = imm_pxy(imm_tag)`

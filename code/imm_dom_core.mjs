@@ -13,27 +13,32 @@ const _is_attr_dict = a =>
     && !_is_array(a)
 
 export function imm(el, ...args) {
-  if (_is_attr_dict(args[0])) {
-    for (let [k,v] of Object.entries(args.shift())) {
+  if (0 === args.length) return el
+
+  let attrs = args[0]
+  if (_is_attr_dict(attrs)) {
+    args[0] = null // replace attrs null
+    for (let [k,v] of Object.entries(attrs)) {
       if ('function' === typeof v) {
         el.addEventListener(k, v)
       } else if ('$' === k[0]) {
-        args.unshift(v)
+        // replace attrs with children
+        args[0] = (args[0] || []).concat(v)
       } else {
         el.setAttribute(_dash_name(k), v)
       }
     }
+    if (!args[0] && 1 === args.length)
+      return el // fast path -- no children to append
   }
 
-  if (0 !== args.length) {
-    let append = el.append.bind(el)
-    for (let c of args.flat()) {
-      if (null != c) {
-        c = c.valueOf()
-        if (!c.nodeType)
-          c = `${c}`
-        append(c)
-      }
+  let append = el.append.bind(el)
+  for (let c of args.flat()) {
+    if (null != c) {
+      c = c.valueOf()
+      if (!c.nodeType)
+        c = `${c}`
+      append(c)
     }
   }
 
