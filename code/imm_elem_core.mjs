@@ -1,10 +1,9 @@
 import {imm_pxy_attr} from './imm_pxy.mjs'
 
 export class ImmCoreElem extends HTMLElement {
-  static imm_c(fn_render, with_proto) {
+  static _imm_c(fn_args_v, with_proto) {
     let ImmCE = class extends this {}
-    let {prototype} = ImmCE
-    prototype._render_fn = fn_render
+    let prototype = ImmCE.prototype
 
     if (with_proto) {
       let fn_init = with_proto(prototype, ImmCE)
@@ -14,11 +13,23 @@ export class ImmCoreElem extends HTMLElement {
       }
     }
 
+    // render is last argument
+    let _render_fn = prototype._render_fn = fn_args_v.pop()
+
+    // init is first argument
+    prototype._init_fn = fn_args_v.shift() || prototype._init_fn
+
+    return ImmCE._imm_o(_render_fn)
+  }
+
+  static _imm_o(_render_fn) {
     // Proxy spy to find observed attributes
     let attrs = new Set()
-    fn_render(new Proxy({}, {get(t,n) { attrs.add(n) }}))
-    ImmCE.observedAttributes = [... attrs]
-    return ImmCE
+    let spy = new Proxy({}, {get(t,n) { attrs.add(n) }})
+
+    _render_fn(spy)
+    this.observedAttributes = [... attrs]
+    return this
   }
 
   static define(tag_name) {
@@ -27,17 +38,17 @@ export class ImmCoreElem extends HTMLElement {
   }
 
 
-  static dom(tag_name, fn_render) {
+  static dom(tag_name, ... fn_args_v) {
     return this
-      .imm_c(fn_render, proto => proto._init_dom)
+      ._imm_c(fn_args_v, proto => proto._init_dom)
       .define(tag_name)
   }
   _init_dom() {}
 
 
-  static elem(tag_name, fn_render) {
+  static elem(tag_name, ... fn_args_v) {
     return this
-      .imm_c(fn_render, proto => proto._init_elem)
+      ._imm_c(fn_args_v, proto => proto._init_elem)
       .define(tag_name)
   }
   _init_elem() {
@@ -45,13 +56,18 @@ export class ImmCoreElem extends HTMLElement {
   }
 
 
-  constructor() { super(); this._init(this) }
+  constructor() {
+    super()
+    this._init(this)
+    this._init_fn( imm_pxy_attr(this), this)
+  }
 
-  render(... args) {
+  _init_fn(/* ns, el*/) {}
+  // _render_fn(/* ns, el, ... args*/) {}
+
+  render() {
     this._rendered_as(
-      this._render_fn(
-        imm_pxy_attr(this),
-        this, ... args) )
+      this._render_fn( imm_pxy_attr(this), this) )
   }
 
   _rendered_as(node) {

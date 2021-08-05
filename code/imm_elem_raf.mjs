@@ -7,7 +7,10 @@ export class ImmElemRAF extends ImmCoreElem {
   connectedCallback() { imm_raf(this) }
 
   // perform an update using attributes on this custom element
-  [imm_raf.sym]() { this.render(imm_raf) }
+  [imm_raf.sym]() { this.render() }
+
+  // re-schedule element for next animation frame
+  raf(tgt) { return imm_raf(tgt || this) }
 }
 
 export default ImmElemRAF
