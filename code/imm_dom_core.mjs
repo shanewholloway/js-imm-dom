@@ -13,37 +13,46 @@ const _is_attr_dict = a =>
     && !_is_array(a)
 
 export function imm(el, ...args) {
-  if (0 === args.length) return el
+  let len = args.length
+  if (0 === len)
+    return el // fast-path no arguments
 
-  let attrs = args[0]
+  let pre, attrs = args[0]
   if (_is_attr_dict(attrs)) {
     args[0] = null // replace attrs null
     for (let [k,v] of Object.entries(attrs)) {
       if ('function' === typeof v) {
         el.addEventListener(k, v)
       } else if ('$' === k[0]) {
-        // replace attrs with children
-        args[0] = (args[0] || []).concat(v)
+        pre = (pre || []).concat(v)
       } else {
         el.setAttribute(_dash_name(k), v)
       }
     }
-    if (!args[0] && 1 === args.length)
-      return el // fast path -- no children to append
+
+    // prepend children found in attrs
+    if (pre) _imm_b(pre, el, el.prepend)
+
+    if (1 === len)
+      return el // fast path -- attrs with no additional children to append
   }
 
-  let append = el.append.bind(el)
-  for (let c of args.flat()) {
+  return _imm_b(args, el)
+}
+
+export function _imm_b(children, el, add=el.append) {
+  add = add.bind(el)
+  for (let c of children.flat()) {
     if (null != c) {
       c = c.valueOf()
       if (!c.nodeType)
         c = `${c}`
-      append(c)
+      add(c)
     }
   }
-
   return el
 }
+
 
 export function imm_dom(host, namespaceURI) {
   let _el_ = namespaceURI

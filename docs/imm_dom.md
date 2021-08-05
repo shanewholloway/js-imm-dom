@@ -52,13 +52,16 @@ Core `imm` interface `imm(el, ...args)`:
 
 - `args[0]` may be an attribute object, enumerated by `Object.entries()` as `[key, value]` pairs.
   - Given a function value, `addEventListener(key, value)` is called.
-  - Given a name starting with `$`, children are collected in order of enumeration.
+  - Given a name starting with `$`, children are collected in order of enumeration for `el.prepend()`.
   - Otherwise, `setAttribute(dashed_key, value)` is called, where `_` are replaced with `-` to match web semantics.
 
-- The rest of the arguments are children, prepended by those collected above
-  - Given `null` or `undefined`, skip
-  - Given an object with a trueish `.nodeType`, pass to `el.append()`
-  - Otherwise, convert to a string, pass to `el.append()` to add as a text element.
+- The rest of the arguments are children for `el.append()`.
+
+
+For all element children, appended or prepended:
+  - `null` or `undefined` are skip filtered.
+  - Objects with a trueish `.nodeType` and pass to `el.append` / `el.prepend`
+  - Otherwise, convert to a `DOMString` and pass to `el.append` / `el.prepend`
 
 
 ### Module `imm_dom_ns.mjs`

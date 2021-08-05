@@ -89,9 +89,10 @@ Inspired by:
 - [hast](https://github.com/syntax-tree/hast#readme)
 
 
-### [Immediate Utility API](docs/imm_utils.md)
+### [Immediate requestAnimationFrame API](docs/imm_raf.md)
 
 - `imm_raf()` returns a promise for the next `requestAnimationFrame` tick.
+- `ImmElemRAF` is like `ImmElem` using `requestAnimationFrame` to decouple attribute updates from rendering.
 
 
 ## Size Cost in Bytes
@@ -105,10 +106,10 @@ Perfect for pairing with a tree-shaking tool like [rollup][].
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   1435 B |   3388 B |   7429 B |
-| `imm_elem`      |    416 B |    928 B |   1861 B |
-| `imm_tmpl`      |    633 B |   1275 B |   3453 B |
-| `imm_dom`       |    359 B |    717 B |   1290 B |
+| `index`         |   1579 B |   3737 B |   8473 B |
+| `imm_elem`      |    437 B |   1049 B |   2210 B |
+| `imm_tmpl`      |    721 B |   1459 B |   4030 B |
+| `imm_dom`       |    455 B |    910 B |   1887 B |
 
 See auto-generated [compressed size report](./docs/compressed.md).
 
