@@ -52,27 +52,38 @@ Inspired by:
 
 ## Docs
 
-### Module `imm_elem.mjs`
+### Module `imm_elem_core.mjs` and `imm_elem.mjs`
 
-- `ImmElem` is an extension of `ImmCoreElem`
-  with *direct rendering*
-  on connected or attribute change.
-- `ImmElem.dom(tag_name, fn : fn_elem_render)` to create a DOM-side custom element.
-- `ImmElem.elem(tag_name, fn : fn_elem_render)` to create a shadow-root based custom element.
-- `function fn_elem_render(ns, custom_elem) : HTMLElement | HTMLDocumentFragment | null`
+- `ImmElem` uses *direct rendering* on connected or attribute change.
+
+- override:
+  - `init(ns, custom_elem, elem_target)`
+  - `render(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null`
+  - `static init_dom()`
+  - `static init_elem()`
+
+- composed methods:
+  - `_init_()`
+  - `_render_()`
+  - `_show_(node)`
+
+- static methods:
+  - `ImmElem.dom(tag_name, fn_elem_render)` to create a DOM-side custom element.
+  - `ImmElem.dom(tag_name, fn_elem_init, fn_elem_render)` to create a DOM-side custom element with an init function.
+  - `ImmElem.elem(tag_name, fn_elem_render)` to create a shadow-root based custom element.
+  - `ImmElem.elem(tag_name, fn_elem_init, fn_elem_render)` to create a shadow-root based custom element with an init function.
+
+  - `function fn_elem_init(ns, custom_elem, elem_target)`
+  - `function fn_elem_render(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null`
 
 ### Module `imm_elem_raf.mjs`
 
-- `ImmElemRAF` is an extension of `ImmCoreElem`
-  with `requestAnimationFrame` *batched rendering*
-  on connected or attribute change.
-- `ImmElemRAF.dom(tag_name, fn : fn_elem_render)` to create a DOM-side custom element.
-- `ImmElemRAF.elem(tag_name, fn : fn_elem_render)` to create a shadow-root based custom element.
-- `function fn_raf_render(ns, custom_elem, imm_raf) : HTMLElement | HTMLDocumentFragment | null`
+- `ImmRAF` is an extension of `ImmElem`
+  with `requestAnimationFrame` *batched rendering* on connected or attribute change.
 
-### Module `imm_elem_core.mjs`
+### Module `imm_elem_auto.mjs`
 
-- `ImmCoreElem` is an extension of `HTMLElement` with immediate DOM APIs.
-- `ImmCoreElem.dom(tag_name, fn : fn_elem_render)` to create a DOM-side custom element.
-- `ImmCoreElem.elem(tag_name, fn : fn_elem_render)` to create a shadow-root based custom element.
-- `function fn_elem_render(ns, custom_elem) : HTMLElement | HTMLDocumentFragment | null`
+- `ImmAuto` is an extension of `ImmElem` with introspective `observedAttributes` construction
+- `ImmAutoRAF` is an extension of `ImmRAF` with introspective `observedAttributes` construction
+- `_imm_attr_spy(klass, fn_target)` uses a proxy spy to construct `observedAttributes`
+

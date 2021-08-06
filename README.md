@@ -36,9 +36,9 @@ See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo'
   </imm-demo-cdn>
 
   <script type=module>
-    import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+    import {imm_tmpl, ImmAuto} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
 
-    ImmElem.elem('imm-demo-cdn', ns =>
+    ImmAuto.elem('imm-demo-cdn', ns =>
       imm_tmpl`
         <article ${ {class: ns.kind} }>
           <h3>${ ns.title }</h3>
@@ -92,7 +92,8 @@ Inspired by:
 ### [Immediate requestAnimationFrame API](docs/imm_raf.md)
 
 - `imm_raf()` returns a promise for the next `requestAnimationFrame` tick.
-- `ImmElemRAF` is like `ImmElem` using `requestAnimationFrame` to decouple attribute updates from rendering.
+- `ImmRAF` is like `ImmElem` using `requestAnimationFrame` to decouple attribute updates from rendering.
+- `ImmAutoRAF` is like `ImmAuto` using `requestAnimationFrame` to decouple attribute updates from rendering.
 
 
 ## Size Cost in Bytes
@@ -100,16 +101,16 @@ Inspired by:
 To be embedded in each web component custom element,
 the individual pieces must be small.
 
-The entire library is ~ **3500 bytes** minified; ~ **1500 brotli**.
+The entire library is ~ **4000 bytes** minified; ~ **1750 brotli**.
 However, the library is _designed to include only the parts actually used_.
 Perfect for pairing with a tree-shaking tool like [rollup][].
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   1579 B |   3737 B |   8473 B |
-| `imm_elem`      |    437 B |   1049 B |   2210 B |
-| `imm_tmpl`      |    721 B |   1459 B |   4030 B |
-| `imm_dom`       |    455 B |    910 B |   1887 B |
+| `index`         |   1658 B |   4019 B |   8925 B |
+| `imm_elem`      |    429 B |   1058 B |   2128 B |
+| `imm_tmpl`      |    720 B |   1460 B |   4031 B |
+| `imm_dom`       |    457 B |    911 B |   1888 B |
 
 See auto-generated [compressed size report](./docs/compressed.md).
 

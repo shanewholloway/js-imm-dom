@@ -72,10 +72,10 @@
 
     <script type=module>
       import {imm_tmpl} from './code/imm_tmpl.mjs'
-      import {ImmElem} from './code/imm_elem.mjs'
-      window.ImmElem = ImmElem // plaground!
+      import {ImmAuto} from './code/imm_elem_auto.mjs'
+      window.ImmAuto = ImmAuto // plaground!
 
-      ImmElem.dom('imm-demo', ns =>
+      ImmAuto.dom('imm-demo', ns =>
         imm_tmpl`
           <article ${ {class: ns.kind} }>
             <h3>${ ns.title }</h3>
@@ -84,7 +84,7 @@
             <time>${ns.timestamp}</time>
           </article>` )
 
-      ImmElem.elem('imm-demo-alt', ns =>
+      ImmAuto.elem('imm-demo-alt', ns =>
         imm_tmpl`
           <article ${ {class: ns.kind} }>
             <h3>${ ns.title }</h3>
@@ -127,17 +127,17 @@
   </section>
 
   <section>
-    <imm-raf-demo kind=neat-raf-demo title='ImmElemRAF demo title'>
+    <imm-raf-demo kind=neat-raf-demo title='ImmAutoRAF demo title'>
       RAF element text
     </imm-raf-demo>
 
     <script type=module>
-      import {ImmElemRAF} from './code/imm_elem_raf.mjs'
+      import {ImmRAF} from './code/imm_elem_raf.mjs'
       import {html} from './code/imm_dom_ns.mjs'
 
       let ts0 = Date.now()
 
-      ImmElemRAF.elem('imm-raf-demo',
+      ImmRAF.elem('imm-raf-demo',
         (ns, el) => {
           el.ts = Date.now()
         },
@@ -152,7 +152,7 @@
             },
 
             html.h3(
-            `${ns.title}`,
+              `${ns.title}`,
               html.br(),
               html.small('a subtitle')),
 
@@ -165,15 +165,15 @@
     </script>
   </section>
 
-  <section>
+  <!--section>
     <imm-demo-cdn data-demo=yes kind=awesome title='my demo title'>
       some body text for the CDN demo
     </imm-demo-cdn>
 
     <script type=module>
-      import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+      import {imm_tmpl, ImmAuto} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
 
-      ImmElem.elem('imm-demo-cdn', ns =>
+      ImmAuto.elem('imm-demo-cdn', ns =>
         imm_tmpl`
           <article ${ {class: ns.kind, data_awesome: 1942} }>
             <h3>${ ns.title }</h3>
@@ -182,7 +182,7 @@
             <time>${ns.timestamp}</time>
           </article>` )
     </script>
-  </section>
+  </section-->
 
   <script type=module>
     const timestamp_tick = () => {
@@ -192,8 +192,8 @@
           node.setAttribute('timestamp', ts)
       }
 
-    setTimeout(timestamp_tick, 0)
-    setInterval(timestamp_tick, 1000)
+    //setTimeout(timestamp_tick, 0)
+    //setInterval(timestamp_tick, 1000)
   </script>
 </body>
 </html>

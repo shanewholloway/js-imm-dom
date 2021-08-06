@@ -10,22 +10,23 @@
 
 ### Immediate RAF-based Custom Element Web Componet API
  
-- `ImmElemRAF` extends [`ImmElem`](docs/imm_elem.md) using `requestAnimationFrame` to combine multiple attribute updates before rendering.
+- `ImmRAF` extends [`ImmElem`](docs/imm_elem.md) using `requestAnimationFrame` to combine multiple attribute updates before rendering.
+- `ImmAutoRAF` extends [`ImmRAF`](docs/imm_elem.md) similar to how `ImmAuto` extends `ImmElem`
 
 ```html
 <!DOCTYPE html>
 <section>
-  <imm-raf-demo kind=neat-raf-demo title='ImmElemRAF demo title'>
+  <imm-raf-demo kind=neat-raf-demo title='ImmRAF demo title'>
     RAF element text
   </imm-raf-demo>
 
   <script type=module>
-    import {ImmElemRAF} from './code/imm_elem_raf.mjs'
+    import {ImmRAF} from './code/imm_elem_raf.mjs'
     import {html} from './code/imm_dom_ns.mjs'
 
     let ts0 = Date.now()
 
-    ImmElemRAF.elem('imm-raf-demo',
+    ImmRAF.elem('imm-raf-demo',
       (ns, el) => {
         el.ts = Date.now()
       },
