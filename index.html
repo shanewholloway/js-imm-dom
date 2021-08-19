@@ -23,13 +23,20 @@
     <div id='demo_dom_ns'></div>
     <script type=module>
       import {imm_html} from './code/imm_dom_ns.mjs'
-      window.imm_html = imm_html // plaground!
+      window.imm_html = imm_html // playground!
+
+      const demo_other_object = {
+        toDOM() {
+          return imm_html.p(imm_html.i('toDOM sourced'))
+        }
+      }
 
       const el =
         imm_html.article(
           {class: 'awesome', data_awesome: 1942},
           imm_html.h3('my demo title'),
-          'some body text')
+          'some body text',
+          demo_other_object)
 
       document.getElementById('demo_dom_ns')
         .replaceWith(el)
@@ -42,7 +49,7 @@
 
     <script type=module>
       import {imm_tmpl} from './code/imm_tmpl.mjs'
-      window.imm_tmpl = imm_tmpl // plaground!
+      window.imm_tmpl = imm_tmpl // playground!
 
       let my_widget = ns =>
         imm_tmpl`
@@ -73,7 +80,7 @@
     <script type=module>
       import {imm_tmpl} from './code/imm_tmpl.mjs'
       import {ImmAuto} from './code/imm_elem_auto.mjs'
-      window.ImmAuto = ImmAuto // plaground!
+      window.ImmAuto = ImmAuto // playground!
 
       ImmAuto.dom('imm-demo', ns =>
         imm_tmpl`
@@ -101,9 +108,11 @@
 
     <script type=module>
       import imm_tag from './code/imm_dom.mjs'
-      window.imm_tag = imm_tag // plaground!
       import imm_raf from './code/imm_raf.mjs'
-      window.imm_raf = imm_raf // plaground!
+
+      window.imm_tag = imm_tag // playground!
+      window.imm_raf = imm_raf
+
       let el_raf = document.getElementById('demo_raf')
 
       let ts0 = Date.now()
