@@ -10,6 +10,7 @@ const _is_attr_dict = a =>
   'object' === typeof a
     && null !== a
     && !a.nodeType
+    && !a.toDOM
     && !_is_array(a)
 
 export function imm(el, ...args) {
