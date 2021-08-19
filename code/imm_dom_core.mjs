@@ -44,7 +44,7 @@ export function imm(el, ...args) {
 export function _imm_b(children, el, add=el.append) {
   add = add.bind(el)
   for (let c of children.flat(9)) {
-    c = c && (c.toDOM || c.valueOf).call(c)
+    c = c && (c.toDOM || c.valueOf).call(c, c)
     if (null != c)
       add(c.nodeType ? c : `${c}`)
   }
