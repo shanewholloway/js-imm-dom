@@ -33,7 +33,11 @@ export function imm(el, ...args) {
         // inline alais for Object.assign
         case '=': Object.assign(el, v) ; break
 
-        default: el.setAttribute(_dash_name(k), v)
+        default: 
+          let n = _dash_name(k)
+          if (null == v)
+            el.removeAttribute(n)
+          else el.setAttribute(n, v)
       }
     }
 
