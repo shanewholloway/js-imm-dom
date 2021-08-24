@@ -24,10 +24,16 @@ export function imm(el, ...args) {
     for (let [k,v] of Object.entries(attrs)) {
       if ('function' === typeof v) {
         el.addEventListener(k, v)
-      } else if ('$' === k[0]) {
-        pre = (pre || []).concat(v)
-      } else {
-        el.setAttribute(_dash_name(k), v)
+      }
+
+      switch (k[0]) {
+        // inline alais for prepend
+        case '$': pre = (pre || []).concat(v) ; break
+
+        // inline alais for Object.assign
+        case '=': Object.assign(el, v) ; break
+
+        default: el.setAttribute(_dash_name(k), v)
       }
     }
 

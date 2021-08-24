@@ -1,6 +1,6 @@
 {
   "name": "imm-dom",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Immediate-mode DOM tools",
   "license": "BSD-2-Clause",
   "author": "Shane Holloway <shane.holloway@ieee.org>",
@@ -21,8 +21,8 @@
   "browser": "./esm/index.min.mjs",
   "module": "./esm/index.mjs",
   "devDependencies": {
-    "qsrv": "^0.1.7",
-    "rollup": "^2.56.0",
+    "qsrv": "^0.1.9",
+    "rollup": "^2.56.3",
     "rollup-plugin-terser": "^7.0.2"
   },
   "scripts": {
