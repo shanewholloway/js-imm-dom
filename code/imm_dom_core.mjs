@@ -24,9 +24,8 @@ export function imm(el, ...args) {
     for (let [k,v] of Object.entries(attrs)) {
       if ('function' === typeof v) {
         el.addEventListener(k, v)
-      }
 
-      switch (k[0]) {
+      } else switch (k[0]) {
         // inline alais for prepend
         case '$': pre = (pre || []).concat(v) ; break
 
