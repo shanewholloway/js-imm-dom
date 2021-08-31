@@ -18,6 +18,16 @@
 </head>
 
 <body>
+  <script type=module>
+    import {imm, imm_emit} from './code/imm_dom_core.mjs'
+
+    imm(document, {
+      bingo(evt) { console.log("Imm BINGO event", evt.detail, evt) },
+    })
+
+    await new Promise(done => setTimeout(done, 50))
+    imm_emit(document, 'bingo', {neato: 1942, ts: new Date()})
+  </script>
   <section>
     <h2>Demo of <code>imm_dom_ns</code></h2>
     <div id='demo_dom_ns'></div>
