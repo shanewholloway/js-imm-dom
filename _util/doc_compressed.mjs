@@ -36,7 +36,18 @@ async function show_stat_table(by_name) {
     : process.stdout
 
 
-  out.write(`# Size of Immediate-mode DOM tools\n`)
+  out.write(`# Summary Size Cost in Bytes\n`)
+  out.write(`\n`)
+  out.write(`| module          |   brotli | minified |   source |\n`)
+  out.write(`|:----------------|---------:|---------:|---------:|\n`)
+  for (let k of ['index', 'imm_elem', 'imm_tmpl', 'imm_dom']) {
+    let o = by_name[k]
+    out.write(`| ${o.name} | ${o.br} B | ${o.min} B | ${o.raw} B |\n`)
+  }
+  out.write(`\n`)
+  out.write(`\n`)
+
+  out.write(`## Size of Immediate-mode DOM tools\n`)
   out.write(`\n`)
   out.write(`| module          |   brotli | minified |   source |\n`)
   out.write(`|:----------------|---------:|---------:|---------:|\n`)
