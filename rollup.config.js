@@ -9,6 +9,10 @@ export default configs
 add_mjs('imm_pxy')
 add_mjs('imm_raf')
 
+add_mjs('imm_async')
+add_mjs('imm_evt_core')
+add_mjs('imm_evt')
+
 add_mjs('imm_dom_core')
 add_mjs('imm_dom')
 add_mjs('imm_dom_ns')

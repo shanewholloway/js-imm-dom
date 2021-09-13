@@ -76,7 +76,3 @@ export function imm_dom(host, namespaceURI) {
   return tag_fn.tag = tag_fn
 }
 
-export function imm_emit(tgt, evt, detail, opt) {
-  tgt.dispatchEvent(
-    new CustomEvent(evt, {...opt, detail})) }
-
