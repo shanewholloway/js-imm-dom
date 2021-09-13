@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>ImmAuto</code></h2>
+    <imm-demo data-demo=yes kind=awesome title='my demo custom element title'>
+      some custom element body text
+    </imm-demo>
+    <imm-demo-alt data-demo=yes kind=awesome title='my demo shadow title'>
+      some shadow custom element body text
+    </imm-demo-alt>
+
+    <script type=module>
+      import {imm_tmpl} from '../code/imm_tmpl.mjs'
+      import {ImmAuto} from '../code/imm_elem_auto.mjs'
+      window.ImmAuto = ImmAuto // playground!
+
+      ImmAuto.dom('imm-demo', ns =>
+        imm_tmpl`
+          <article ${ {class: ns.kind} }>
+            <h3>${ ns.title }</h3>
+            <slot>Body text Slot</slot>
+            <br />
+            <time>${ns.timestamp}</time>
+          </article>` )
+
+      ImmAuto.elem('imm-demo-alt', ns =>
+        imm_tmpl`
+          <article ${ {class: ns.kind} }>
+            <h3>${ ns.title }</h3>
+            <slot>Body alt text Slot</slot>
+            <br />
+            <time>${ns.timestamp}</time>
+          </article>` )
+    </script>
+  </section>
+
+  <script type=module>
+    const timestamp_tick = () => {
+        let ts = new Date().toLocaleTimeString()
+        console.log('Updating timestamps of demo elements to:', ts)
+        for (let node of document.querySelectorAll('[data-demo]'))
+          node.setAttribute('timestamp', ts)
+      }
+
+    setTimeout(timestamp_tick, 0)
+    setInterval(timestamp_tick, 1000)
+  </script>
+  <script src='/livereload.js'></script>
+</body>
+</html>
