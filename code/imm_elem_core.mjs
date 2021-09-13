@@ -64,14 +64,20 @@ export class ImmElem extends HTMLElement {
   }
 
   _show_(node) {
-    if (this === node || null == node)
+    let tgt = this._tgt_
+
+    if (null === node) {
+      tgt.textContent = '' // clear all inner content (text and html)
+      return
+    }
+
+    if (this === node || tgt === node || !node)
       return // no-op
 
     if (node.then) // async promise render
       return node.then(node => this._show_(node))
 
     // inlined optimized version of imm_set()
-    let tgt = this._tgt_
     tgt.textContent = '' // clear all inner content (text and html)
     tgt.append(node)
   }
