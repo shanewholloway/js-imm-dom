@@ -2,26 +2,29 @@
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   1748 B |   4213 B |   9324 B |
-| `imm_elem`      |    424 B |   1052 B |   2169 B |
+| `index`         |   1965 B |   4787 B |  10351 B |
+| `imm_elem`      |    434 B |   1083 B |   2295 B |
 | `imm_tmpl`      |    787 B |   1587 B |   4275 B |
-| `imm_dom`       |    564 B |   1124 B |   2254 B |
+| `imm_dom`       |    511 B |   1038 B |   2132 B |
 
 
 ## Size of Immediate-mode DOM tools
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `imm_dom`       |    564 B |   1124 B |   2254 B |
-| `imm_dom_core`  |    519 B |   1024 B |   2092 B |
-| `imm_dom_ns`    |    660 B |   1288 B |   2632 B |
-| `imm_elem`      |    424 B |   1052 B |   2169 B |
-| `imm_elem_auto` |    497 B |   1260 B |   2586 B |
-| `imm_elem_core` |    424 B |   1052 B |   2174 B |
-| `imm_elem_raf`  |    641 B |   1588 B |   3410 B |
+| `imm_async`     |    209 B |    346 B |    630 B |
+| `imm_dom`       |    511 B |   1038 B |   2132 B |
+| `imm_dom_core`  |    474 B |    938 B |   1970 B |
+| `imm_dom_ns`    |    621 B |   1202 B |   2510 B |
+| `imm_elem`      |    434 B |   1083 B |   2295 B |
+| `imm_elem_auto` |    506 B |   1291 B |   2712 B |
+| `imm_elem_core` |    434 B |   1083 B |   2300 B |
+| `imm_elem_raf`  |    643 B |   1606 B |   3508 B |
+| `imm_evt`       |    317 B |    651 B |   1099 B |
+| `imm_evt_core`  |    156 B |    314 B |    524 B |
 | `imm_pxy`       |    244 B |    392 B |    761 B |
-| `imm_raf`       |    197 B |    297 B |    584 B |
+| `imm_raf`       |    194 B |    284 B |    556 B |
 | `imm_tmpl`      |    787 B |   1587 B |   4275 B |
 | `imm_tmpl_core` |    398 B |    688 B |   2131 B |
-| `index`         |   1748 B |   4213 B |   9324 B |
+| `index`         |   1965 B |   4787 B |  10351 B |
 

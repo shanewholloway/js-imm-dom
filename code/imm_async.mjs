@@ -15,8 +15,8 @@ export function imm_fence() {
   let reset=imm_defer_ctx(), x=reset(), p=0
   return {
     fence: ()=> (0 !== p ? p : p=(x=reset())[0]),
-    abort: err => { p=0; x[2](err) },
     resume: ans => { p=0; x[1](ans) },
+    abort: err => { p=0; x[2](err) },
   }
 }
 
