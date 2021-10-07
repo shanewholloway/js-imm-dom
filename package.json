@@ -1,6 +1,6 @@
 {
   "name": "imm-dom",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Immediate-mode DOM tools",
   "license": "BSD-2-Clause",
   "author": "Shane Holloway <shane.holloway@ieee.org>",
@@ -14,7 +14,8 @@
   },
   "files": [
     "code/",
-    "esm/"
+    "esm/",
+    "umd/"
   ],
   "type": "module",
   "main": "./esm/index.mjs",
