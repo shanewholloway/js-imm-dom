@@ -1,14 +1,33 @@
 import {imm_pxy_attr} from './imm_pxy.mjs'
 
-export class ImmElem extends HTMLElement {
+export function imm_attr_observe(klass, ...attrs) {
+  attrs = attrs.flat(9).filter(Boolean)
+
+  let oa = 'observedAttributes', v=klass[oa]
+  if (v) v = attrs.concat(v)
+  else {
+    v = attrs
+    klass = class extends klass {}
+  }
+  klass[oa] = v
+  return klass
+}
+
+export class ImmCore extends HTMLElement {
+  static observe(... attrs) {
+    return imm_attr_observe(this, ...attrs)
+  }
+
+  static define(tag_name, opt) {
+    customElements.define(tag_name, this, opt)
+    return this
+  }
+}
+
+export class ImmElem extends ImmCore {
   init(/* ns, el */) {}
   render(/* ns, el */) { /* return element */ }
 
-
-  static define(tag_name) {
-    customElements.define(tag_name, this)
-    return this
-  }
 
   //--------------------------
   // function-based defintions
@@ -52,27 +71,26 @@ export class ImmElem extends HTMLElement {
   //-----------------
   // composed methods
 
+  get _ns_() { return imm_pxy_attr(this) }
   _init_() {
     let tgt = this._tgt_ = this._init_tgt_(this) || this
-    this._tgt_ = this.init(imm_pxy_attr(this), this, tgt) || tgt
+    this._tgt_ = this.init(this._ns_, this, tgt) || tgt
   }
   _init_tgt_() {}
 
   _render_() {
     this._show_(
-      this.render(imm_pxy_attr(this), this, this._tgt_) )
+      this.render(this._ns_, this, this._tgt_) )
   }
 
   _show_(node) {
     let tgt = this._tgt_
 
-    if (null === node) {
-      tgt.textContent = '' // clear all inner content (text and html)
-      return
-    }
-
-    if (this === node || tgt === node || !node)
+    if (this === node || tgt === node || null == node) {
+      if (null === node)
+        tgt.textContent = '' // clear all inner content (text and html)
       return // no-op
+    }
 
     if (node.then) // async promise render
       return node.then(node => this._show_(node))
