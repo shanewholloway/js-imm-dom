@@ -1,11 +1,11 @@
-import {ImmElem, imm_attr_observe} from './imm_elem_core.mjs'
+import {ImmElem, with_imm_observe} from '../imm_elem_core.mjs'
 
 export function _imm_attr_spy(klass, fn_target) {
   // Proxy spy to find observed attributes
   let attrs = new Set()
   let spy = new Proxy({}, {get(t,n) { attrs.add(n) }})
   fn_target(spy)
-  return imm_attr_observe(klass, ... attrs)
+  return with_imm_observe(klass, ... attrs)
 }
 
 export class ImmAuto extends ImmElem  {

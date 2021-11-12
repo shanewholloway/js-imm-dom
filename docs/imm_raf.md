@@ -10,8 +10,8 @@
 
 ### Immediate RAF-based Custom Element Web Componet API
  
-- `ImmRAF` extends [`ImmElem`](docs/imm_elem.md) using `requestAnimationFrame` to combine multiple attribute updates before rendering.
-- `ImmAutoRAF` extends [`ImmRAF`](docs/imm_elem.md) similar to how `ImmAuto` extends `ImmElem`
+- `ImmRAF` extends [`ImmElem`](docs/imm_elem.md) using `requestAnimationFrame` to batch multiple attribute updates before rendering.
+- `ImmIterRAF` extends [`ImmIter`](docs/imm_elem.md) using `requestAnimationFrame` to batch multiple attribute updates before rendering.
 
 ```html
 <!DOCTYPE html>

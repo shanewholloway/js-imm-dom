@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>imm_iter</code></h2>
+    <imm-demo data-demo=yes kind=awesome title='my demo custom element title'>
+      some custom element body text
+    </imm-demo>
+
+    <script type=module>
+      import {imm_html as h} from '../code/imm_dom_ns.mjs'
+      import {ImmIter} from '../code/imm_elem_iter.mjs'
+
+      ImmIter.observe('timestamp').elem('imm-demo', 
+        function *(ns) {
+          let el_ts
+          let el_root = h.article(
+            {class: ns.kind},
+
+            h.h3(ns.title),
+            h.slot('Body text Slot'),
+
+            h.br(), h.br(),
+
+            h.span(
+              h.i(h.u('Timestamp:')), ' ',
+              el_ts = h.time(ns.timestamp),
+            ),
+          )
+
+          yield el_root
+
+          while (true) {
+            el_ts.textContent = ns.timestamp
+            yield el_root
+          }
+        })
+    </script>
+  </section>
+
+  <script type=module>
+    const timestamp_tick = () => {
+        let ts = new Date().toLocaleTimeString()
+        console.log('Updating timestamps of demo elements to:', ts)
+        for (let node of document.querySelectorAll('[data-demo]'))
+          node.setAttribute('timestamp', ts)
+      }
+
+    setTimeout(timestamp_tick, 0)
+    setInterval(timestamp_tick, 1000)
+  </script>
+  <script src='/livereload.js'></script>
+</body>
+</html>
+

@@ -1,9 +1,9 @@
 import {imm_pxy_attr} from './imm_pxy.mjs'
 
-export function imm_attr_observe(klass, ...attrs) {
+export function with_imm_observe(klass, ...attrs) {
   attrs = attrs.flat(9).filter(Boolean)
 
-  let oa = 'observedAttributes', v=klass[oa]
+  let oa='observedAttributes', v=klass[oa]
   if (v) v = attrs.concat(v)
   else {
     v = attrs
@@ -15,7 +15,7 @@ export function imm_attr_observe(klass, ...attrs) {
 
 export class ImmCore extends HTMLElement {
   static observe(... attrs) {
-    return imm_attr_observe(this, ...attrs)
+    return with_imm_observe(this, ...attrs)
   }
 
   static define(tag_name, opt) {
@@ -65,7 +65,7 @@ export class ImmElem extends ImmCore {
   // web component composed implementation
 
   constructor() { super(); this._init_(this) }
-  connectedCallback() { this._render_() }
+  connectedCallback() { this._render_(true) }
   attributeChangedCallback() { this._render_() }
 
   //-----------------
@@ -73,12 +73,13 @@ export class ImmElem extends ImmCore {
 
   get _ns_() { return imm_pxy_attr(this) }
   _init_() {
+    this._show_ = this._show_.bind(this)
     let tgt = this._tgt_ = this._init_tgt_(this) || this
     this._tgt_ = this.init(this._ns_, this, tgt) || tgt
   }
   _init_tgt_() {}
 
-  _render_() {
+  _render_(/* is_new */) {
     this._show_(
       this.render(this._ns_, this, this._tgt_) )
   }
@@ -93,7 +94,7 @@ export class ImmElem extends ImmCore {
     }
 
     if (node.then) // async promise render
-      return node.then(node => this._show_(node))
+      return node.then(this._show_)
 
     // inlined optimized version of imm_set()
     tgt.textContent = '' // clear all inner content (text and html)

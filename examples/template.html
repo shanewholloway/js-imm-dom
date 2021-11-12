@@ -54,10 +54,9 @@
 
     <script type=module>
       import {imm_tmpl} from '../code/imm_tmpl.mjs'
-      import {ImmAuto} from '../code/imm_elem_auto.mjs'
-      window.ImmAuto = ImmAuto // playground!
+      import {ImmElem} from '../code/imm_elem.mjs'
 
-      ImmAuto.dom('imm-demo', ns =>
+      ImmElem.observe('timestamp').dom('imm-demo', ns =>
         imm_tmpl`
           <article ${ {class: ns.kind} }>
             <h3>${ ns.title }</h3>
@@ -66,7 +65,7 @@
             <time>${ns.timestamp}</time>
           </article>` )
 
-      ImmAuto.elem('imm-demo-alt', ns =>
+      ImmElem.observe('timestamp').elem('imm-demo-alt', ns =>
         imm_tmpl`
           <article ${ {class: ns.kind} }>
             <h3>${ ns.title }</h3>

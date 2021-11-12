@@ -36,9 +36,9 @@ See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo'
   </imm-demo-cdn>
 
   <script type=module>
-    import {imm_tmpl, ImmAuto} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+    import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
 
-    ImmAuto.elem('imm-demo-cdn', ns =>
+    ImmElem.elem('imm-demo-cdn', ns =>
       imm_tmpl`
         <article ${ {class: ns.kind} }>
           <h3>${ ns.title }</h3>
@@ -93,7 +93,6 @@ Inspired by:
 
 - `imm_raf()` returns a promise for the next `requestAnimationFrame` tick.
 - `ImmRAF` is like `ImmElem` using `requestAnimationFrame` to decouple attribute updates from rendering.
-- `ImmAutoRAF` is like `ImmAuto` using `requestAnimationFrame` to decouple attribute updates from rendering.
 
 
 ## Size Cost in Bytes
