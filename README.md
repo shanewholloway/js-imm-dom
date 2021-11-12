@@ -100,16 +100,16 @@ Inspired by:
 To be embedded in each web component custom element,
 the individual pieces must be small.
 
-The entire library is ~ **4000 bytes** minified; ~ **1750 brotli**.
+The entire library is ~ **5300 bytes** minified; ~ **2250 brotli**.
 However, the library is _designed to include only the parts actually used_.
 Perfect for pairing with a tree-shaking tool like [rollup][].
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   1748 B |   4213 B |   9324 B |
-| `imm_elem`      |    424 B |   1052 B |   2169 B |
-| `imm_tmpl`      |    787 B |   1587 B |   4275 B |
-| `imm_dom`       |    564 B |   1124 B |   2254 B |
+| `index`         |   2156 B |   5270 B |  11186 B |
+| `imm_elem`      |    554 B |   1359 B |   2753 B |
+| `imm_tmpl`      |    826 B |   1693 B |   4498 B |
+| `imm_dom`       |    511 B |   1038 B |   2132 B |
 
 
 See auto-generated [compressed size report](./docs/compressed.md).

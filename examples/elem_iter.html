@@ -29,7 +29,7 @@
 
     <script type=module>
       import {imm_html as h} from '../code/imm_dom_ns.mjs'
-      import {imm_tmpl} from '../code/imm_tmpl.mjs'
+      import {imm_tmpl_l} from '../code/imm_tmpl.mjs'
       import {ImmIter} from '../code/imm_elem_iter.mjs'
 
       ImmIter.observe('timestamp').elem('imm-demo', 
@@ -63,7 +63,7 @@
         // render can be a standard or an async * generator
         async * render(ns) {
           let el_ts
-          let el_root = imm_tmpl`
+          let el_root = imm_tmpl_l`
             <article ${ {class: ns.kind} }>
               <h3>${ ns.title }</h3>
               <slot>Body text Slot</slot>
@@ -72,12 +72,11 @@
               ${el_ts = h.time(ns.timestamp)}
             </article>`
 
-          console.log("HELLO", el_root)
+          globalThis.el_root = el_root
 
           while (true) {
-            console.log("CLONE", el_root.cloneNode(true))
             el_ts.textContent = ns.timestamp
-            yield el_root.cloneNode(true)
+            yield el_root
           }
         }
       }

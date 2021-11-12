@@ -34,7 +34,7 @@ imm_tmpl`
 
 ### Module `imm_tmpl.mjs`
 
-- `imm_tmpl(parts, ...args) : HTMLElement | HTMLDocumentFragment`
+- `imm_tmpl(parts, ...args) : HTMLDocumentFragment`
 
   Invokes javascript template string and substitutes attributes
   and nodes corresponding to `parts` using values from `args`.
@@ -42,6 +42,14 @@ imm_tmpl`
   The arguments may be `HTMLElement` instances, strings,
   objects of `{attributeName: attributeValue}` pairs,
   or a `function(node, is_replace, imm)`.
+
+- `imm_tmpl_f(parts, ...args) : HTMLElement`
+
+  Invokes `imm_tmpl` and returns `.firstElementChild`
+
+- `imm_tmpl_l(parts, ...args) : HTMLElement`
+
+  Invokes `imm_tmpl` and returns `.lastElementChild`
 
 - `imm_flat(tgt : HTMLElement | string | null | iterable, host : HTMLElement | HTMLDocument)`
 
