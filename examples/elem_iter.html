@@ -35,6 +35,7 @@
       ImmIter.observe('timestamp').elem('imm-demo', 
         // can be a standard or an async * generator
         function *(ns) {
+          console.log("GEN")
           let el_ts
           let el_root = h.article(
             {class: ns.kind},
@@ -50,11 +51,13 @@
             ),
           )
 
-          yield el_root
-
-          while (true) {
-            el_ts.textContent = ns.timestamp
-            yield el_root
+          try {
+            while (true) {
+              el_ts.textContent = ns.timestamp
+              yield el_root
+            }
+          } finally {
+            console.log("FIN")
           }
         })
 
@@ -62,6 +65,8 @@
       class Demo extends ImmIter.observe('timestamp') {
         // render can be a standard or an async * generator
         async * render(ns) {
+          console.log("RENDER GEN")
+
           let el_ts
           let el_root = imm_tmpl_l`
             <article ${ {class: ns.kind} }>
@@ -74,9 +79,13 @@
 
           globalThis.el_root = el_root
 
-          while (true) {
-            el_ts.textContent = ns.timestamp
-            yield el_root
+          try {
+            while (true) {
+              el_ts.textContent = ns.timestamp
+              yield el_root
+            }
+          } finally {
+            console.log("RENDER FIN")
           }
         }
       }
