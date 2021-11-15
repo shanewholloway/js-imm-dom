@@ -1,21 +1,20 @@
 import {imm_pxy_attr} from './imm_pxy.mjs'
 
-export function with_imm_observe(klass, ...attrs) {
-  attrs = attrs.flat(9).filter(Boolean)
 
-  let oa='observedAttributes', v=klass[oa]
-  if (v) v = attrs.concat(v)
-  else {
-    v = attrs
-    klass = class extends klass {}
-  }
-  klass[oa] = v
-  return klass
+export function imm_when(tag_name, ce) {
+  return (ce=customElements)
+    .whenDefined(tag_name)
+    .then(el => el || ce.get(tag_name))
 }
+
 
 export class ImmCore extends HTMLElement {
   static observe(... attrs) {
-    return with_imm_observe(this, ...attrs)
+    let klass = class extends this {}
+    let oa = 'observedAttributes'
+    attrs.push(klass[oa])
+    klass[oa] = attrs.flat(9).filter(Boolean)
+    return klass
   }
 
   static define(tag_name, opt) {
