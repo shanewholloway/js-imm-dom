@@ -65,7 +65,7 @@ export class ImmElem extends ImmCore {
 
   constructor() { super(); this._init_(this) }
   connectedCallback() { this._render_(true) }
-  attributeChangedCallback() { this._render_() }
+  attributeChangedCallback() { this._refresh_() }
 
   //-----------------
   // composed methods
@@ -73,6 +73,10 @@ export class ImmElem extends ImmCore {
   get _ns_() { return imm_pxy_attr(this) }
   _init_() {
     this._show_ = this._show_.bind(this)
+    this._refresh_ = p => p && p.then
+      ? p.then(this._refresh_)
+      : this._render_()
+
     let tgt = this._tgt_ = this._init_tgt_(this) || this
     this._tgt_ = this.init(this._ns_, this, tgt) || tgt
   }
