@@ -43,18 +43,6 @@
         .replaceWith(el)
     </script>
   </section>
-
-  <script type=module>
-    const timestamp_tick = () => {
-        let ts = new Date().toLocaleTimeString()
-        console.log('Updating timestamps of demo elements to:', ts)
-        for (let node of document.querySelectorAll('[data-demo]'))
-          node.setAttribute('timestamp', ts)
-      }
-
-    setTimeout(timestamp_tick, 0)
-    setInterval(timestamp_tick, 1000)
-  </script>
   <script src='/livereload.js'></script>
 </body>
 </html>

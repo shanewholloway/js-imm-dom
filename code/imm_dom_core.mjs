@@ -16,48 +16,48 @@ const _is_attr_dict = a =>
 export function imm(el, ...args) {
   let len = args.length
   if (0 === len)
-    return el // fast-path no arguments
+    return el // fast-path -- no arguments
 
   let pre, attrs = args[0]
   if (_is_attr_dict(attrs)) {
     args[0] = null // replace attrs null
     for (let [k,v] of Object.entries(attrs)) {
-      if ('function' === typeof v) {
+      if ('$' === k[0]) {
+        // children to prepend
+        pre = (pre || []).concat(v)
+      } else if ('=' === k[0]) {
+        // direct property assignment
+        Object.assign(el, v)
+      } else if ('function' === typeof v) {
+        // event handlers
         el.addEventListener(k, v)
-
-      } else switch (k[0]) {
-        // inline alais for prepend
-        case '$': pre = (pre || []).concat(v) ; break
-
-        // inline alais for Object.assign
-        case '=': Object.assign(el, v) ; break
-
-        default: 
-          let n = _dash_name(k)
-          if (null == v)
-            el.removeAttribute(n)
-          else el.setAttribute(n, v)
+      } else {
+        // attribute values
+        let n = _dash_name(k)
+        if (null == v || false === v)
+          el.removeAttribute(n)
+        else el.setAttribute(n, true !== v ? v : '')
       }
     }
 
     // prepend children found in attrs
-    if (pre) _imm_b(pre, el, el.prepend)
+    if (pre) el.prepend(... _imm_b(pre))
 
     if (1 === len)
       return el // fast path -- attrs with no additional children to append
   }
 
-  return _imm_b(args, el)
+  // append arguments as children
+  el.append(... _imm_b(args))
+  return el
 }
 
-export function _imm_b(children, el, add=el.append) {
-  add = add.bind(el)
-  for (let c of children.flat(9)) {
-    c = c && (c.toDOM || c.valueOf).call(c, c)
-    if (null != c)
-      add(c.nodeType ? c : `${c}`)
-  }
-  return el
+export function _imm_c(c) {
+  c = c && (c.toDOM || c.valueOf).call(c, c)
+  return c && (c.nodeType ? c : `${c}`)
+}
+export function _imm_b(children) {
+  return children.flat(9).map(_imm_c).filter(Boolean)
 }
 
 
