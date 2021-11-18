@@ -1,17 +1,9 @@
-import {_dash_name} from './imm_utils.mjs'
+import {_dash_name, _is_attr_dict} from './imm_utils.mjs'
 
 export function imm_set(el, ...args) {
   el.textContent = '' // clear all inner content (text and html)
   return imm(el, ...args)
 }
-
-const _is_array = Array.isArray
-const _is_attr_dict = a =>
-  'object' === typeof a
-    && null !== a
-    && !a.nodeType
-    && !a.toDOM
-    && !_is_array(a)
 
 export function imm(el, ...args) {
   let len = args.length
@@ -58,21 +50,5 @@ export function _imm_c(c) {
 }
 export function _imm_b(children) {
   return children.flat(9).map(_imm_c).filter(Boolean)
-}
-
-
-export function imm_dom(host, namespaceURI) {
-  let _el_ = namespaceURI
-    ? host.createElementNS.bind(host, namespaceURI)
-    : host.createElement.bind(host)
-
-  let tag_fn = (tag, ...args) =>
-    imm(tag.nodeType ? tag : _el_(tag), ...args)
-
-  tag_fn.fragment = (...args) =>
-    imm(host.createDocumentFragment(), null, ...args)
-
-  tag_fn.text = host.createTextNode.bind(host)
-  return tag_fn.tag = tag_fn
 }
 

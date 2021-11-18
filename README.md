@@ -27,27 +27,14 @@ See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo'
 
 ## API
 
-`imm-dom` provides layers of tools.
+`imm-dom` provdes layers of DOM tools:
 
-For use with existing DOM elements (HTML or SVG):
-- Use `imm()` and `imm_set()` to work directly with existing DOM elements.
+- Creating new DOM elements, both HTML and SVG
+- Manipulating (existing) DOM elements
+- Defining Web Components
+- Misc utilities: promises, fences, render animation frames, etc.
 
-For creating new HTML elements:
-- Use `tag()` or `imm_tag('div', {... attrs}, ...children)` to create new DOM elements by tag name.
-- Use `html.div` or `imm_html.div({... attrs}, ...children)` to create new DOM elements by tag name.
-- Use `imm_tmpl` to create DOM `<template>` elements from JS string expressions.
-
-For creating new SVG elements:
-- Use `tsvg()` or `imm_svg_tag('g')`
-- Use `svg.g()` or `imm_svg.g({... attrs}, ...children)`
-
-For defining Web Components:
-- Use `ImmElem.dom()` for light-dom web components
-- Use `ImmElem.elem()` for shadow-dom web components
-- Extend from `ImmElem` to add API for visual components
-- Extend from `ImmCore` for non-visual components
-- Use or extend `ImmIter` for iterator / generator based rendering
-- Use or extend `ImmRAF` for rendering on the next animation frame
+Read more in [docs/README.md](./docs/README.md)
 
 
 ### [Immediate Custom Element Web Componet API](docs/imm_elem.md):
@@ -59,34 +46,19 @@ For defining Web Components:
   </imm-demo-cdn>
 
   <script type=module>
-    import {imm_tmpl, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+    import {imm_html as h, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
 
     ImmElem.elem('imm-demo-cdn', ns =>
-      imm_tmpl`
-        <article ${ {class: ns.kind} }>
-          <h3>${ ns.title }</h3>
-          <slot>Body text Slot</slot>
-        </article>` )
+      h.article(
+        {class: ns.kind},
+        h.h3(`${ns.title}`),
+        h.slot('Body text Slot')) )
   </script>
 </section>
 ```
 
 Inspired by:
 - [uce](https://github.com/WebReflection/uce#readme)
-
-
-### [Immediate Template API](docs/imm_tmpl.md):
-
-```javascript
-imm_tmpl`
-  <article ${ {class: 'awesome'} }>
-    <h3>${ 'my demo title' }</h3>
-    ${ 'some body text' }
-  </article>`
-```
-
-Inspired by:
-- [uce](https://github.com/WebReflection/uce#readme) and [uhtml](https://github.com/WebReflection/uhtml#readme)
 
 
 ### [Immediate DOM API](docs/imm_dom.md):
@@ -110,6 +82,20 @@ Inspired by:
 - [jaml](https://github.com/edspencer/jaml#readme)
 - [jsonml](http://www.jsonml.org)
 - [hast](https://github.com/syntax-tree/hast#readme)
+
+
+### [Immediate Template API](docs/imm_tmpl.md):
+
+```javascript
+imm_tmpl`
+  <article ${ {class: 'awesome'} }>
+    <h3>${ 'my demo title' }</h3>
+    ${ 'some body text' }
+  </article>`
+```
+
+Inspired by:
+- [uce](https://github.com/WebReflection/uce#readme) and [uhtml](https://github.com/WebReflection/uhtml#readme)
 
 
 ### [Immediate requestAnimationFrame API](docs/imm_raf.md)

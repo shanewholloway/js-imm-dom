@@ -4,30 +4,10 @@ Inspired by:
 - [crel](https://github.com/KoryNunn/crel#readme)
 - [jaml](https://github.com/edspencer/jaml#readme)
 
+Building upon [`imm()` and `imm_set()`](./imm_dom_core.md)
+
 
 ## Examples
-
-##### No library
-
-```javascript
-let el_article = document.createElement('article')
-let el_h3 = document.createElement('h3')
-
-el_article.setAttribute('class', 'awesome')
-el_h3.append('my demo title')
-el_article.append('some body text')
-```
-
-##### Using `imm` from `imm_dom_core.mjs`
-
-```javascript
-let el_article = document.createElement('article')
-let el_h3 = document.createElement('h3')
-
-imm(el_article, {class: 'awesome'},
-  imm(el_h3, 'my demo title'),
-  'some body text')
-```
 
 ##### Using `imm_tag` from `imm_dom.mjs`
 
@@ -48,20 +28,16 @@ imm_html.article({class: 'awesome'},
 
 ## Docs
 
-Core `imm` interface `imm(el, ...args)`:
+### Module `imm_dom.mjs`
 
-- `args[0]` may be an attribute object, enumerated by `Object.entries()` as `[key, value]` pairs.
-  - Given a function value, `addEventListener(key, value)` is called.
-  - Given a name starting with `$`, children are collected in order of enumeration for `el.prepend()`.
-  - Otherwise, `setAttribute(dashed_key, value)` is called, where `_` are replaced with `-` to match web semantics.
+- `tag` alias for `imm_tag = imm_dom(document)`
+- `tsvg` alias for `imm_svg_tag = imm_dom(document, 'http://www.w3.org/2000/svg')`
+- `imm_dom(host=document, namespaceURI)`
 
-- The rest of the arguments are children for `el.append()`.
+  Returns a tag function `tag_fn(tag : string | HTMLElement, attributes, ...children) : HTMLElement`
+  that invokes `imm(el, attributes, children)` using bound `host.createElementNS`.
 
-
-For all element children, appended or prepended:
-  - `null` or `undefined` are skip filtered.
-  - Objects with a trueish `.nodeType` and pass to `el.append` / `el.prepend`
-  - Otherwise, convert to a `DOMString` and pass to `el.append` / `el.prepend`
+  Also includes `tag_fn.text` bound to `host.createTextNode`.
 
 
 ### Module `imm_dom_ns.mjs`
@@ -70,35 +46,6 @@ For all element children, appended or prepended:
 - `svg` alias for `imm_svg = imm_pxy(imm_svg_tag)`
 
 Syntactic sugar to express a tags as a function calls.
-
-
-### Module `imm_dom.mjs`
-
-- `tag` alias for `imm_tag = imm_dom(document)`
-- `tsvg` alias for `imm_svg_tag = imm_dom(document, 'http://www.w3.org/2000/svg')`
-
-See `imm_dom_ns.imm_html` and `imm_dom_ns.imm_svg`.
-
-
-### Module `imm_dom_core.mjs`
-
-- `imm_dom(host=document, namespaceURI)`
-
-  Returns a tag function `tag_fn(tag : string | HTMLElement, attributes, ...children) : HTMLElement`
-  that invokes `imm(el, attributes, children)` using bound `host.createElementNS`.
-
-  Also includes `tag_fn.text` bound to `host.createTextNode`.
-
-  See `imm_dom.imm_tag` and `imm_dom.imm_svg_tag`.
-
-- `imm(element : HTMLElement, attributes, children) : HTMLElement`
-
-  Utility to iterate through attributes and call `element.setAttribute()`,
-  then iterate children and call `element.append()`.
-
-- `imm_set(element : HTMLElement, attributes, children) : HTMLElement`
-
-  Clear all inner content then return `imm(element, attributes, children)`.
 
 
 ### Module `imm_pxy.mjs`

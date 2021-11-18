@@ -117,14 +117,13 @@ Inspired by:
 - `ImmCore` 
 
   - static methods:
-    - `ImmCore.observe(... attrs)` returns invoked `with_imm_observe` over subclass.
+    - `ImmCore.observe(... attrs) : HTMLElement subclass` 
+      Extends static `observedAttributes` with flattened elements of `attrs`.  Returns created subclass.
+
     - `ImmCore.define(name, opt)` calls `customElements.define` with `name`, subclass, and `opt`.
 
 
-- `with_imm_observe(klass:HTMLElement, ...attrs) : HTMLElement`
-  If `klass.observedAttributes` does not exists, use dynamic subclass.
-  Extends static `observedAttributes` with flattened elements of `attrs`.
-  Returns klass or created subclass.
+- `imm_when(name) : HTMLElement` polyfills `customElements.whenDefined()` to return the defined element.
 
 
 ### Module `imm_elem_iter.mjs`
