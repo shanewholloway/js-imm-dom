@@ -3,8 +3,8 @@
 Lightweight tooling around DOM creation.
 Designed to be embedded piecewise in self-contained Web Components.
 
-I love virtual DOM libraries like [superfine][], [preact][], and [inferno][],
-but some creations do not need the efficient updating logic.
+I love virtual DOM libraries like [superfine][], [preact][], and [inferno][].
+But not all creations need the efficient updating logic.
 Creations like self-sufficient Web Components, *where every byte of superfluous logic is wasted*.
 
 The `imm-dom` library enables concise expression of DOM creation,
@@ -26,6 +26,29 @@ See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo'
 
 
 ## API
+
+`imm-dom` provides layers of tools.
+
+For use with existing DOM elements (HTML or SVG):
+- Use `imm()` and `imm_set()` to work directly with existing DOM elements.
+
+For creating new HTML elements:
+- Use `tag()` or `imm_tag('div', {... attrs}, ...children)` to create new DOM elements by tag name.
+- Use `html.div` or `imm_html.div({... attrs}, ...children)` to create new DOM elements by tag name.
+- Use `imm_tmpl` to create DOM `<template>` elements from JS string expressions.
+
+For creating new SVG elements:
+- Use `tsvg()` or `imm_svg_tag('g')`
+- Use `svg.g()` or `imm_svg.g({... attrs}, ...children)`
+
+For defining Web Components:
+- Use `ImmElem.dom()` for light-dom web components
+- Use `ImmElem.elem()` for shadow-dom web components
+- Extend from `ImmElem` to add API for visual components
+- Extend from `ImmCore` for non-visual components
+- Use or extend `ImmIter` for iterator / generator based rendering
+- Use or extend `ImmRAF` for rendering on the next animation frame
+
 
 ### [Immediate Custom Element Web Componet API](docs/imm_elem.md):
 
