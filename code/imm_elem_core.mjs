@@ -63,21 +63,18 @@ export class ImmElem extends ImmCore {
   //--------------------------------------
   // web component composed implementation
 
-  connectedCallback() {
-    if (this._bind_)
-      this._init_()
-
-    this._render_(true)
+  constructor() {
+    super()
+    this._tgt_ = this._init_tgt_(this._tgt_)
+    Object.assign(this, this._bind_())
+    this.init(this._ns_, this, this._tgt_)
   }
+  connectedCallback() { this._render_(true) }
   attributeChangedCallback() { this._refresh_() }
 
-  _init_() {
-    Object.assign(this, this._bind_(), {_bind_:0})
-    let tgt = this._tgt_ = this._init_tgt_(this) || this
-    this._tgt_ = this.init(this._ns_, this, tgt) || tgt
-  }
-  _init_tgt_({_tgt_}) {
-    return 0 === _tgt_ ? this.attachShadow({mode: 'open'}) : this
+  _init_tgt_(_tgt_) {
+    return 0 !== _tgt_ ? this
+      : this.attachShadow({mode: 'open'})
   }
 
   get _ns_() { return imm_pxy_attr(this) }
@@ -88,6 +85,7 @@ export class ImmElem extends ImmCore {
   }
 
   _bind_() {
+    // bind ._show_ and ._refresh_ as closures
     return ({
       _refresh_: p => p && p.then
         ? p.then(this._refresh_)
