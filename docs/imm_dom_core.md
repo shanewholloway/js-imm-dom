@@ -16,12 +16,9 @@ imm_set(el_article, {class: 'awesome'},
 ##### Using `imm` for events an attributes
 
 ```javascript
-imm(
-  document.querySelector('form'), // mutate an existing DOM element
-
+imm( document.querySelector('form'), // mutate an existing DOM element
   {
     type: 'dialog', // short for setAttribute('type', 'dialog')
-
     submit(evt) { // short for .addEventListener('submit', ...)
       evt.preventDefault()
     },

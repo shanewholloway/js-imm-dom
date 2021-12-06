@@ -6,13 +6,12 @@
 
 ```javascript
 imm(document.body, {
-  my_awesome_event(evt) {
+  my_awesome_event(evt) { // short for elem.addEventListener('my_awesome_event', ...)
     console.log('My awesome custom event', evt.detail)
   },
 })
 
 // ... later
-
 imm_emit(some_elem, 'my_awesome_event',
   {ts: new Date, answer: 1942})
 ```
