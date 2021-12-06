@@ -1,5 +1,23 @@
 # Immediate DOM Event API
 
+## Examples
+
+#### Using `imm` and `imm_emit`
+
+```javascript
+imm(document.body, {
+  my_awesome_event(evt) {
+    console.log('My awesome custom event', evt.detail)
+  },
+})
+
+// ... later
+
+imm_emit(some_elem, 'my_awesome_event',
+  {ts: new Date, answer: 1942})
+```
+
+
 ### Module `imm_evt_core.mjs`
 
 - `imm_emit(target : HTMLElement, evt : string, detail, opt) : Boolean`
