@@ -14,15 +14,19 @@ export function imm(el, ...args) {
   if (_is_attr_dict(attrs)) {
     args[0] = null // replace attrs null
     for (let [k,v] of Object.entries(attrs)) {
-      if ('$' === k[0]) {
+      let k0 = k[0]
+      if ('$' === k0) {
         // children to prepend
         pre = (pre || []).concat(v)
-      } else if ('=' === k[0]) {
+      } else if ('=' === k0) {
         // direct property assignment
         Object.assign(el, v)
+      } else if ('@' === k0) {
+        // hook callback
+        v(el, k)
       } else if ('function' === typeof v) {
         // event handlers
-        el.addEventListener(k, v)
+        el.addEventListener(k, v, v.opt)
       } else {
         // attribute values
         let n = _dash_name(k)
