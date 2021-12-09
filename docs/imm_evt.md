@@ -36,25 +36,6 @@ imm_emit(some_elem, 'my_awesome_event',
 
 ### Module `imm_async.mjs`
 
-- `imm_fence() : {fence(), resume(), abort()}`
-  Returns a fence -- a resetting deferred.
-
-  ```javascript
-  let fnc = imm_fence()
-
-  fnc.fence()
-    .then(ans => {
-      console.log('Fence resolved', {ans})
-      return fnc.fence()
-    })
-    .then(ans => {
-      console.log('Fence again', {ans})
-    })
-
-  fnc.resolve(1942)
-  setTimeout(fnc.resolve, 100, 'after timeout')
-  ```
-
 - `imm_defer() : {promise, resolve(), reject()}`
   Returns a new deferred in named form.
 
@@ -78,6 +59,6 @@ imm_emit(some_elem, 'my_awesome_event',
   ```
 
 - `imm_defer_ctx(as_res)`
-  Implementation for `imm_defer`, `imm_defer_v`, and `imm_fence`
+  Implementation for `imm_defer` and `imm_defer_v`
   with callback for result format.
 

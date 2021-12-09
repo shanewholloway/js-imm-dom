@@ -21,43 +21,13 @@
   <script type=module>
     import {imm} from '../code/imm_dom_core.mjs'
     import {
-      imm_emit, imm_fence,
+      imm_emit,
       imm_defer, imm_defer_v,
-      imm_defer_ctx
     } from '../code/imm_evt.mjs'
 
-    window.imm_fence = imm_fence
     window.imm_defer = imm_defer
     window.imm_defer_v = imm_defer_v
-    window.imm_defer_ctx = imm_defer_ctx
 
-
-    let fnc_demo = imm_fence()
-
-    async function neato(fnc) {
-      while (1) {
-        let ans = await fnc.fence()
-        console.log("Neato fence demo", ans)
-      }
-    }
-    neato(fnc_demo)
-
-
-    imm(document, {
-      bingo(evt) {
-        console.log("Imm BINGO event", evt.detail, evt)
-        fnc_demo.resume(['bingo', evt.detail])
-      },
-      blargy(evt) {
-        console.log("Imm BINGO event", evt.detail, evt)
-        fnc_demo.resume(['blargy', evt.detail])
-      },
-    })
-
-    fnc_demo.fence()
-      .then(ans => { console.log('Fence demo [first]:', ans) })
-      .then(() => fnc_demo.fence())
-      .then(ans => { console.log('Fence demo [second]:', ans) })
 
     await new Promise(done => setTimeout(done, 50))
     imm_emit(document.body, 'bingo', {neato: 1942, ts: new Date()})
