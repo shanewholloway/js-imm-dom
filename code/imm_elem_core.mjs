@@ -17,6 +17,9 @@ export class ImmCore extends HTMLElement {
     return klass
   }
 
+  get _ns_() { return imm_pxy_attr(this) }
+
+
   static define(tag_name, opt) {
     customElements.define(tag_name, this, opt)
     return this
@@ -76,8 +79,6 @@ export class ImmElem extends ImmCore {
     return 0 !== _tgt_ ? this
       : this.attachShadow({mode: 'open'})
   }
-
-  get _ns_() { return imm_pxy_attr(this) }
 
   _render_(/* is_new */) {
     this._show_(
