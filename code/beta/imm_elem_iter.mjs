@@ -1,4 +1,5 @@
-import {ImmElem} from './imm_elem_core.mjs'
+import {ImmElem} from '../imm_elem_core.mjs'
+import {with_imm_raf} from '../imm_elem_raf.mjs'
 
 export class ImmIter extends ImmElem {
   disconnectedCallback() {
@@ -28,3 +29,7 @@ export class ImmIter extends ImmElem {
     return this._show_(tip.value)
   }
 }
+
+export const ImmIterRAF = /* #__PURE__ */
+  with_imm_raf(ImmIter)
+

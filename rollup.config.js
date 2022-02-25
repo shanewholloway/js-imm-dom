@@ -19,10 +19,10 @@ export default [
 
   ... add_mjs('imm_elem_core'),
   ... add_mjs('imm_elem'),
-  ... add_mjs('imm_elem_iter'),
   ... add_mjs('imm_elem_raf'),
 
   ... add_mjs('beta/imm_elem_auto'),
+  ... add_mjs('beta/imm_elem_iter'),
 
   ... add_mjs('index', 'imm_dom'),
 ]

@@ -19,15 +19,23 @@
 
 <body>
   <script type=module>
-    import {imm} from '../code/imm_dom_core.mjs'
-    import {
-      imm_emit,
-      imm_defer, imm_defer_v,
-    } from '../code/imm_evt.mjs'
+    import { imm_tag, imm } from '../code/imm_dom.mjs'
+    import { imm_emit, imm_defer, imm_defer_v, } from '../code/imm_evt.mjs'
+
+    function show_evt(name, evt) {
+      console.log(`got ${name} evt:`, evt.detail)
+      imm(document.body, 
+        imm_tag('p', imm_tag('b', `${name}`), ` event -- `,
+          imm_tag('samp', JSON.stringify(evt.detail))))
+    }
+
+    imm(document.body, {
+      bingo(evt) { show_evt('BINGO', evt) },
+      blargy(evt) { show_evt('BLARGY', evt) },
+    })
 
     window.imm_defer = imm_defer
     window.imm_defer_v = imm_defer_v
-
 
     await new Promise(done => setTimeout(done, 50))
     imm_emit(document.body, 'bingo', {neato: 1942, ts: new Date()})
