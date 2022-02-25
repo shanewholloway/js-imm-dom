@@ -31,7 +31,7 @@ export class ImmCore extends HTMLElement {
 export class ImmElem extends ImmCore {
   init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
   render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
-  //render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */ }
+  // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */
 
   //--------------------------
   // function-based defintions
@@ -76,7 +76,7 @@ export class ImmElem extends ImmCore {
   }
   connectedCallback() { this._render_(true) }
   attributeChangedCallback() { this._refresh_() }
-  // disconnectedCallback() { }
+  disconnectedCallback() { this._stop_() }
 
   _init_tgt_(_tgt_) {
     if (!_tgt_ || !_tgt_.nodeType)
@@ -90,8 +90,16 @@ export class ImmElem extends ImmCore {
   }
 
   _render_(is_new) {
-    let fn_render = is_new && this.render0 || this.render
+    let fn_render = is_new && this.render0 || this.render$ || this.render
     this._show_(fn_render.apply(this, this._z_))
+  }
+
+  _stop_() {
+    let fn = this.render$
+    if (fn) {
+      if (fn.stop) fn.stop()
+      delete this.render$
+    }
   }
 
   _show_(node, retain) {

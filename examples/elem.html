@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>ImmElem class</code></h2>
+    <imm-demo data-demo=yes kind=awesome title='my demo custom element title'>
+      some custom element body text
+    </imm-demo>
+
+    <script type=module>
+      import { html, imm_set } from '../code/imm_dom_ns.mjs'
+      import { ImmElem } from '../code/imm_elem.mjs'
+
+      class ImmDemo extends ImmElem.observe('timestamp') {
+        render(ns) {
+          this.render$ = _do_update
+          let el_time = html.time(`${ns.timestamp}`)
+          return html.article({class: ns.kind},
+            html.h3(`${ns.title}`),
+            html.slot('Body text Slot'),
+            html.br(),
+            el_time)
+
+          function _do_update() {
+            console.log("ABC updating:", ns.timestamp)
+            imm_set(el_time, `${ns.timestamp || ''}`)
+          }
+        }
+      }
+      ImmDemo.elem('imm-demo')
+    </script>
+  </section>
+
+  <script type=module>
+    const timestamp_tick = () => {
+        let ts = new Date().toLocaleTimeString()
+        console.log('Updating timestamps of demo elements to:', ts)
+        for (let node of document.querySelectorAll('[data-demo]'))
+          node.setAttribute('timestamp', ts)
+      }
+
+    setTimeout(timestamp_tick, 0)
+    setInterval(timestamp_tick, 1000)
+  </script>
+  <script src='/livereload.js'></script>
+</body>
+</html>

@@ -32,7 +32,7 @@ See the [mini demo](https://shanewholloway.github.io/js-imm-dom/) and the [demo'
 - Creating new DOM elements, both HTML and SVG
 - Manipulating (existing) DOM elements
 - Defining Web Components
-- Misc utilities: promises, fences, render animation frames, etc.
+- Misc utilities: promises, deferreds, render animation frames, etc.
 
 Read more in [docs/README.md](./docs/README.md)
 

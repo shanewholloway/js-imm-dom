@@ -4,7 +4,7 @@
 - Manipulating (existing) DOM elements
 - Defining Web Components
 - Misc utilities: 
-  - [events, promises, fences](./imm_evt.md)
+  - [events, promises, deferreds](./imm_evt.md)
   - [render animation frames](./imm_raf.md)
 
 
