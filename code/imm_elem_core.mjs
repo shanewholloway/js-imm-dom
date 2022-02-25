@@ -1,4 +1,5 @@
-import {imm_pxy_attr} from './imm_pxy.mjs'
+import { _imm_b } from './imm_dom_core.mjs'
+import { imm_pxy_attr } from './imm_pxy.mjs'
 
 
 export function imm_when(tag_name, ce) {
@@ -30,6 +31,7 @@ export class ImmCore extends HTMLElement {
 export class ImmElem extends ImmCore {
   init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
   render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
+  //render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */ }
 
   //--------------------------
   // function-based defintions
@@ -68,46 +70,57 @@ export class ImmElem extends ImmCore {
 
   constructor() {
     super()
-    this._tgt_ = this._init_tgt_(this._tgt_)
+    this._init_tgt_(this._tgt_)
     Object.assign(this, this._bind_())
-    this.init(this._ns_, this, this._tgt_)
+    this.init(... this._z_)
   }
   connectedCallback() { this._render_(true) }
   attributeChangedCallback() { this._refresh_() }
+  // disconnectedCallback() { }
 
   _init_tgt_(_tgt_) {
-    return 0 !== _tgt_ ? this
-      : this.attachShadow({mode: 'open'})
+    if (!_tgt_ || !_tgt_.nodeType)
+      _tgt_ = 0 !== _tgt_ ? this
+        : this.attachShadow({mode: 'open'})
+
+    let _z_ = [this._ns_, this, _tgt_]
+    Object.defineProperties(this, {
+      _tgt_: {get: () => _z_[2], set: v => _z_[2]=v},
+      _z_: {value: _z_} })
   }
 
-  _render_(/* is_new */) {
-    this._show_(
-      this.render(this._ns_, this, this._tgt_) )
+  _render_(is_new) {
+    let fn_render = is_new && this.render0 || this.render
+    this._show_(fn_render.apply(this, this._z_))
+  }
+
+  _show_(node, retain) {
+    let tgt = this._tgt_
+    if (this === node || tgt === node || null == node) {
+      if (null === node && !retain)
+        tgt.textContent = '' // clear all inner content (text and html)
+      return // no-op
+    }
+
+    if ('then' in node)
+      return node.then(retain ? this._add_ : this._show_)
+
+    // inlined optimized version of imm_set()
+    if (! retain) tgt.textContent = '' // clear all inner content (text and html)
+    if (Symbol.iterator in node)
+      tgt.append(... _imm_b(node))
+    else tgt.append(node)
   }
 
   _bind_() {
-    // bind ._show_ and ._refresh_ as closures
+    // bind ._show_, ._add_, and ._refresh_ as closures
+    let _show_ = this._show_.bind(this)
     return ({
+      _show_,
+      _add_: node => _show_(node, 1),
       _refresh_: p => p && p.then
         ? p.then(this._refresh_)
         : this._render_(),
-
-      _show_: node => {
-        let tgt = this._tgt_
-
-        if (this === node || tgt === node || null == node) {
-          if (null === node)
-            tgt.textContent = '' // clear all inner content (text and html)
-          return // no-op
-        }
-
-        if (node.then) // async promise render
-          return node.then(this._show_)
-
-        // inlined optimized version of imm_set()
-        tgt.textContent = '' // clear all inner content (text and html)
-        tgt.append(node)
-      },
     })
   }
 }

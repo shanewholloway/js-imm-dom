@@ -53,6 +53,8 @@ export function _imm_c(c) {
   return c && (c.nodeType ? c : `${c}`)
 }
 export function _imm_b(children) {
+  if (!children.flat)
+    children = [... children]
   return children.flat(9).map(_imm_c).filter(Boolean)
 }
 
