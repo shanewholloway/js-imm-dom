@@ -44,8 +44,7 @@ Using functions to define rendering:
 
 Extending web component classes
 
-- Extend from `ImmElem` for visual components with methods
-- Extend from `ImmCore` for non-visual components with methods
+- Extend `ImmCore` for non-visual components with methods
+- Use or extend `ImmElem` for visual components with methods
 - Use or extend `ImmRAF` for rendering on the next animation frame
-- Use or extend `ImmIter` for rendering using iterables (e.g. `function * (ns, elem, tgt) { while (1) yield 'demo' }`)
 

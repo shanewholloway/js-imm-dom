@@ -5,9 +5,7 @@ Inspired by:
 
 - `ImmCore`
 - `ImmElem`
-- `ImmIter`
 - `ImmRAF`
-- `ImmIterRAF`
 
 ## Examples
 
@@ -96,15 +94,17 @@ Inspired by:
   - override:
     - `init(ns, custom_elem, elem_target) : HTMLElement` allows composed initialization and returning the render target
     - `render(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` returned node is rendered onto target with `_show_(node)`
-    - `static init_dom()` returns `this` host element by default.
-    - `static init_elem()` returns a new shadow root element by default. 
+    - `render0(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` optional first render -- returned node is rendered onto target with `_show_(node)`
+    - `render$(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` optional overlay render -- returned node is rendered onto target with `_show_(node)`
 
   - composed methods:
-    - `_init_()` initializes the initial render target (`init_dom` or `init_elem`) and invokes `init(ns, this, tgt)`
-    - `_render_()` accomplishes `_show_( render(ns, this, tgt))` with implementation details changed in subclasses like `ImmRAF` and `ImmIter`.
-    - `_show_(node : HTMLElement | HTMLDocumentFragment | Node | string | Promise | null | undefined)` replaces `_tgt_` body with `node`. Usually only called by `_render_`.
+    - `_render_()` accomplishes `_show_( render(ns, this, tgt))` with implementation details changed in subclasses like `ImmRAF`.
+    - `_show_(node : HTMLElement | HTMLDocumentFragment | Node | string | Promise | Array | iterable | null | undefined, retain : truthy)` replaces `_tgt_` body with `node`. If `retain`, the `_tgt_` is not cleared before extending. Called primarily by `_render_`.
+    - `_add_(node : HTMLElement | HTMLDocumentFragment | Node | string | Promise | Array | iterable | null | undefined)` alias for `_show_(node, 1)`
+    - `_stop_()` called by `disconnectedCallback()` to remove `render$` optional overlay
 
   - static methods:
+    - `ImmCore.define(tag_name)` to create a custom element.
     - `ImmElem.dom(tag_name, fn_elem_render)` to create a DOM-side custom element.
     - `ImmElem.dom(tag_name, fn_elem_init, fn_elem_render)` to create a DOM-side custom element with an init function.
     - `ImmElem.elem(tag_name, fn_elem_render)` to create a shadow-root based custom element.
@@ -112,6 +112,10 @@ Inspired by:
 
     - `function fn_elem_init(ns, custom_elem, elem_target) : HTMLElement?` is installed as subclass `init` function
     - `function fn_elem_render(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` is installed as subclass `render` function
+
+  - interal methods:
+    - `_init_tgt_()` called by constructor to setup `_tgt_` and `_z_` interals.
+    - `_bind_()` ensures `_show_`, `_add_`, and `_refresh_` are bound closures.
 
 
 - `ImmCore` 
@@ -121,43 +125,17 @@ Inspired by:
       Extends static `observedAttributes` with flattened elements of `attrs`.  Returns created subclass.
 
     - `ImmCore.define(name, opt)` calls `customElements.define` with `name`, subclass, and `opt`.
+    - `ImmCore._ns_ : imm_pxy_attr(this)` getter
 
 
 - `imm_when(name) : HTMLElement` polyfills `customElements.whenDefined()` to return the defined element.
 
 
-### Module `imm_elem_iter.mjs`
-
-- `ImmIter` is an extension of `ImmElem`
-  with iterator-driven `render()` method
-
-  - override:
-    - `* render(ns, custom_elem, elem_target)` is an iterable 
-    - `async * render(ns, custom_elem, elem_target)` is an async iterable 
-
-  - static methods:
-    - `ImmElem.dom(tag_name, fn_elem_gen_render)` to create a DOM-side custom element using iterable rendering.
-    - `ImmElem.elem(tag_name, fn_elem_gen_render)` to create a shadow-root based custom element using iterable rendering.
-
-    - `ImmElem.dom(tag_name, fn_elem_init, fn_elem_gen_render)` variant with an init function.
-    - `ImmElem.elem(tag_name, fn_elem_init, fn_elem_gen_render)` variant with an init function.
-
-    - `function * fn_elem_gen_render(ns, custom_elem, elem_target) : iterator<HTMLElement | HTMLDocumentFragment | null>` is installed as subclass `* render` function
-    - `async function * fn_elem_gen_render(ns, custom_elem, elem_target) : iterator<HTMLElement | HTMLDocumentFragment | null>` is installed as subclass `async * render` function
-
-
 ### Module `imm_elem_raf.mjs`
 
-- `ImmRAF` and `ImmIterRAF` are extensions of `ImmElem` and `ImmIter`
+- `ImmRAF` is an extension of `ImmElem`
   with `requestAnimationFrame` *batched rendering* on connected or attribute change.
 
 - `with_imm_raf(ImmKlass : ImmElem)` creates a dynamic subclass of `ImmKlass`
   with `requestAnimationFrame` *batched rendering* on connected or attribute change.
-
-
-### *Beta* Module `beta/imm_elem_auto.mjs`
-
-- `ImmAuto` is an extension of `ImmElem` with introspective `observedAttributes` construction
-- `ImmAutoRAF` is an extension of `ImmRAF` with introspective `observedAttributes` construction
-- `_imm_attr_spy(klass, fn_target)` uses a proxy spy to construct `observedAttributes`
 
