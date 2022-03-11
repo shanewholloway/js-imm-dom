@@ -24,8 +24,8 @@ These are roughly implemented by `(...args) => imm(createElement(tag), ...args)`
 
 ### [Create CSS](./imm_css.md)
 
-- Use `imm_css\`color: ${'purple'}\`` to create validated dynamic CSS string expressions.
-- Use `imm_style\`color: ${'purple'}\`` to create style elements with validated dynamic CSS string expressions.
+- Use ``imm(el, {style: imm_css`color: ${'purple'}`})`` to create validated dynamic CSS string expressions for style attributes or `innerText` of style elements.
+- Use ``imm(el, imm_style`color: ${'purple'}`)`` to create style elements with validated dynamic CSS string expressions.
 
 
 ### [Creating Web Templates](./imm_tmpl.md)
