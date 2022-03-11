@@ -92,26 +92,25 @@ Inspired by:
   - extends `ImmCore`
 
   - override:
-    - `init(ns, custom_elem, elem_target) : HTMLElement` allows composed initialization and returning the render target
-    - `render(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` returned node is rendered onto target with `_show_(node)`
-    - `render0(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` optional first render -- returned node is rendered onto target with `_show_(node)`
-    - `render$(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` optional overlay render -- returned node is rendered onto target with `_show_(node)`
+    - `init(ns, custom_elem, elem_target)` allows composed initialization and returning the render target
+    - `render(ns, custom_elem, elem_target)` returned node is rendered onto target with `_show_(node)`
+    - `render0(ns, custom_elem, elem_target)` optional first render -- returned node is rendered onto target with `_show_(node)`
+    - `render$(ns, custom_elem, elem_target)` optional overlay render -- returned node is rendered onto target with `_show_(node)`
 
   - composed methods:
     - `_render_()` accomplishes `_show_( render(ns, this, tgt))` with implementation details changed in subclasses like `ImmRAF`.
     - `_show_(node : HTMLElement | HTMLDocumentFragment | Node | string | Promise | Array | iterable | null | undefined, retain : truthy)` replaces `_tgt_` body with `node`. If `retain`, the `_tgt_` is not cleared before extending. Called primarily by `_render_`.
-    - `_add_(node : HTMLElement | HTMLDocumentFragment | Node | string | Promise | Array | iterable | null | undefined)` alias for `_show_(node, 1)`
+    - `_add_(node)` alias for `_show_(node, 1)`
     - `_stop_()` called by `disconnectedCallback()` to remove `render$` optional overlay
 
   - static methods:
     - `ImmCore.define(tag_name)` to create a custom element.
-    - `ImmElem.dom(tag_name, fn_elem_render)` to create a DOM-side custom element.
-    - `ImmElem.dom(tag_name, fn_elem_init, fn_elem_render)` to create a DOM-side custom element with an init function.
-    - `ImmElem.elem(tag_name, fn_elem_render)` to create a shadow-root based custom element.
-    - `ImmElem.elem(tag_name, fn_elem_init, fn_elem_render)` to create a shadow-root based custom element with an init function.
+    - `ImmElem.dom(tag_name, fn_render)` to create a DOM-side custom element.
+    - `ImmElem.dom(tag_name, proto)` to create a DOM-side custom element with `proto` prototype extension.
+    - `ImmElem.elem(tag_name, fn_render)` to create a shadow-root based custom element.
+    - `ImmElem.elem(tag_name, proto)` to create a shadow-root based custom element with `proto` prototype extension.
 
-    - `function fn_elem_init(ns, custom_elem, elem_target) : HTMLElement?` is installed as subclass `init` function
-    - `function fn_elem_render(ns, custom_elem, elem_target) : HTMLElement | HTMLDocumentFragment | null` is installed as subclass `render` function
+    - `function fn_render(ns, custom_elem, elem_target)` is installed as subclass `render` function
 
   - interal methods:
     - `_init_tgt_()` called by constructor to setup `_tgt_` and `_z_` interals.

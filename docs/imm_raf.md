@@ -25,11 +25,11 @@
 
     let ts0 = Date.now()
 
-    ImmRAF.elem('imm-raf-demo',
-      (ns, el) => {
+    ImmRAF.elem('imm-raf-demo', {
+      init: (ns, el) => {
         el.ts = Date.now()
       },
-      (ns, el) => {
+      render: (ns, el) => {
         let ts = Date.now()
 
         if (el) el.raf()
@@ -49,7 +49,8 @@
           html.samp(`td: ${ts - el?.ts}`),
           html.br(),
           html.samp(`ts - ts0: ${ts - ts0}`))
-      })
+      },
+    })
   </script>
 </section>
 ```

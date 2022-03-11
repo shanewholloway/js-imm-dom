@@ -43,25 +43,25 @@ export class ImmElem extends ImmCore {
   }
 
   static elem(tag_name, ... args) {
-    args.push({_tgt_: 0})
     return this // klass
       ._imm_c(args)
+      ._imm_cv({_tgt_: 0})
       .define(tag_name)
   }
 
-  static _imm_c(args) {
+  static _imm_c(args, _tgt_) {
+    if (1 < args.length) throw new TypeError() //'No longer supports multiple arguments')
     let klass = class extends this {}
-    args.reduceRight(klass._imm_cz,
-      {r:klass.prototype,
-       z:['init', 'render']})
-    return klass
+    return args[0]
+      ? klass._imm_cv(...args)
+      : klass
   }
-  static _imm_cz(ctx, v) {
-    // _imm_c optional args as reduceRight algorithm
-    if ('function' === typeof v)
-      ctx.r[ctx.z.pop()] = v
-    else Object.assign(ctx.r, v)
-    return ctx
+
+  static _imm_cv(v) {
+    if (v && v.bind)
+      v = {render: v}
+    Object.assign(this.prototype, v)
+    return this
   }
 
 
