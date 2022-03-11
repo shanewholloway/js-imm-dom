@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>imm_dom_ns</code></h2>
+    <div id='demo_dom_ns'></div>
+    <script type=module>
+      import {imm_css, imm_style, imm_html} from '../code/index.mjs'
+      // playground!
+      Object.assign(window, { imm_css, imm_style, imm_html, })
+
+      let el = imm_html.div(
+        imm_style`
+          .demo {
+            color: ${'green'};
+          }
+          p {
+            font-weight: ${'bolder'}
+          }
+          `,
+        imm_html.p(
+          { style: imm_css`
+              color: ${'orange'};
+              `,
+          }, 'some inline styled text'),
+
+        imm_html.p({class: 'demo'},
+          'demo content text'),
+      )
+
+      document.getElementById('demo_dom_ns')
+        .replaceWith(el)
+
+      try {
+        imm_css`
+          this is intentional invalid css
+          `
+      } catch (err) {
+        console.log("Tested intentional invaid css:", err.message)
+      }
+    </script>
+  </section>
+  <script src='/livereload.js'></script>
+</body>
+</html>
+

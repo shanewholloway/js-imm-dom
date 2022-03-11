@@ -13,6 +13,7 @@ export default [
   ... add_mjs('imm_dom_core'),
   ... add_mjs('imm_dom'),
   ... add_mjs('imm_dom_ns'),
+  ... add_mjs('imm_css'),
 
   ... add_mjs('imm_tmpl_core'),
   ... add_mjs('imm_tmpl'),
