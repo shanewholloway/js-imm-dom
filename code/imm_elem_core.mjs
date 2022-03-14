@@ -128,7 +128,7 @@ export class ImmElem extends ImmCore {
       _add_: node => _show_(node, 1),
       _refresh_: p => p && p.then
         ? p.then(this._refresh_)
-        : this._render_(),
+        : this.isConnected && this._render_(),
     })
   }
 }
