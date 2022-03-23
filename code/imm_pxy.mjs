@@ -1,4 +1,4 @@
-import {_dash_name} from './imm_utils.mjs'
+import {_dash_name as _dn} from './imm_utils.mjs'
 
 
 const _imm_pxy_gset = /* #__PURE__ */  {
@@ -14,7 +14,7 @@ const _imm_pxy = /* #__PURE__ */  {
     let r = tag_fn[key]
     if (undefined === r && /[a-z]/.test(key))
       ns[key] = r = tag_fn
-        .bind(null, _dash_name(key))
+        .bind(null, _dn(key))
     return r }}
 
 export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
@@ -23,10 +23,10 @@ export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
 
 
 const _imm_pxy_attr = /* #__PURE__ */  {
-  get: (el,k) => el.getAttribute(k),
-  has: (el,k) => el.hasAttribute(k),
-  set: (el,k,v) => (el.setAttribute(k,v), 1),
-  deleteProperty: (el,k) => (el.removeAttribute(k), 1),
+  get: (el,k) => el.getAttribute(_dn(k)),
+  has: (el,k) => el.hasAttribute(_dn(k)),
+  set: (el,k,v) => (el.setAttribute(_dn(k),v), 1),
+  deleteProperty: (el,k) => (el.removeAttribute(_dn(k)), 1),
 }
 export const imm_pxy_attr = el =>
   new Proxy(el, _imm_pxy_attr)
@@ -34,5 +34,5 @@ export const imm_pxy_attr = el =>
 
 export function imm_pxy_css(css_style) {
   let _css_prop = css_style.getPropertyValue.bind(css_style)
-  return imm_pxy_gset(k => _css_prop(_dash_name(k))) }
+  return imm_pxy_gset(k => _css_prop(_dn(k))) }
 
