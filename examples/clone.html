@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+  <template data-shadow>
+    <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+  </template>
+  <template data-first>
+    <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/picnic@6.5.5/picnic.min.css' integrity='sha256-CBnbiPQogodXMdZxPaWpmf+JdiMIky+FP31RLT0L9h4=' />
+  </template>
+  <template data-second>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/mvp.css@1.8.0/mvp.css' integrity='sha256-ZgnP7EREmi/uUnVeeRGuWkERNx19AC23eSlXfJgTZSA=' crossorigin='anonymous'>
+  </template>
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>ImmClone</code></h2>
+
+    <imm-demo></imm-demo>
+
+    <script type=module>
+      import { html } from '../code/imm_dom_ns.mjs'
+      import { ImmElem } from '../code/imm_elem.mjs'
+      import { ImmClone } from '../code/imm_clone.mjs'
+      window.ImmClone = ImmClone // playground!
+      ImmClone.define('imm-clone')
+      ImmElem.elem('imm-demo', () => [
+        html.tag('imm-clone', {query: localStorage.getItem('theme') || '[data-first]'}),
+        'first ',
+        html.button('abtn'),
+        ' third',
+      ])
+    </script>
+  </section>
+
+  <script src='/livereload.js'></script>
+</body>
+</html>
+

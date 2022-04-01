@@ -21,6 +21,7 @@ export default [
   ... add_mjs('imm_elem_core'),
   ... add_mjs('imm_elem'),
   ... add_mjs('imm_elem_raf'),
+  ... add_mjs('imm_clone'),
 
   ... add_mjs('beta/imm_elem_auto'),
   ... add_mjs('beta/imm_elem_iter'),
