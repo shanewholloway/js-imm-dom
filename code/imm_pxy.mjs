@@ -22,12 +22,18 @@ export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
 
 
 
-const _imm_pxy_attr = /* #__PURE__ */  {
-  get: (el,k) => el.getAttribute(_dn(k)),
-  has: (el,k) => el.hasAttribute(_dn(k)),
-  set: (el,k,v) => (el.setAttribute(_dn(k),v), 1),
-  deleteProperty: (el,k) => (el.removeAttribute(_dn(k)), 1),
-}
+const
+  _mga = (el,k) => el.getAttribute(k),
+  _mha = (el,k) => el.hasAttribute(k),
+  _msa = (el,k,v) => (el.setAttribute(k,v), 1),
+  _mra = (el,k) => (el.removeAttribute(k), 1),
+  _imm_pxy_attr = /* #__PURE__ */ {
+    get: (el,k) => _mga(el, _dn(k)) || _mga(el, k),
+    has: (el,k) => _mha(el, _dn(k)) || _mha(el, k),
+    set: (el,k,v) => _msa(el, _dn(k), v, _mra(el, k)),
+    deleteProperty: (el,k) => _mra(el, _dn(k), _mra(el, k)),
+  }
+
 export const imm_pxy_attr = el =>
   new Proxy(el, _imm_pxy_attr)
 
