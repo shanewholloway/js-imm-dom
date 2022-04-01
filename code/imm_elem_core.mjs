@@ -115,7 +115,7 @@ export class ImmElem extends ImmCore {
 
     // inlined optimized version of imm_set()
     if (! retain) tgt.textContent = '' // clear all inner content (text and html)
-    if (Symbol.iterator in node)
+    if (!node.nodeType && Symbol.iterator in node)
       tgt.append(... _imm_b(node))
     else tgt.append(node)
   }
