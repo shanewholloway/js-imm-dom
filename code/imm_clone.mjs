@@ -1,9 +1,15 @@
-import {ImmCore} from './imm_elem_core.mjs'
 
-export class ImmClone extends ImmCore {
-  connectedCallback() {
-    imm_clone(this, this._ns_.query)
+export class ImmClone extends HTMLElement {
+  connectedCallback() { this.render() }
+  render() {
+    this.textContent = '' // inline clear children
+    imm_clone(this, this.getAttribute('query'))
   }
+}
+
+export class ImmCloneEx extends ImmClone {
+  static get observedAttributes() { return ['query'] }
+  attributeChangedCallback() { this.render() }
 }
 
 export function imm_clone(el_tgt, query, el_root=el_tgt.ownerDocument) {
