@@ -110,14 +110,17 @@ export class ImmElem extends ImmCore {
       return // no-op
     }
 
-    if ('then' in node)
-      return node.then(retain ? this._add_ : this._show_)
-
     // inlined optimized version of imm_set()
     if (! retain) tgt.textContent = '' // clear all inner content (text and html)
-    if (!node.nodeType && Symbol.iterator in node)
-      tgt.append(... _imm_b(node))
-    else tgt.append(node)
+
+    if ('string' !== typeof node) {
+      if ('then' in node)
+        return node.then(retain ? this._add_ : this._show_)
+
+      if (!node.nodeType && Symbol.iterator in node)
+        return void tgt.append(... _imm_b(node))
+    }
+    return void tgt.append(node)
   }
 
   _bind_() {
