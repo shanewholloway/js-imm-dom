@@ -13,10 +13,10 @@ export function with_imm_raf(ImmKlass) {
     raf(tgt) { return imm_raf(tgt || this) }
 
     // auto schedule an update on next animation frame (initial render, attribute changed)
-    _render_() { imm_raf(this) }
+    _render_(is_new) { imm_raf(this, is_new) }
 
     // then render on next animation frame
-    [imm_raf.sym]() { super._render_() }
+    [imm_raf.sym](_, is_new) { super._render_(is_new) }
   }
 }
 
