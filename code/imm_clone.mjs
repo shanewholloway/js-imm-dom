@@ -5,6 +5,10 @@ export class ImmClone extends HTMLElement {
     this.textContent = '' // inline clear children
     imm_clone(this, this.getAttribute('query'))
   }
+  static define(tag_name, opt) {
+    customElements.define(tag_name, this, opt)
+    return this
+  }
 }
 
 export class ImmCloneEx extends ImmClone {
