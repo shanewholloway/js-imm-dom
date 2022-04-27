@@ -98,8 +98,9 @@ export class ImmElem extends ImmCore {
       _z_: {value: _z_} })
   }
 
-  _render_(is_new) {
-    let fn_render = is_new && this.render0 || this.render$ || this.render
+  _render_(is_reconnect) {
+    let fn_render = is_reconnect && this.render0$ || this.render$ || this.render
+    if (is_reconnect) this.render0$ = null
     this._show_(fn_render.apply(this, this._z_))
   }
 
@@ -138,6 +139,7 @@ export class ImmElem extends ImmCore {
     return ({
       _show_,
       _add_: node => _show_(node, 1),
+      render0$: this.render0,
       _refresh_: p => p && p.then
         ? p.then(this._refresh_)
         : this.isConnected && this._render_(),
