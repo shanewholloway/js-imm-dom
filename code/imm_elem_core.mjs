@@ -2,10 +2,17 @@ import { _imm_b } from './imm_dom_core.mjs'
 import { imm_pxy_attr } from './imm_pxy.mjs'
 
 
-export function imm_when(tag_name, ce) {
-  return (ce=customElements)
-    .whenDefined(tag_name)
-    .then(el => el || ce.get(tag_name))
+const _ce = /* #__PURE__ */ customElements
+export function imm_when(tag_name) {
+  return _ce.whenDefined(tag_name)
+    .then(el => el || _ce.get(tag_name))
+}
+
+export async function imm_define_when(klass, tag_name, opt, ...when) {
+  for (let k of when)
+    await _ce.whenDefined(k)
+  _ce.define(tag_name, klass, opt)
+  return klass
 }
 
 
@@ -21,8 +28,8 @@ export class ImmCore extends HTMLElement {
   get _ns_() { return imm_pxy_attr(this) }
 
 
-  static define(tag_name, opt) {
-    customElements.define(tag_name, this, opt)
+  static define(...args) {
+    imm_define_when(this, ...args)
     return this
   }
 }
@@ -37,16 +44,18 @@ export class ImmElem extends ImmCore {
   // function-based defintions
 
   static dom(tag_name, ... args) {
+    if (tag_name.trim) tag_name = [tag_name]
     return this // klass
       ._imm_c(args)
-      .define(tag_name)
+      .define(...tag_name)
   }
 
   static elem(tag_name, ... args) {
+    if (tag_name.trim) tag_name = [tag_name]
     return this // klass
       ._imm_c(args)
       ._imm_cv({_tgt_: 0})
-      .define(tag_name)
+      .define(...tag_name)
   }
 
   static _imm_c(args, _tgt_) {
