@@ -1,6 +1,6 @@
 {
   "name": "imm-dom",
-  "version": "0.0.51",
+  "version": "0.0.52",
   "description": "Immediate-mode DOM tools",
   "license": "BSD-2-Clause",
   "author": "Shane Holloway <shane.holloway@ieee.org>",
