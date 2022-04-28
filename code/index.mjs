@@ -14,5 +14,6 @@ export * from './imm_tmpl.mjs'
 
 export * from './imm_elem_core.mjs'
 export * from './imm_elem.mjs'
+export * from './imm_elem_qx.mjs'
 export * from './imm_elem_raf.mjs'
 export * from './imm_clone.mjs'

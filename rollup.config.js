@@ -21,6 +21,7 @@ export default [
 
   ... add_esm('imm_elem_core'),
   ... add_esm('imm_elem'),
+  ... add_esm('imm_elem_qx'),
   ... add_esm('imm_elem_raf'),
   ... add_esm('imm_clone'),
 

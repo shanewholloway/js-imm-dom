@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>ImmQX class</code></h2>
+    <imm-my-qx></imm-my-qx>
+
+    <script type=module>
+      import { ImmQX } from '../code/imm_elem_qx.mjs'
+      ImmQX.with({qx: 'mydemo'}).define('imm-my-qx')
+    </script>
+
+    <div id='here'></div>
+    <script type=module>
+      import { imm_qx } from '../code/imm_query.mjs'
+      let el_here = document.querySelector('#here')
+      setTimeout(() => {
+          let my_demo = imm_qx('mydemo', el_here)
+          console.log("MY DEMO?", my_demo)
+        }, 100)
+    </script>
+  </section>
+  <script src='/livereload.js'></script>
+</body>
+</html>
