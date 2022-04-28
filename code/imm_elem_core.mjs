@@ -10,7 +10,7 @@ export function imm_when(tag_name) {
 
 export async function imm_define_when(klass, tag_name, opt, ...when) {
   for (let k of when)
-    await _ce.whenDefined(k)
+    await k.then ? k : _ce.whenDefined(k)
   _ce.define(tag_name, klass, opt)
   return klass
 }
