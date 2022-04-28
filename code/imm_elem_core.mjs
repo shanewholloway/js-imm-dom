@@ -43,19 +43,19 @@ export class ImmElem extends ImmCore {
   //--------------------------
   // function-based defintions
 
-  static dom(tag_name, ... args) {
-    if (tag_name.trim) tag_name = [tag_name]
+  static dom(dfn, ... args) {
+    if (dfn.trim) dfn = [dfn]
     return this // klass
       ._imm_c(args)
-      .define(...tag_name)
+      .define(...dfn)
   }
 
-  static elem(tag_name, ... args) {
-    if (tag_name.trim) tag_name = [tag_name]
+  static elem(dfn, ... args) {
+    if (dfn.trim) dfn = [dfn]
     return this // klass
       ._imm_c(args)
       ._imm_cv({_tgt_: 0})
-      .define(...tag_name)
+      .define(...dfn)
   }
 
   static _imm_c(args, _tgt_) {
