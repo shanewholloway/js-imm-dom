@@ -1,4 +1,4 @@
-import { _imm_b } from './imm_dom_core.mjs'
+import { _imm_b, _imm_cp } from './imm_dom_core.mjs'
 import { imm_pxy_attr } from './imm_pxy.mjs'
 
 
@@ -27,10 +27,15 @@ export class ImmCore extends HTMLElement {
 
   get _ns_() { return imm_pxy_attr(this) }
 
-
   static define(...args) {
     imm_define_when(this, ...args)
     return this
+  }
+
+  static with(proto_, static_) {
+    let klass = class extends this {}
+    _imm_cp(klass.prototype, proto_)
+    return _imm_cp(klass, static_)
   }
 }
 

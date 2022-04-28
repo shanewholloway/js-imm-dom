@@ -58,3 +58,4 @@ export function _imm_b(children) {
   return children.flat(9).map(_imm_c).filter(Boolean)
 }
 
+export const _imm_cp = Object.assign
