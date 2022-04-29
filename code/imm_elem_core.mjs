@@ -8,76 +8,78 @@ export function imm_when(tag_name) {
     .then(el => el || _ce.get(tag_name))
 }
 
-export async function imm_define_when(klass, tag_name, opt, ...when) {
+export async function imm_define_when(klass, tag, ...when) {
   for (let k of when)
-    await k.then ? k : _ce.whenDefined(k)
-  _ce.define(tag_name, klass, opt)
+    if (k) await k.then ? k : _ce.whenDefined(k)
+  _ce.define(tag.tag || tag, klass, tag.options)
   return klass
 }
 
 
-export class ImmCore extends HTMLElement {
-  static observe(... attrs) {
+export class Imm0 extends HTMLElement {
+  static with(proto_, static_) {
     let klass = class extends this {}
-    let oa = 'observedAttributes'
-    attrs.push(klass[oa])
-    klass[oa] = attrs.flat(9).filter(Boolean)
-    return klass
+    _imm_cp(klass.prototype, proto_)
+    return _imm_cp(klass, static_)
   }
-
-  get _ns_() { return imm_pxy_attr(this) }
 
   static define(...args) {
     imm_define_when(this, ...args)
     return this
   }
 
-  static with(proto_, static_) {
-    let klass = class extends this {}
-    _imm_cp(klass.prototype, proto_)
-    return _imm_cp(klass, static_)
+  static dom(dfn, proto_, kw) {
+    if (dfn.trim) dfn = [dfn]
+    return this // klass
+      ._use(proto_||null, kw)
+      .define(...dfn)
   }
+
+  static _use(proto_, kw) {
+    if ('object' !== typeof proto_)
+      proto_ = this._zuse(proto_)
+
+    return this.with( kw ? {...kw, ...proto_} : proto_ )
+  }
+
+  static _zuse(z) { return {connectedCallback:z} }
 }
 
+
+export class ImmCore extends Imm0 {
+  get _ns_() { return imm_pxy_attr(this) }
+
+  static observe(... attrs) {
+    attrs.push(this.observedAttributes)
+    attrs = attrs.flat(9).filter(Boolean)
+    return this.with(null, {observedAttributes: attrs})
+  }
+
+  //--------------------------------------
+  // web component composed implementation
+
+  connectedCallback() { this._wc_('c') }
+  attributeChangedCallback(n) { this._wc_('ac', n) }
+  disconnectedCallback() { this._wc_('d') }
+  _wc_(op) {}
+
+  static _zuse(z) { return {_wc_:z} }
+}
+
+
+const _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
+  c: o => o._render_(true), // -- connectedCallback()
+  ac: o => o._refresh_(), // -- attributeChangedCallback()
+  d: o => o._stop_(), // -- disconnectedCallback()
+}
 
 export class ImmElem extends ImmCore {
   init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
   render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
   // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */
 
-  //--------------------------
-  // function-based defintions
-
-  static dom(dfn, ... args) {
-    if (dfn.trim) dfn = [dfn]
-    return this // klass
-      ._imm_c(args)
-      .define(...dfn)
-  }
-
-  static elem(dfn, ... args) {
-    if (dfn.trim) dfn = [dfn]
-    return this // klass
-      ._imm_c(args)
-      ._imm_cv({_tgt_: 0})
-      .define(...dfn)
-  }
-
-  static _imm_c(args, _tgt_) {
-    if (1 < args.length) throw new TypeError() //'No longer supports multiple arguments')
-    let klass = class extends this {}
-    return args[0]
-      ? klass._imm_cv(...args)
-      : klass
-  }
-
-  static _imm_cv(v) {
-    if (v && v.bind)
-      v = {render: v}
-    _imm_cp(this.prototype, v)
-    return this
-  }
-
+  static _zuse(fn) { return {render: fn} }
+  static elem(dfn, proto_) { return this.dom(dfn, proto_, {_tgt_: 0}) }
 
   //--------------------------------------
   // web component composed implementation
@@ -88,9 +90,8 @@ export class ImmElem extends ImmCore {
     _imm_cp(this, this._bind_())
     this.init(... this._z_)
   }
-  connectedCallback() { this._render_(true) }
-  attributeChangedCallback() { this._refresh_() }
-  disconnectedCallback() { this._stop_() }
+
+  _wc_(op,v) { _wcdd[op](this) }
 
   _init_tgt_(_tgt_) {
     if (!_tgt_ || !_tgt_.nodeType)
