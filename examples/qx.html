@@ -27,13 +27,17 @@
       ImmQX.with({qx: 'mydemo'}).define('imm-my-qx')
     </script>
 
-    <div id='here'></div>
+    <div>
+      <div>
+        <div id='here'></div>
+      </div>
+    </div>
     <script type=module>
       import { imm_qx } from '../code/imm_query.mjs'
-      let el_here = document.querySelector('#here')
+      let el_here = document.getElementById('here')
       setTimeout(() => {
           let my_demo = imm_qx('mydemo', el_here)
-          console.log("MY DEMO?", my_demo)
+          console.log("imm_qx found", my_demo)
         }, 100)
     </script>
   </section>
