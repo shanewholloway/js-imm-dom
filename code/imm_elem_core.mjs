@@ -74,7 +74,7 @@ export class ImmElem extends ImmCore {
   static _imm_cv(v) {
     if (v && v.bind)
       v = {render: v}
-    Object.assign(this.prototype, v)
+    _imm_cp(this.prototype, v)
     return this
   }
 
@@ -85,7 +85,7 @@ export class ImmElem extends ImmCore {
   constructor() {
     super()
     this._init_tgt_(this._tgt_)
-    Object.assign(this, this._bind_())
+    _imm_cp(this, this._bind_())
     this.init(... this._z_)
   }
   connectedCallback() { this._render_(true) }
@@ -105,7 +105,7 @@ export class ImmElem extends ImmCore {
 
   _render_(is_reconnect) {
     let fn_render = is_reconnect && this.render0$ || this.render$ || this.render
-    if (is_reconnect) this.render0$ = null
+    if (is_reconnect) delete this.render0$
     this._show_(fn_render.apply(this, this._z_))
   }
 
@@ -144,10 +144,10 @@ export class ImmElem extends ImmCore {
     return ({
       _show_,
       _add_: node => _show_(node, 1),
-      render0$: this.render0,
       _refresh_: p => p && p.then
         ? p.then(this._refresh_)
         : this.isConnected && this._render_(),
+      render0$: this.render0, // use render0 as first render0$
     })
   }
 }

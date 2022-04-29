@@ -1,5 +1,5 @@
 import {imm_raf} from './imm_raf.mjs'
-import {ImmElem} from './imm_elem_core.mjs'
+import {ImmElem} from './imm_elem.mjs'
 
 export const ImmRAF = /* #__PURE__ */
   with_imm_raf(ImmElem)
@@ -13,10 +13,10 @@ export function with_imm_raf(ImmKlass) {
     raf(tgt) { return imm_raf(tgt || this) }
 
     // auto schedule an update on next animation frame (initial render, attribute changed)
-    _render_(is_new) { imm_raf(this, is_new) }
+    _render_(is_reconnect) { imm_raf(this, is_reconnect) }
 
     // then render on next animation frame
-    [imm_raf.sym](_, is_new) { super._render_(is_new) }
+    [imm_raf.sym](_, is_reconnect) { super._render_(is_reconnect) }
   }
 }
 

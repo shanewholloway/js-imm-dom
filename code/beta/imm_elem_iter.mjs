@@ -1,4 +1,4 @@
-import {ImmElem} from '../imm_elem_core.mjs'
+import {ImmElem} from '../imm_elem.mjs'
 import {with_imm_raf} from '../imm_elem_raf.mjs'
 
 export class ImmIter extends ImmElem {
