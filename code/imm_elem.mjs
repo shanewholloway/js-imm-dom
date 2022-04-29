@@ -27,7 +27,7 @@ export class ImmElem extends ImmCore {
     this.init(... this._z_)
   }
 
-  _wc_(op,v) { _wcdd[op](this) }
+  _wc_(el,op) { _wcdd[op](this) }
 
   _init_tgt_(_tgt_) {
     if (!_tgt_ || !_tgt_.nodeType)

@@ -50,17 +50,17 @@ export class Imm1 extends Imm0 {
   static _zuse(z) { return {update:z} }
   update() {}
 
-  connectedCallback() { this.update() }
+  connectedCallback() { this.update(this, this._ns_) }
 }
 
 
 export class ImmWC extends Imm0 {
   static _zuse(z) { return {_wc_:z} }
-  _wc_(op) {}
+  _wc_(el,op) {}
 
-  connectedCallback() { this._wc_('c') }
-  attributeChangedCallback(n) { this._wc_('ac', n) }
-  disconnectedCallback() { this._wc_('') }
+  connectedCallback() { this._wc_(this, 'c') }
+  attributeChangedCallback(n) { this._wc_(this, 'ac', n) }
+  disconnectedCallback() { this._wc_(this, '') }
 
   static observe(... attrs) {
     attrs.push(this.observedAttributes)
