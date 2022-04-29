@@ -6,7 +6,7 @@ export { Imm0, ImmCore } from './imm_elem_core.mjs'
 const _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
   c: o => o._render_(true), // -- connectedCallback()
   ac: o => o._refresh_(), // -- attributeChangedCallback()
-  d: o => o._stop_(), // -- disconnectedCallback()
+  '': o => o._stop_(), // -- disconnectedCallback()
 }
 
 export class ImmElem extends ImmCore {

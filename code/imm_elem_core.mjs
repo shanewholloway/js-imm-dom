@@ -60,7 +60,7 @@ export class ImmCore extends Imm0 {
 
   connectedCallback() { this._wc_('c') }
   attributeChangedCallback(n) { this._wc_('ac', n) }
-  disconnectedCallback() { this._wc_('d') }
+  disconnectedCallback() { this._wc_('') }
   _wc_(op) {}
 
   static _zuse(z) { return {_wc_:z} }
