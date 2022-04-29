@@ -46,22 +46,38 @@ export class Imm0 extends HTMLElement {
 }
 
 
-export class ImmCore extends Imm0 {
-  get _ns_() { return imm_pxy_attr(this) }
+export class Imm1 extends Imm0 {
+  static _zuse(z) { return {update:z} }
+  update() {}
+
+  connectedCallback() { this.update() }
+}
+
+
+export class ImmWC extends Imm0 {
+  static _zuse(z) { return {_wc_:z} }
+  _wc_(op) {}
+
+  connectedCallback() { this._wc_('c') }
+  attributeChangedCallback(n) { this._wc_('ac', n) }
+  disconnectedCallback() { this._wc_('') }
 
   static observe(... attrs) {
     attrs.push(this.observedAttributes)
     attrs = attrs.flat(9).filter(Boolean)
     return this.with(null, {observedAttributes: attrs})
   }
-
-  //--------------------------------------
-  // web component composed implementation
-
-  connectedCallback() { this._wc_('c') }
-  attributeChangedCallback(n) { this._wc_('ac', n) }
-  disconnectedCallback() { this._wc_('') }
-  _wc_(op) {}
-
-  static _zuse(z) { return {_wc_:z} }
 }
+
+
+export const with_ns_attr = ImmKlass =>
+  class extends ImmKlass {
+    get _ns_() { return imm_pxy_attr(this) }
+  }
+
+export const ImmNS = /* #__PURE__ */
+  with_ns_attr(Imm1)
+
+export const ImmCore = /* #__PURE__ */
+  with_ns_attr(ImmWC)
+
