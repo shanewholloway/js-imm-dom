@@ -20,7 +20,7 @@ export function imm(el, ...args) {
         pre = (pre || []).concat(v)
       } else if ('=' === k0) {
         // direct property assignment
-        Object.assign(el, v)
+        _imm_cp(el, v, k.split('=')[1])
       } else if ('@' === k0) {
         // hook callback
         v(el, k)
@@ -58,4 +58,5 @@ export function _imm_b(children) {
   return children.flat(9).map(_imm_c).filter(Boolean)
 }
 
-export const _imm_cp = Object.assign
+export const _imm_cp = (tgt, src, key) =>
+  Object.assign(tgt, key ? {key:src} : src)
