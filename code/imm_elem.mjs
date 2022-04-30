@@ -55,24 +55,34 @@ export class ImmElem extends ImmCore {
   }
 
   _show_(node, retain) {
-    let tgt = this._tgt_
-    if (this === node || tgt === node || null == node) {
-      if (null === node && !retain)
-        tgt.textContent = '' // clear all inner content (text and html)
-      return // no-op
-    }
+    let [t] = typeof node,
+      tgt = this._z_[2],
+      _show0_ = (...z) => {
+        if (!retain) tgt.textContent = '' // clear all inner content (text and html)
+        tgt.append(...z) }
 
-    // inlined optimized version of imm_set()
-    if (! retain) tgt.textContent = '' // clear all inner content (text and html)
+    return (
+      // on bool, refresh when true
+      'b'==t ? node && this._refresh_()
 
-    if ('string' !== typeof node) {
-      if ('then' in node)
-        return node.then(retain ? this._add_ : this._show_)
+      // on nullish; clear for null, or noop on undefined
+      : null == node ? 'o'==t && _show0_()
 
-      if (!node.nodeType && Symbol.iterator in node)
-        return void tgt.append(... _imm_b(node))
-    }
-    return void tgt.append(node)
+      // on objects and iterables...
+      : 'o'==t && !node.nodeType ? (
+        // on Promises
+        'then' in node
+            ? node.then(retain ? this._add_ : this._show_)
+
+        // on iterables
+        : Symbol.iterator in node
+            ? _show0_(... _imm_b(node))
+
+        // otherwise use DOM el.append
+        : _show0_(node) )
+
+      // otherwise use DOM el.append
+      : _show0_(node) )
   }
 
   _bind_() {
