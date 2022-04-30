@@ -2,8 +2,8 @@
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   3066 B |   7691 B |  15632 B |
-| `imm_elem`      |   1051 B |   2507 B |   4924 B |
+| `index`         |   3078 B |   7698 B |  15848 B |
+| `imm_elem`      |   1055 B |   2500 B |   5125 B |
 | `imm_tmpl`      |    870 B |   1834 B |   4849 B |
 | `imm_dom`       |    570 B |   1164 B |   2474 B |
 
@@ -13,20 +13,20 @@
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
 | `imm_async`     |    145 B |    212 B |    405 B |
-| `imm_clone`     |    404 B |    843 B |   1429 B |
+| `imm_clone`     |    410 B |    857 B |   1444 B |
 | `imm_css`       |    914 B |   1926 B |   3973 B |
 | `imm_dom`       |    570 B |   1164 B |   2474 B |
 | `imm_dom_core`  |    441 B |    843 B |   1871 B |
 | `imm_dom_ns`    |    666 B |   1315 B |   2877 B |
-| `imm_elem`      |   1051 B |   2507 B |   4924 B |
-| `imm_elem_core` |    643 B |   1482 B |   2491 B |
-| `imm_elem_raf`  |   1227 B |   2908 B |   5964 B |
+| `imm_elem`      |   1055 B |   2500 B |   5125 B |
+| `imm_elem_core` |    635 B |   1513 B |   2527 B |
+| `imm_elem_raf`  |   1233 B |   2901 B |   6165 B |
 | `imm_evt`       |    248 B |    517 B |    874 B |
 | `imm_evt_core`  |    156 B |    314 B |    524 B |
 | `imm_pxy`       |    319 B |    621 B |   1177 B |
-| `imm_qx`        |    642 B |   1367 B |   2506 B |
+| `imm_qx`        |    645 B |   1381 B |   2521 B |
 | `imm_raf`       |    208 B |    314 B |    602 B |
 | `imm_tmpl`      |    870 B |   1834 B |   4849 B |
 | `imm_tmpl_core` |    410 B |    722 B |   2180 B |
-| `index`         |   3066 B |   7691 B |  15632 B |
+| `index`         |   3078 B |   7698 B |  15848 B |
 
