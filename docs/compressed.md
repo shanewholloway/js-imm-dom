@@ -2,7 +2,7 @@
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   3078 B |   7698 B |  15848 B |
+| `index`         |   3172 B |   7961 B |  16407 B |
 | `imm_elem`      |   1055 B |   2500 B |   5125 B |
 | `imm_tmpl`      |    870 B |   1834 B |   4849 B |
 | `imm_dom`       |    570 B |   1164 B |   2474 B |
@@ -15,6 +15,7 @@
 | `imm_async`     |    145 B |    212 B |    405 B |
 | `imm_clone`     |    410 B |    857 B |   1444 B |
 | `imm_css`       |    914 B |   1926 B |   3973 B |
+| `imm_dialog`    |    720 B |   1467 B |   3151 B |
 | `imm_dom`       |    570 B |   1164 B |   2474 B |
 | `imm_dom_core`  |    441 B |    843 B |   1871 B |
 | `imm_dom_ns`    |    666 B |   1315 B |   2877 B |
@@ -28,5 +29,5 @@
 | `imm_raf`       |    208 B |    314 B |    602 B |
 | `imm_tmpl`      |    870 B |   1834 B |   4849 B |
 | `imm_tmpl_core` |    410 B |    722 B |   2180 B |
-| `index`         |   3078 B |   7698 B |  15848 B |
+| `index`         |   3172 B |   7961 B |  16407 B |
 
