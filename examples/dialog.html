@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>imm_dialog</code></h2>
+
+    <div id='demo_dialog'></div>
+    <output></output>
+
+    <script type=module>
+      import { imm_dialog } from '../code/imm_dialog.mjs'
+      import {html as h, imm} from '../code/index.mjs'
+      let el_demo = document.getElementById('demo_dialog')
+
+      imm(el_demo, 
+        h.button({ 
+          type: 'button',
+          $:'show stateless modal',
+          click: async () => {
+            let r = await imm_dialog.showModal(el_demo, form_for_dialog())
+            console.log({r})
+
+            imm( document.querySelector('output'),
+              h.pre(JSON.stringify(r, null, 2)))
+          }}),
+        )
+
+      function form_for_dialog() {
+        return h.form(
+          {method: 'dialog'
+            , submit: evt => {
+                evt.preventDefault();
+                imm_dialog.emit(evt, 
+                  Object.fromEntries(
+                    new FormData(evt.target)) ); } }
+
+        , h.input({name: 'bingo', placeholder:'bingo'})
+
+        , h.button({type:'submit', $: 'ok'})
+        , h.button({type:'reset', $:'cancel'
+          , click: evt => {
+              console.log("RESET!",[evt, evt.detail]);
+
+              imm_dialog.emit(evt);} }) ) }
+    </script>
+  </section>
+  <script src='/livereload.js'></script>
+</body>
+</html>
