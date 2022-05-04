@@ -59,4 +59,4 @@ export function _imm_b(children) {
 }
 
 export const _imm_cp = (tgt, src, key) =>
-  Object.assign(tgt, key ? {key:src} : src)
+  Object.assign(tgt, key ? {[key]:src} : src)
