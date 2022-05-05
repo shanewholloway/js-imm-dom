@@ -23,7 +23,7 @@ export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
 
 
 const
-  _mga = (el,k) => el.getAttribute(k),
+  _mga = (el,k) => (k=el.getAttribute(k), ''==k || k),
   _mha = (el,k) => el.hasAttribute(k),
   _msa = (el,k,v) => (el.setAttribute(k,v), 1),
   _mra = (el,k) => (el.removeAttribute(k), 1),

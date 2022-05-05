@@ -20,7 +20,7 @@
 <body>
   <section>
     <h2>Demo of <code>ImmElem class</code></h2>
-    <imm-demo data-demo=yes kind=awesome title='my demo custom element title'>
+    <imm-demo mybool data-demo=yes kind=awesome title='my demo custom element title'>
       some custom element body text
     </imm-demo>
 
@@ -31,6 +31,11 @@
       class ImmDemo extends ImmElem.observe('timestamp') {
         render(ns) {
           this.render$ = _do_update
+
+          // ns interaction with a valueless attribute
+          if ('mybool' in ns) console.log('(using .has) mybool is set')
+          if (true === ns.mybool) console.log('(using .get) mybool accessed and === true')
+
           let el_time = html.time(`${ns.timestamp}`)
           return html.article({class: ns.kind},
             html.h3(`${ns.title}`),
@@ -57,7 +62,7 @@
       }
 
     setTimeout(timestamp_tick, 0)
-    setInterval(timestamp_tick, 1000)
+    window.tid = setInterval(timestamp_tick, 1000)
   </script>
   <script src='/livereload.js'></script>
 </body>
