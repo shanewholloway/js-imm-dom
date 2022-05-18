@@ -1,13 +1,24 @@
 # Immediate DOM API
 
+## Create New Elements
+
 Inspired by:
 - [crel](https://github.com/KoryNunn/crel#readme)
 - [jaml](https://github.com/edspencer/jaml#readme)
 
-Building upon [`imm()` and `imm_set()`](./imm_dom_core.md)
+(See previous document: [`imm()` and `imm_set()`](./imm_dom_core.md).)
 
 
 ## Examples
+
+Create the following structure using `imm-dom`:
+
+```html
+<article class="awesome">
+  <h3>my demo title!</h3>
+  some body text
+</article>
+```
 
 ##### Using `imm_tag` from `imm_dom.mjs`
 
