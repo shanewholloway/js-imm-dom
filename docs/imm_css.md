@@ -4,28 +4,50 @@
 
 ## Examples
 
+Create the following structure using `imm-dom`:
+
+```html
+<p style="color: orange;">
+  some inline styled text
+</p>
+```
+
 ##### Using `imm_css` from `imm_css.mjs`
 
 ```javascript
 imm_html.p(
   {
     style: imm_css`
-      color: ${'orange'};
+      color: ${ 'orange' };
       `,
   },
-  'some inline styled text')
+  'some inline styled text'
+)
 ```
 
 
 ##### Using `imm_style` from `imm_css.mjs`
 
+Create the following `<style>` tag using `imm-dom`:
+
+```html
+<style>
+  .demo {
+    color: green;
+  }
+  p {
+    font-weight: bolder;
+  }
+</style>
+```
+
 ```javascript
 imm_style`
   .demo {
-    color: ${'green'};
+    color: ${ 'green' };
   }
   p {
-    font-weight: ${'bolder'}
+    font-weight: ${ 'bolder' }
   }
   `
 
@@ -34,14 +56,22 @@ imm_style`
 imm_html.style(
   imm_css`
     .demo {
-      color: ${'green'};
+      color: ${ 'green' };
     }
     p {
-      font-weight: ${'bolder'}
+      font-weight: ${ 'bolder' }
     }
-  `)
+  `
+)
 ```
 
+Full example appending the new style tag to the document head:
+
+```javascript
+// assuming either of the above style constructors were assigned to "$style"
+
+imm( document.head, $style );
+```
 
 ## Docs
 

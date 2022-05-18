@@ -2,14 +2,15 @@
 
 Inspired by:
 - [uce](https://github.com/WebReflection/uce#readme)
-
 - `ImmCore`
 - `ImmElem`
 - `ImmRAF`
 
 ## Examples
 
-#### Extending custom element
+In both cases of the *light* and *shadow* DOM, custom elements inherit from `ImmElem`; however, `.dom` creates a *light* DOM component whereas `.elem` creates a *shadow* DOM component. Shadow DOM mode is `open` by default.
+
+#### Extend Custom Element
 
 ```html
 <section>
@@ -40,7 +41,7 @@ Inspired by:
 </section>
 ```
 
-#### DOM-side custom element
+#### DOM-Side Custom Element
 
 ```html
 <section>
@@ -62,7 +63,7 @@ Inspired by:
 </section>
 ```
 
-#### Shadow-root custom element
+#### Shadow DOM Custom Element
 
 ```html
 <section>
@@ -90,7 +91,6 @@ Inspired by:
 
 - `ImmElem` uses *direct rendering* on connected or attribute change.
   - extends `ImmCore`
-
   - override:
     - `init(ns, custom_elem, elem_target)` allows composed initialization and returning the render target
     - `render(ns, custom_elem, elem_target)` returned node is rendered onto target with `_show_(node)`
@@ -109,32 +109,21 @@ Inspired by:
     - `ImmElem.dom(tag_name, proto)` to create a DOM-side custom element with `proto` prototype extension.
     - `ImmElem.elem(tag_name, fn_render)` to create a shadow-root based custom element.
     - `ImmElem.elem(tag_name, proto)` to create a shadow-root based custom element with `proto` prototype extension.
-
     - `function fn_render(ns, custom_elem, elem_target)` is installed as subclass `render` function
 
-  - interal methods:
-    - `_init_tgt_()` called by constructor to setup `_tgt_` and `_z_` interals.
+  - internal methods:
+    - `_init_tgt_()` called by constructor to setup `_tgt_` and `_z_` internals.
     - `_bind_()` ensures `_show_`, `_add_`, and `_refresh_` are bound closures.
 
 
 - `ImmCore` 
-
   - static methods:
-    - `ImmCore.observe(... attrs) : HTMLElement subclass` 
-      Extends static `observedAttributes` with flattened elements of `attrs`.  Returns created subclass.
-
+    - `ImmCore.observe(... attrs) : HTMLElement subclass` extends static `observedAttributes` with flattened elements of `attrs`.  Returns created subclass.
     - `ImmCore.define(name, opt)` calls `customElements.define` with `name`, subclass, and `opt`.
     - `ImmCore._ns_ : imm_pxy_attr(this)` getter
 
-
 - `imm_when(name) : HTMLElement` polyfills `customElements.whenDefined()` to return the defined element.
 
-
 ### Module `imm_elem_raf.mjs`
-
-- `ImmRAF` is an extension of `ImmElem`
-  with `requestAnimationFrame` *batched rendering* on connected or attribute change.
-
-- `with_imm_raf(ImmKlass : ImmElem)` creates a dynamic subclass of `ImmKlass`
-  with `requestAnimationFrame` *batched rendering* on connected or attribute change.
-
+- `ImmRAF` is an extension of `ImmElem` with `requestAnimationFrame` *batched rendering* on connected or attribute change.
+- `with_imm_raf(ImmKlass : ImmElem)` creates a dynamic subclass of `ImmKlass` with `requestAnimationFrame` *batched rendering* on connected or attribute change.
