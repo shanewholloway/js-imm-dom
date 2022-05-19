@@ -37,6 +37,23 @@ imm( document.querySelector('form'), // mutate an existing DOM element
 )
 ```
 
+##### Using `imm` with Special Configurations
+
+```javascript
+import { html as h, imm } from 'imm-dom'
+
+let $hw = h.p({
+    style: 'font-weight: bold;' // assign regular attribute
+    , '=': { // directly assign properties
+        my_prop: 'A special property'
+    }
+    , $: 'Hello, world!' // append child
+    , '@log': ( el, key ) => console.log( el.my_prop ) // execute a callback with the constructed component
+})
+
+imm( document.body, $hw ) // appends the new element to document.body
+```
+
 ## Docs
 
 Core `imm` interface `imm(el, ...args)`:
@@ -45,7 +62,7 @@ Core `imm` interface `imm(el, ...args)`:
 - Given a function value, `addEventListener(key, value)` is called.
 - Given a name starting with `$`, children are collected in order of enumeration for `el.prepend()`.
 - Given a name starting with `=`, object keys and values are assigned as properties.
-- Given a name starting with '@', the value is invoked as a callback with the element as the first argument and key as the second argument.
+- Given a name starting with `@`, the value is invoked as a callback with the element as the first argument and key as the second argument.
 - Otherwise, `setAttribute(dashed_key, value)` is called, where `_` are replaced with `-` to match web semantics.
 
 The rest of the arguments are children for `el.append()`.
