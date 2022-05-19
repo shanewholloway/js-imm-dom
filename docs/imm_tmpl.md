@@ -11,12 +11,14 @@ Inspired by:
 
 ```javascript
 let el_tmpl = document.createElement('template')
+
 el_tmpl.innerHTML = `
   <article ${ {class: 'awesome'} }>
     <h3>${ 'my demo title' }</h3>
     ${ 'some body text' }
-  </article>`
+  </article>
 `
+
 el_tmpl.content.cloneNode(true)
 ```
 

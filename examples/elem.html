@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html lang='en'>
-<head>
-  <meta charset='utf-8' />
-  <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <title>Immediate-mode DOM tools</title>
-
-  <link rel='icon' href='data:image/png;base64,' />
-  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
-
-  <style>
-    body {
-      max-width: 80ch;
-      margin: 2rem auto;
-      padding: 2rem;
-    }
-  </style>
-</head>
-
-<body>
-  <section>
-    <h2>Demo of <code>ImmElem class</code></h2>
     <imm-demo mybool data-demo=yes kind=awesome title='my demo custom element title'>
       some custom element body text
     </imm-demo>
@@ -62,7 +40,7 @@
       }
 
     setTimeout(timestamp_tick, 0)
-    window.tid = setInterval(timestamp_tick, 1000)
+    //window.tid = setInterval(timestamp_tick, 1000)
   </script>
   <script src='/livereload.js'></script>
 </body>

@@ -1,8 +1,19 @@
-# Immediate DOM manipulation API
+# Immediate DOM Manipulation API
 
 ## Examples
 
-##### Using `imm` from `imm_dom_core.mjs`
+##### No Library
+
+```javascript
+let el_article = document.createElement('article')
+el_article.setAttribute('class', 'awesome')
+el_h3.append('my demo title')
+el_article.append('some body text')
+```
+
+##### Using `imm_set` from `imm_dom_core.mjs`
+
+`imm_set` will clear `textContent` before appending new content.
 
 ```javascript
 let el_article = document.createElement('article')
@@ -13,7 +24,7 @@ imm_set(el_article, {class: 'awesome'},
   'some body text')
 ```
 
-##### Using `imm` for events an attributes
+##### Using `imm` for Events and Attributes
 
 ```javascript
 imm( document.querySelector('form'), // mutate an existing DOM element
@@ -26,42 +37,30 @@ imm( document.querySelector('form'), // mutate an existing DOM element
 )
 ```
 
-##### No library
-
-```javascript
-el_article.setAttribute('class', 'awesome')
-el_h3.append('my demo title')
-el_article.append('some body text')
-```
-
-
 ## Docs
 
 Core `imm` interface `imm(el, ...args)`:
 
-- `args[0]` may be an attribute object, enumerated by `Object.entries()` as `[key, value]` pairs.
-  - Given a function value, `addEventListener(key, value)` is called.
-  - Given a name starting with `$`, children are collected in order of enumeration for `el.prepend()`.
-  - Otherwise, `setAttribute(dashed_key, value)` is called, where `_` are replaced with `-` to match web semantics.
+`args[0]` may be an attribute object, enumerated by `Object.entries()` as `[key, value]` pairs:
+- Given a function value, `addEventListener(key, value)` is called.
+- Given a name starting with `$`, children are collected in order of enumeration for `el.prepend()`.
+- Given a name starting with `=`, object keys and values are assigned as properties.
+- Given a name starting with '@', the value is invoked as a callback with the element as the first argument and key as the second argument.
+- Otherwise, `setAttribute(dashed_key, value)` is called, where `_` are replaced with `-` to match web semantics.
 
-- The rest of the arguments are children for `el.append()`.
-
+The rest of the arguments are children for `el.append()`.
 
 For all element children, appended or prepended:
   - `null` or `undefined` are skip filtered.
-  - Objects with a trueish `.nodeType` and pass to `el.append` / `el.prepend`
+  - Objects with a true-ish `.nodeType` are passed to `el.append` / `el.prepend`
   - Otherwise, convert to a `DOMString` and pass to `el.append` / `el.prepend`
 
+Arrays are flattened and their contents evaluated per above.
 
 ### Module `imm_dom_core.mjs`
 
-- `imm(element : HTMLElement, attributes, children) : HTMLElement`
+`imm(element : HTMLElement, attributes, children) : HTMLElement`
+- Utility to iterate through attributes and call `element.setAttribute()`, then iterate children and call `element.append()`.
 
-  Utility to iterate through attributes and call `element.setAttribute()`,
-  then iterate children and call `element.append()`.
-
-- `imm_set(element : HTMLElement, attributes, children) : HTMLElement`
-
-  Clear all inner content then return `imm(element, attributes, children)`.
-
-
+`imm_set(element : HTMLElement, attributes, children) : HTMLElement`
+- Clear all inner content then return `imm(element, attributes, children)`.
