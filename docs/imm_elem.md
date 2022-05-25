@@ -85,6 +85,32 @@ In both cases of the *light* and *shadow* DOM, custom elements inherit from `Imm
 </section>
 ```
 
+#### ImmDom Wrapper for `whenDefined`
+
+ImmDom semantics for custom elements `whenDefined`.
+
+```javascript
+import { html as h, imm, imm_when, ImmElem } from "imm-dom";
+
+async function waitForWc() {
+  await imm_when("slow-wc");
+  console.log("ready", imm(document.body, h.slow_wc()));
+}
+
+function defineWc() {
+  class SlowWc extends ImmElem {
+    render() {
+      return h.p("I'm here now!");
+    }
+  }
+
+  SlowWc.dom("slow-wc");
+}
+
+waitForWc();
+setTimeout(defineWc, 3000);
+```
+
 ## Docs
 
 ### Module `imm_elem_core.mjs` and `imm_elem.mjs`
