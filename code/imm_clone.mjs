@@ -9,4 +9,5 @@ export function imm_clone(el_tgt, query, el_root=el_tgt.ownerDocument) {
     el = (el.content || el).cloneNode(true)
     el_tgt.append(el)
   }
+  return el_tgt
 }
