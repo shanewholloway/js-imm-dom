@@ -73,3 +73,17 @@ console.log( await imm_dialog.showModal( document.body, h.button({
     , $: 'Click me.'
 }) ) )
 ```
+
+## Cloning
+
+Convenience method for cloning from a `querySelector` and appending to the target. The query selector begins at the target's `ownerDocument` by default but may be changed with the third argument.
+
+### Example:
+
+Get a stylesheet by attribute (eg., copying a top-level CSS into a shadow DOM):
+
+```javascript
+import { imm_clone } from 'imm-dom'
+
+imm_clone( this.shadowRoot, '[data-my-styles]', this.getRootNode().host )
+```

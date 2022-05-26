@@ -50,4 +50,4 @@ Extending web component classes:
 ### 5. Miscellaneous Utilities
 - [events, promises, deferreds](./imm_evt.md)
 - [render animation frames](./imm_raf.md)
-- [queries, dialogs](./imm_utils.md)
+- [queries, dialogs, cloning](./imm_utils.md)
