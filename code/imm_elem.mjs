@@ -3,9 +3,13 @@ import { ImmCore } from './imm_elem_core.mjs'
 export { Imm0, ImmCore } from './imm_elem_core.mjs'
 
 
+// look for an '^attr_name' method on self. If exists, call it with attribute change details.
+const _ac_ = (self, [attr_name,v_old,v_new]) =>
+    false !== self['^'+attr_name]?.(v_old, v_new, attr_name)
+
 const _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
   c: o => o._render_(true), // -- connectedCallback()
-  ac: o => o._refresh_(), // -- attributeChangedCallback()
+  ac: (o,v) => _ac_(o,v) && o._refresh_(), // -- attributeChangedCallback()
   '': o => o._stop_(), // -- disconnectedCallback()
 }
 
@@ -27,7 +31,7 @@ export class ImmElem extends ImmCore {
     this.init(... this._z_)
   }
 
-  _wc_(el,op) { _wcdd[op](this) }
+  _wc_(el,op,v) { _wcdd[op](this,v) }
 
   _init_tgt_(_tgt_) {
     if (!_tgt_ || !_tgt_.nodeType)

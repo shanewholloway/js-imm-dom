@@ -59,7 +59,7 @@ export class ImmWC extends Imm0 {
   _wc_(el,op) {}
 
   connectedCallback() { this._wc_(this, 'c') }
-  attributeChangedCallback(n) { this._wc_(this, 'ac', n) }
+  attributeChangedCallback(...args) { this._wc_(this, 'ac', args) }
   disconnectedCallback() { this._wc_(this, '') }
 
   static observe(... attrs) {
