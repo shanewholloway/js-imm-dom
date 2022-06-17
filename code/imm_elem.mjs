@@ -23,7 +23,7 @@ export class ImmElem extends ImmCore {
   constructor() {
     super()
     this._init_tgt_(this._tgt_)
-    _imm_cp(this, this._bind_())
+    _imm_cp(this, this._bind_(this))
     this.init(... this._z_)
   }
 
@@ -42,18 +42,23 @@ export class ImmElem extends ImmCore {
 
   _render_(is_reconnect) {
     let fn_render = is_reconnect && this.render0$ || this.render$ || this.render
-    if (is_reconnect) delete this.render0$
+    if (is_reconnect) {
+      delete this.render0$
+      this._refresh_ = this._refresh$_
+    }
     this._show_(fn_render.apply(this, this._z_))
   }
 
   _stop_() {
+    delete this._refresh_
     let fn = this.render$
     if (fn) {
-      if (fn.stop) fn.stop()
       delete this.render$
+      if (fn.stop) fn.stop()
     }
   }
 
+  _refresh_() { return false }
   _show_(node, retain) {
     let [t] = typeof node,
       tgt = this._z_[2],
@@ -85,16 +90,16 @@ export class ImmElem extends ImmCore {
       : _show0_(node) )
   }
 
-  _bind_() {
+  _bind_(self) {
     // bind ._show_, ._add_, and ._refresh_ as closures
-    let _show_ = this._show_.bind(this)
+    let _show_ = self._show_.bind(self)
     return ({
       _show_,
       _add_: node => _show_(node, 1),
-      _refresh_: p => p && p.then
-        ? p.then(this._refresh_)
-        : this.isConnected && this._render_(),
-      render0$: this.render0, // use render0 as first render0$
+      _refresh$_: p => p && p.then
+        ? p.then(self._refresh_)
+        : self.isConnected && self._render_()
+      render0$: self.render0 || self.render0$,
     })
   }
 }
