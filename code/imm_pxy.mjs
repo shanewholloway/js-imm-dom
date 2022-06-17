@@ -30,8 +30,8 @@ const
   _imm_pxy_attr = /* #__PURE__ */ {
     get: (el,k) => _mga(el, _dn(k)) || _mga(el, k),
     has: (el,k) => _mha(el, _dn(k)) || _mha(el, k),
-    set: (el,k,v) => _msa(el, _dn(k), v, _mra(el, k)),
-    deleteProperty: (el,k) => _mra(el, _dn(k), _mra(el, k)),
+    set: (el,k,v) => _msa(el, _dn(k), v),
+    deleteProperty: (el,k) => _mra(el, _dn(k)) || _mra(el, k),
   }
 
 export const imm_pxy_attr = el =>
