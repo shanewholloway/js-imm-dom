@@ -7,7 +7,7 @@ export function imm_set(el, ...args) {
 
 export function imm(el, ...args) {
   let len = args.length
-  if (0 === len)
+  if (0 === len || !el.nodeType)
     return el // fast-path -- no arguments
 
   let pre, attrs = args[0]

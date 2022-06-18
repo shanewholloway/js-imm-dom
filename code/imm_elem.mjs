@@ -102,7 +102,7 @@ export class ImmElem extends ImmCore {
       _add_: node => _show_(node, 1),
       _refresh$_: p => p && p.then
         ? p.then(self._refresh_)
-        : self.isConnected && self._render_()
+        : self.isConnected && self._render_(),
       render0$: self.render0 || self.render0$,
     })
   }
