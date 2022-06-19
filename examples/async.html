@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+    #out {
+      margin: 2rem 0;
+    }
+    script {
+      margin: 2rem 0;
+      display: block;
+      font-family: monospace;
+      font-size: 12pt;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>imm_dom_async</code></h2>
+    <pre><code>
+imma(
+  el_placeholder : HTMLElement,
+  el_promise : Promise&lt;HTMLElement>,
+  [attributes])
+    </code></pre>
+    <div id='out'></div>
+    <hr />
+<script type=module>
+import {imm_html as h} from '../code/imm_dom_ns.mjs'
+import {imma} from '../code/imm_dom_async.mjs'
+
+// use imma for rendering a promised dom content.
+// Uses `.replaceWith()` to swap the placeholder after the promise is fulfilled.
+let demo_map_fn = seconds => imma(
+    // el_placeholder -- must be an element with .replaceWith()
+    h.li(`Ready in ${seconds}s; using `, h.code('imma()'), ` for promise rendering`),
+
+    // promise:
+    0 === seconds
+      ? h.li('Well, NOT A PROMISE works too')
+      : demo_mock_api_delay(seconds),
+
+    // attrs
+    { style: 'font-size: 16pt',
+      click: evt => console.log("CLICKED", {seconds, tgt: evt.target}),
+    })
+
+document.getElementById('out').append(
+  h.div([2, 8, 4, 10, 6, 1, 0, 4].map(demo_map_fn)) )
+
+
+async function demo_mock_api_delay(seconds) {
+  await new Promise(done =>
+    setTimeout(done, 1000*seconds))
+
+  if (Math.random() < 0.35)
+    return h.li(
+      h.b(`Waited ${seconds}s: `),
+      `A mock api result would be nice... `,
+      h.span({style: 'color: purple'},
+        `but instead I pretended to play tetris for ${seconds} seconds.`))
+
+  return h.li(
+    h.b(`After ${seconds}s: `),
+    `Now ready after`,
+    h.em(`napping for ${seconds} seconds.`))
+}
+</script>
+  </section>
+  <script src='/livereload.js'></script>
+</body>
+</html>
