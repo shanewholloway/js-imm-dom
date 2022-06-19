@@ -7,5 +7,5 @@ export const imma = (el_placeholder, el_promise, attrs) =>
 
 async function _imma(el_placeholder, el_promise, attrs) {
   el_promise = imm(_imm_c(await el_promise), attrs)
-  el_placeholder.replaceWith(el_promise)
+  el_placeholder?.replaceWith(el_promise)
 }

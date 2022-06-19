@@ -1,7 +1,7 @@
 export const imm_wchost = el => el.getRootNode().host
 
 export const imm_id = (el, id=`z${2e9*Math.random()|0}`) =>
-  el.id || (el.id = id)
+  el.id ||= id
 
 export const imm_set_qx = (key, el, el_ctx=el.parentNode) =>
   el_ctx.dataset[key] = `${el.tagName}#${imm_id(el)}`
