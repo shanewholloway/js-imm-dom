@@ -35,7 +35,7 @@ class Client extends ImmElem {
     // fire off the request (eg. something like websockets)
     window.api.send("channel", { id });
     // return an element to swap out with the placeholder when the promise is resolved
-    return await h.p(p);
+    return h.p(await p);
   }
 
   handleClick(e) {
