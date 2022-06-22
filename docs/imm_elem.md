@@ -85,6 +85,29 @@ In both cases of the *light* and *shadow* DOM, custom elements inherit from `Imm
 </section>
 ```
 
+#### ImmElem `attributeChangedCallback` "Caret" Methods
+
+You may define an instance method on ImmElem with the signature `^{attr}()` where `{attr}` is the actual name of an attribute. This is the same as handling a specific attribute in `attributeChangedCallback`.
+
+- Re-renders by default unless you return `false`
+- The attribute name is moved to the end of the parameters.
+- Don't forget to observe the attributes!
+
+```javascript
+class TestAttributeChanged extends ImmElem.observe( 'color' ) ::
+    '^color'( old_val, new_val ) ::
+        new_val && new_val != old_val && console.log @ 'new color!', new_val
+        
+    changeColor() ::
+        imm @ this, @{} color: this._ns_.color == 'blue' ? 'red' : 'blue'
+
+    async render( ns ) ::
+        setTimeout @ this.changeColor.bind( this ), 3000
+        return h.p @ `My new color is ${ ns.color }!`
+
+TestAttributeChanged.dom @ 'test-attribute-changed'
+```
+
 #### ImmDom Wrapper for `whenDefined`
 
 ImmDom semantics for custom elements `whenDefined`.
@@ -117,19 +140,20 @@ setTimeout(defineWc, 3000);
 
 - `ImmElem` uses *direct rendering* on connected or attribute change.
   - extends `ImmCore`
-  - override:
+  - **override:**
     - `init(ns, custom_elem, elem_target)` allows composed initialization and returning the render target
     - `render(ns, custom_elem, elem_target)` returned node is rendered onto target with `_show_(node)`
     - `render0(ns, custom_elem, elem_target)` optional first render -- returned node is rendered onto target with `_show_(node)`
     - `render$(ns, custom_elem, elem_target)` optional overlay render -- returned node is rendered onto target with `_show_(node)`
+    - `^{attr}( old_val, new_val, attr_name )` optional shortcut to handle `attributeChangedCallback` on a per-attribute basis where `{attr}` is the name of the attribute.
 
-  - composed methods:
+  - **composed methods:**
     - `_render_()` accomplishes `_show_( render(ns, this, tgt))` with implementation details changed in subclasses like `ImmRAF`.
     - `_show_(node : HTMLElement | HTMLDocumentFragment | Node | string | Promise | Array | iterable | null | undefined, retain : truthy)` replaces `_tgt_` body with `node`. If `retain`, the `_tgt_` is not cleared before extending. Called primarily by `_render_`.
     - `_add_(node)` alias for `_show_(node, 1)`
     - `_stop_()` called by `disconnectedCallback()` to remove `render$` optional overlay
 
-  - static methods:
+  - **static methods:**
     - `ImmCore.define(tag_name)` to create a custom element.
     - `ImmElem.dom(tag_name, fn_render)` to create a DOM-side custom element.
     - `ImmElem.dom(tag_name, proto)` to create a DOM-side custom element with `proto` prototype extension.
@@ -137,13 +161,12 @@ setTimeout(defineWc, 3000);
     - `ImmElem.elem(tag_name, proto)` to create a shadow-root based custom element with `proto` prototype extension.
     - `function fn_render(ns, custom_elem, elem_target)` is installed as subclass `render` function
 
-  - internal methods:
+  - **internal methods:**
     - `_init_tgt_()` called by constructor to setup `_tgt_` and `_z_` internals.
     - `_bind_()` ensures `_show_`, `_add_`, and `_refresh_` are bound closures.
 
-
 - `ImmCore` 
-  - static methods:
+  - **static methods:**
     - `ImmCore.observe(... attrs) : HTMLElement subclass` extends static `observedAttributes` with flattened elements of `attrs`.  Returns created subclass.
     - `ImmCore.define(name, opt)` calls `customElements.define` with `name`, subclass, and `opt`.
     - `ImmCore._ns_ : imm_pxy_attr(this)` getter

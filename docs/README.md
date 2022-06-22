@@ -11,7 +11,7 @@
 - Use `tag('div')` or `imm_tag('div', {... attrs}, ...children)` to create elements tag name.
 - Use `html.div()` or `imm_html.div({... attrs}, ...children)` to create elements by attribute name.
 
-These are roughly implemented by `(...args) => imm(createElement(tag), ...args)`
+These are roughly implemented by `(...args) => imm(createElement(tag), ...args)`.
 
 ### 1b. [Create CSS](./imm_css.md)
 
@@ -25,27 +25,30 @@ These are roughly implemented by `(...args) => imm(createElement(tag), ...args)`
 
 ### 2. [Create Web Templates](./imm_tmpl.md)
 
-Use `imm_tmpl` to create DOM `<template>` elements from JS string expressions.
+- Use `imm_tmpl` to create DOM `<template>` elements from JS string expressions.
 
 Templates are implemented without setting `innerHTML`.
 
-### 3. [Manipulate Existing Elements](./imm_dom_core.md)
+### 3a. [Manipulate Existing Elements](./imm_dom_core.md)
 
 - Use `imm()` and `imm_set()` to work directly with existing DOM elements.
-- [`imm_emit()`](./imm_evt.md) for firing DOM events
+- Use in conjunction with [`imma`](./imm_dom_async.md) for rendering asynchronously via a placeholder.
+
+### 3b. [Emit Custom Events](./imm_evt.md)
+- Use `imm_emit` and `imm_wcemit` for emitting DOM events inside and outside the shadow DOM.
 
 ### 4. [Define Web Components](./imm_elem.md)
 
 Use functions to define rendering:
 
-- Use `ImmElem.dom` for light-dom web components
-- Use `ImmElem.elem` for shadow-dom web components
+- Use `ImmElem.dom` to define light-dom web components.
+- Use `ImmElem.elem` to define shadow-dom web components.
 
 Extending web component classes:
 
-- Extend `ImmCore` for non-visual components with methods
-- Use or extend `ImmElem` for visual components with methods
-- Use or extend `ImmRAF` for rendering on the next animation frame
+- Extend `ImmCore` for non-visual components with methods.
+- Use or extend `ImmElem` for visual components with methods.
+- Use or extend `ImmRAF` for rendering on the next animation frame.
 
 ### 5. Miscellaneous Utilities
 - [events, promises, deferreds](./imm_evt.md)
