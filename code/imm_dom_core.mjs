@@ -1,4 +1,4 @@
-import {_dash_name, _is_attr_dict, _el_get, _el_has, _el_set, _el_rm, _el_evt} from './imm_utils.mjs'
+import {_dash_name, _is_attr_dict, _el_get, _el_has, _el_set, _el_rm, _elr_evt} from './imm_utils.mjs'
 
 
 // complex expression to avoid 'if', 'else', and 'return' keywords
@@ -15,7 +15,7 @@ export const _imm_aop = (el,[k,v],n,attrs,k0) => (
       ? v(el, k)
 
     : 'function' === typeof v // event handlers
-      ? _el_evt(el, k, v, v.opt)
+      ? _elr_evt(el, [k, v, v.opt])
 
     : ( // attribute values
       n = _dash_name(k),
