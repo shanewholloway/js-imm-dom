@@ -4,7 +4,7 @@ export { imm_set_qx, imm_qx, imm_wcqx } from './imm_query.mjs'
 
 export class ImmQX extends ImmNS {
   update() { this.set_qx() }
-  set_qx(key=this.qx||this.tagName) {
+  set_qx(key=this.qx) {
     imm_set_qx(key, this, this.qx_parent)
   }
 }
