@@ -20,18 +20,20 @@ const _imm_pxy = /* #__PURE__ */  {
 export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
   ({ __proto__: new Proxy(tag_fn, _imm_pxy), ... kw })
 
-
-
 const
   _imm_pxy_attr = /* #__PURE__ */ {
-    get: (el,k) => _el_get(el, _dash_name(k)) || _el_get(el, k),
-    has: (el,k) => _el_has(el, _dash_name(k)) || _el_has(el, k),
-    set: (el,k,v) => _el_set(el, _dash_name(k), v),
-    deleteProperty: (el,k) => _el_rm(el, _dash_name(k)) || _el_rm(el, k),
+    // use k.trim to avoid Symbols
+    get: ({$},k) => k.trim && (_el_get($, _dash_name(k)) || _el_get($, k)),
+    has: ({$},k) => k.trim && (_el_has($, _dash_name(k)) || _el_has($, k)),
+    set: ({$},k,v) => _el_set($, _dash_name(k), v),
+    deleteProperty: ({$},k) => _el_rm($, _dash_name(k)) || _el_rm($, k),
+
+    // update the proxy for each attribute to leverage default implementation of getOwnPropertyDescriptor()
+    ownKeys: pxy => pxy.$.getAttributeNames().map(k => pxy[k] = k),
   }
 
 export const imm_pxy_attr = el =>
-  new Proxy(el, _imm_pxy_attr)
+  new Proxy({$:el}, _imm_pxy_attr)
 
 
 export function imm_pxy_css(css_style) {
