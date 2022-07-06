@@ -65,7 +65,7 @@ export class Imm1 extends Imm0 {
   static _zuse(z) { return {update:z} }
   update() {}
 
-  connectedCallback() { this.update(this, this._ns_) }
+  connectedCallback() { this.update(this._ns_, this) }
   attributeChangedCallback(...args) { _el_ac(this, args) }
 }
 
