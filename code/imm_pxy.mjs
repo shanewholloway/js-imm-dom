@@ -1,4 +1,4 @@
-import {_dash_name, _el_get, _el_has, _el_set, _el_rm} from './imm_utils.mjs'
+import {_dash_name, _prop_name, _el_get, _el_has, _el_set, _el_rm} from './imm_utils.mjs'
 
 
 const _imm_pxy_gset = /* #__PURE__ */  {
@@ -29,7 +29,7 @@ const
     deleteProperty: ({$},k) => _el_rm($, _dash_name(k)) || _el_rm($, k),
 
     // update the proxy for each attribute to leverage default implementation of getOwnPropertyDescriptor()
-    ownKeys: pxy => pxy.$.getAttributeNames().map(k => pxy[k] = k),
+    ownKeys: pxy => pxy.$.getAttributeNames().map(k => (k=_prop_name(k), pxy[k] = k)),
   }
 
 export const imm_pxy_attr = el =>

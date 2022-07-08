@@ -1,4 +1,5 @@
 export const _dash_name = s => s.replace(/_/g, '-')
+export const _prop_name = s => s.replace(/-/g, '_')
 
 export const _is_attr_dict = a =>
   'object' === typeof a
