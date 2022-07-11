@@ -11,8 +11,11 @@ export const _is_attr_dict = a =>
 export const
   _el_get = (el,k) => (k=el.getAttribute(k), ''==k || k),
   _el_has = (el,k) => el.hasAttribute(k),
-  _el_set = (el,k,v) => (el.setAttribute(k,v), 1),
-  _el_rm = (el,k) => (el.removeAttribute(k), 1)
+  _el_set = (el,k,v) => (
+    (null == v || false === v
+      ? el.removeAttribute(k) // false or nullish is semantically removeAttribute()
+      : el.setAttribute(k, true === v ? '' : v) // true indicates presence ('')
+    ), 1)
 
 // reducer compatible: Object.entries(ns).reduce(_elr_evt, el)
 export const
