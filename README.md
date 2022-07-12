@@ -115,10 +115,10 @@ Perfect for pairing with a tree-shaking tool like [rollup][].
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   3295 B |   8199 B |  17052 B |
-| `imm_elem`      |   1115 B |   2626 B |   5458 B |
-| `imm_tmpl`      |    870 B |   1847 B |   4867 B |
-| `imm_dom`       |    567 B |   1177 B |   2492 B |
+| `index`         |   3440 B |   8494 B |  18446 B |
+| `imm_elem`      |   1158 B |   2659 B |   6289 B |
+| `imm_tmpl`      |    895 B |   1811 B |   5002 B |
+| `imm_dom`       |    577 B |   1129 B |   2625 B |
 
 See auto-generated [compressed size report](./docs/compressed.md).
 
