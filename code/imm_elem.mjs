@@ -10,12 +10,13 @@ const _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
   ac: (o,v) => _el_ac(o,v) && o._refresh_(), // -- attributeChangedCallback()
 
   '': o => o._stop_(), // -- disconnectedCallback()
-}
+}, _wctick = async o => (await o)._render_()
 
 export class ImmElem extends ImmCore {
   init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
   render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
   // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */
+  // render0$(/* ns, el, tgt */) { /* called on reconnected render ; return element to _show_() onto _tgt_ */
 
   static _zuse(fn) { return {render: fn} }
   static elem(dfn, proto_) { return this.dom(dfn, proto_, {_tgt_: 0}) }
@@ -33,27 +34,31 @@ export class ImmElem extends ImmCore {
   _wc_(el,op,v) { _wcdd[op](this,v) }
 
   _init_tgt_(_tgt_) {
-    if (!_tgt_ || !_tgt_.nodeType)
-      _tgt_ = 0 !== _tgt_ ? this
-        : this.attachShadow({mode: 'open'})
+    _tgt_ ||= 0 !== _tgt_ ? this
+      : this.attachShadow({mode: 'open'})
 
-    let _z_ = [this._ns_, this, _tgt_]
+    let _z_ = [
+      this._ns_, // _z_[0] : attribute proxy namespace
+      this,      // _z_[1] : this/self
+      _tgt_,     // _z_[2] : _tgt_ shadowRoot or element this/self
+      -1,        // _z_[3] : _refresh_ block, set to -1 'before' connectedCallback
+      ]
     Object.defineProperties(this, {
       _tgt_: {get: () => _z_[2], set: v => _z_[2]=v},
       _z_: {value: _z_} })
   }
 
   _render_(is_reconnect) {
-    let fn_render = is_reconnect && this.render0$ || this.render$ || this.render
-    if (is_reconnect) {
-      delete this.render0$
-      this._refresh_ = this._refresh$_
-    }
-    this._show_(fn_render.apply(this, this._z_))
+    let node, _z_=this._z_,
+        fn_render = is_reconnect && this.render0 || this.render$ || this.render
+    if (is_reconnect) this.render0 = this.render0$
+    _z_[3] = 0 // clear _refresh_ block
+    node = fn_render.apply(this, _z_)
+    this._show_(node)
   }
 
   _stop_() {
-    delete this._refresh_
+    this._z_[3] = 1 // set _refresh_ block to 1 'after' disconnectedCallback
     let fn = this.render$
     if (fn) {
       delete this.render$
@@ -61,13 +66,12 @@ export class ImmElem extends ImmCore {
     }
   }
 
-  _refresh_() { return false }
   _show_(node, retain) {
     let [t] = typeof node,
-      tgt = this._z_[2],
+      _tgt_ = this._tgt_,
       _show0_ = (...z) => {
-        if (!retain) tgt.textContent = '' // clear all inner content (text and html)
-        tgt.append(...z) }
+        if (!retain) _tgt_.textContent = '' // clear all inner content (text and html)
+        _tgt_.append(...z) }
 
     return (
       // on bool, refresh when true
@@ -76,18 +80,16 @@ export class ImmElem extends ImmCore {
       // on nullish; clear for null, or noop on undefined
       : null == node ? 'o'==t && _show0_()
 
-      // on objects and iterables...
-      : 'o'==t && !node.nodeType ? (
-        // on Promises
-        'then' in node
-            ? node.then(retain ? this._add_ : this._show_)
+      // on non-objects and DOM nodes, use el.append
+      : 'o'!=t || node.nodeType ? _show0_(node)
 
-        // on iterables
-        : Symbol.iterator in node
-            ? _show0_(... _imm_b(node))
+      // on Promises
+      : 'then' in node
+        ? node.then(retain ? this._add_ : this._show_)
 
-        // otherwise use DOM el.append
-        : _show0_(node) )
+      // on iterables
+      : Symbol.iterator in node
+        ? _show0_(... _imm_b(node))
 
       // otherwise use DOM el.append
       : _show0_(node) )
@@ -99,10 +101,8 @@ export class ImmElem extends ImmCore {
     return ({
       _show_,
       _add_: node => _show_(node, 1),
-      _refresh$_: p => p && p.then
-        ? p.then(self._refresh_)
-        : self.isConnected && self._render_(),
-      render0$: self.render0 || self.render0$,
+      _refresh_: p => p?.then?.(self._refresh_)
+        || (self._z_[3] ||= _wctick(self)) // _debounce _refresh_ via Promise
     })
   }
 }
