@@ -2,10 +2,10 @@
 
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
-| `index`         |   3415 B |   8431 B |  18617 B |
-| `imm_elem`      |   1174 B |   2653 B |   6529 B |
-| `imm_tmpl`      |    894 B |   1828 B |   5443 B |
-| `imm_dom`       |    604 B |   1154 B |   3084 B |
+| `index`         |   3383 B |   8281 B |  18652 B |
+| `imm_elem`      |   1153 B |   2609 B |   6674 B |
+| `imm_tmpl`      |    897 B |   1816 B |   5428 B |
+| `imm_dom`       |    603 B |   1142 B |   3069 B |
 
 
 ## Size of Immediate-mode DOM tools
@@ -13,21 +13,21 @@
 | module          |   brotli | minified |   source |
 |:----------------|---------:|---------:|---------:|
 | `imm_async`     |    145 B |    212 B |    405 B |
-| `imm_clone`     |    494 B |   1067 B |   1907 B |
-| `imm_css`       |    949 B |   1916 B |   4583 B |
-| `imm_dialog`    |    749 B |   1461 B |   3745 B |
-| `imm_dom`       |    604 B |   1154 B |   3084 B |
-| `imm_dom_core`  |    474 B |    834 B |   2480 B |
-| `imm_dom_ns`    |    687 B |   1299 B |   3487 B |
-| `imm_elem`      |   1174 B |   2653 B |   6529 B |
-| `imm_elem_core` |    769 B |   1784 B |   3367 B |
-| `imm_elem_raf`  |   1335 B |   3054 B |   7569 B |
+| `imm_clone`     |    444 B |    904 B |   1825 B |
+| `imm_css`       |    946 B |   1904 B |   4568 B |
+| `imm_dialog`    |    744 B |   1449 B |   3730 B |
+| `imm_dom`       |    603 B |   1142 B |   3069 B |
+| `imm_dom_core`  |    473 B |    822 B |   2465 B |
+| `imm_dom_ns`    |    689 B |   1287 B |   3472 B |
+| `imm_elem`      |   1153 B |   2609 B |   6674 B |
+| `imm_elem_core` |    734 B |   1666 B |   3401 B |
+| `imm_elem_raf`  |   1330 B |   3020 B |   7720 B |
 | `imm_evt`       |    357 B |    744 B |   1347 B |
 | `imm_evt_core`  |    267 B |    541 B |    997 B |
-| `imm_pxy`       |    408 B |    783 B |   1720 B |
-| `imm_qx`        |    888 B |   1972 B |   3985 B |
+| `imm_pxy`       |    441 B |    852 B |   1847 B |
+| `imm_qx`        |    936 B |   2113 B |   4333 B |
 | `imm_raf`       |    208 B |    314 B |    602 B |
-| `imm_tmpl`      |    894 B |   1828 B |   5443 B |
+| `imm_tmpl`      |    897 B |   1816 B |   5428 B |
 | `imm_tmpl_core` |    410 B |    722 B |   2180 B |
-| `index`         |   3415 B |   8431 B |  18617 B |
+| `index`         |   3383 B |   8281 B |  18652 B |
 

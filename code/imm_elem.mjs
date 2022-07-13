@@ -1,6 +1,5 @@
 import { _imm0, _imm_b, _imm_cp } from './imm_dom_core.mjs'
 import { ImmCore } from './imm_elem_core.mjs'
-export { imm, imm_set } from './imm_dom_core.mjs'
 export { ImmCore } from './imm_elem_core.mjs'
 
 
