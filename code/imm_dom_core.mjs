@@ -1,29 +1,41 @@
-import {_dash_name, _is_attr_dict, _el_set, _elr_evt} from './imm_utils.mjs'
+import {_dash_name, _is_attr_dict, _is_iter, _el_set, _elr_evt} from './imm_utils.mjs'
 
 
-// complex expression to avoid 'if', 'else', and 'return' keywords
-export const _imm_aop = (el,[k,v],n,attrs,k0) => (
-  k0 = k[0]
-  , (
-    ('$' === k0) // children to prepend
-      ? (attrs.z ||= []).push(v)
+// complex expressions to avoid 'if', 'else', and 'return' keywords
+const
+  // .reduce(_imm_aop, el) interpretation of imm attribute dictionary semantics
+  _imm_aop = (el,[k,v],k0,attrs) => (
+      k0 = k[0]
+      , (
+        '$' === k0 // children to prepend
+          ? (attrs.z ||= []).push(v)
 
-    : ('=' === k0) // direct property assignment
-      ? _imm_cp(el, v, k.split('=')[1])
+        : '=' === k0 // direct property assignment
+          ? _imm_cp(el, v, k.split('=')[1])
 
-    : ('@' === k0) // hook callback
-      ? v(el, k)
+        : '@' === k0 // hook callback
+          ? v(el, k)
 
-    : 'function' === typeof v // event handlers
-      ? _elr_evt(el, [k, v, v.opt])
+        : v?.call // event handlers
+          ? _elr_evt(el, [k, v, v.opt])
 
-    : _el_set(el, _dash_name(k), v) // attribute values
-  ), el)
+        : _el_set(el, _dash_name(k), v) // attribute values
+      ), el),
+
+  // .flatMap(_imm_cf) interpretation of imm child elements and iterables
+  _imm_cf = c => (
+      // allow opt-in coersion
+      c &&= c.toDOM?.(c) || c.valueOf(c),
+
+      null == c ? [] // filter nullish
+
+      : c.nodeType ? [c] // pass-through nodes
+
+      : _is_iter(c) ? _imm_b(c) // recursively reduce arrays and iterables
+
+      : ''+c ) // otherwise force toString()
 
 
-export const imm_set = (el, ...args) => (
-  el.textContent = '' // clear all inner content (text and html)
-  , imm(el, ...args))
 
 export function imm(el, ...args) {
   let len=args.length, attrs=args[0]
@@ -46,12 +58,14 @@ export function imm(el, ...args) {
   return el
 }
 
-export const _imm_c = c => (
-  c &&= c && (c.toDOM || c.valueOf).call(c, c),
-  c && (c.nodeType ? c : `${c}`) )
 
-export const _imm_b = children =>
-  [... children].flat(9).map(_imm_c).filter(Boolean)
+export const
+  // clear all inner content (text and html)
+  _imm0 = el => (el.textContent = '', el),
+  imm_set = (el, ...args) => imm(_imm0(el), ...args),
 
-export const _imm_cp = (tgt, src, key) =>
-  Object.assign(tgt, key ? {[key]:src} : src)
+  _imm_b = iterable => [... iterable].flatMap(_imm_cf),
+
+  _imm_cp = (tgt, src, key) =>
+    Object.assign(tgt, key ? {[key]:src} : src)
+
