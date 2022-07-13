@@ -1,20 +1,22 @@
-import { _imm_b, _imm_cp } from './imm_dom_core.mjs'
-import { ImmCore, _el_ac } from './imm_elem_core.mjs'
-export { Imm0, ImmCore } from './imm_elem_core.mjs'
+import { _imm0, _imm_b, _imm_cp } from './imm_dom_core.mjs'
+import { ImmCore } from './imm_elem_core.mjs'
+export { imm, imm_set } from './imm_dom_core.mjs'
+export { ImmCore } from './imm_elem_core.mjs'
 
 
 const _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
   c: o => o._render_(true), // -- connectedCallback()
 
   // look for an '^attr_name' method on self. If exists, call it with attribute change details.
-  ac: (o,v) => _el_ac(o,v) && o._refresh_(), // -- attributeChangedCallback()
+  ac: (o,v) => o._refresh_(), // -- attributeChangedCallback()
 
   '': o => o._stop_(), // -- disconnectedCallback()
-}, _wctick = async o => (await o)._render_()
+}
+const _wctick = async o => (await o)._render_()
 
 export class ImmElem extends ImmCore {
-  init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
-  render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
+  // init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
+  // render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
   // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */
   // render0$(/* ns, el, tgt */) { /* called on reconnected render ; return element to _show_() onto _tgt_ */
 
@@ -28,7 +30,7 @@ export class ImmElem extends ImmCore {
     super()
     this._init_tgt_(this._tgt_)
     _imm_cp(this, this._bind_(this))
-    this.init(... this._z_)
+    this.init?.(... this._z_)
   }
 
   _wc_(el,op,v) { _wcdd[op](this,v) }
@@ -53,7 +55,7 @@ export class ImmElem extends ImmCore {
         fn_render = is_reconnect && this.render0 || this.render$ || this.render
     if (is_reconnect) this.render0 = this.render0$
     _z_[3] = 0 // clear _refresh_ block
-    node = fn_render.apply(this, _z_)
+    node = fn_render?.apply(this, _z_)
     this._show_(node)
   }
 
@@ -67,32 +69,21 @@ export class ImmElem extends ImmCore {
   }
 
   _show_(node, retain) {
-    let [t] = typeof node,
-      _tgt_ = this._tgt_,
-      _show0_ = (...z) => {
-        if (!retain) _tgt_.textContent = '' // clear all inner content (text and html)
-        _tgt_.append(...z) }
-
+    let [t] = typeof node, _tgt_ = this._tgt_
     return (
       // on bool, refresh when true
       'b'==t ? node && this._refresh_()
 
       // on nullish; clear for null, or noop on undefined
-      : null == node ? 'o'==t && _show0_()
-
-      // on non-objects and DOM nodes, use el.append
-      : 'o'!=t || node.nodeType ? _show0_(node)
+      : null == node ? 'o'==t && _imm0(_tgt_)
 
       // on Promises
-      : 'then' in node
-        ? node.then(retain ? this._add_ : this._show_)
+      : node.then?.(retain ? this._add_ : this._show_)
 
-      // on iterables
-      : Symbol.iterator in node
-        ? _show0_(... _imm_b(node))
-
-      // otherwise use DOM el.append
-      : _show0_(node) )
+      // otherwise use DOM _tgt_.append with _imm_b for iterables
+      || (retain ? _tgt_ : _imm0(_tgt_))
+            .append(... _imm_b([node]))
+      )
   }
 
   _bind_(self) {

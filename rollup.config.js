@@ -1,7 +1,10 @@
+import rpi_dgnotify from 'rollup-plugin-dgnotify'
 import { terser as rpi_terser } from 'rollup-plugin-terser'
 
 let is_watch = process.argv.includes('--watch')
-const _rpi_min_ = is_watch ? [] : [ rpi_terser() ]
+const _rpi_min_ = is_watch
+  ? [ rpi_dgnotify() ]
+  : [ rpi_dgnotify(), rpi_terser() ]
 
 export default [
   ... add_esm('imm_pxy'),

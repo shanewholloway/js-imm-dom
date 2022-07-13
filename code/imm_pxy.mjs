@@ -35,6 +35,11 @@ const
 export const imm_pxy_attr = el =>
   new Proxy({$:el}, _imm_pxy_attr)
 
+export const with_ns_attr = ImmKlass =>
+  class extends ImmKlass {
+    get _ns_() { return imm_pxy_attr(this) }
+  }
+
 
 export function imm_pxy_css(css_style) {
   let _css_prop = css_style.getPropertyValue.bind(css_style)
