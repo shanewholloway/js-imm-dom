@@ -13,16 +13,21 @@ export function imm_wcemit(tgt, evt, detail, opt) {
   return imm_emit(tgt, evt, detail, {composed: true, ...opt}) }
 
 
+export function imm_on(el, ns, xfn=f=>f) {
+  ns = ns[0] ? ns : Object.entries(ns)
+  for (let [n,f,o] of ns)
+    _el_on(el, n, xfn(f), o)
+  return el
+}
+
 export const with_emit0 = ImmKlass =>
   class extends ImmKlass {
     emit0(evt, detail) {
       return imm_emit0(this, evt, {detail})
     }
     on(... ns) {
-      ns = ns[1] ? [ns] : Object.entries(ns[0])
-      for (let [n,f,o] of ns)
-        _el_on(this, n, e => f(e.detail), o)
-      return this
+      ns = ns[1] ? [ns] : ns[0]
+      return imm_on(this, ns, f => e => f(e.detail))
     }
   }
 
