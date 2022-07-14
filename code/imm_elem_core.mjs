@@ -82,7 +82,7 @@ export class ImmCore extends with_ns_attr(Imm0) {
 }
 
 export class ImmNS extends ImmCore {
-  _wc_(el,op) { op && this.update(this._ns_, this) }
+  _wc_(el,op) { op && el.update(el._ns_, el) }
   static _zuse(z) { return {update:z} }
   update() {}
 }
