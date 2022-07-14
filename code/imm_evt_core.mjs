@@ -1,4 +1,4 @@
-import { _elr_devt } from './imm_utils.mjs'
+import { _el_on } from './imm_utils.mjs'
 
 export function imm_emit0(tgt, evt, opt) {
   return tgt.dispatchEvent(new CustomEvent(evt, opt)) }
@@ -18,9 +18,11 @@ export const with_emit0 = ImmKlass =>
     emit0(evt, detail) {
       return imm_emit0(this, evt, {detail})
     }
-    on(ns, fn) {
-      return fn ? _elr_devt(this, [ns, fn])
-        : Object.entries(ns).reduce(_elr_devt, this)
+    on(... ns) {
+      ns = ns[1] ? [ns] : Object.entries(ns[0])
+      for (let [n,f,o] of ns)
+        _el_on(this, n, e => f(e.detail), o)
+      return this
     }
   }
 

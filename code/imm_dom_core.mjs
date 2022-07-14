@@ -1,4 +1,4 @@
-import {_dash_name, _is_attr_dict, _is_iter, _el_set, _elr_evt} from './imm_utils.mjs'
+import {_dash_name, _is_attr_dict, _is_iter, _el_set, _el_on} from './imm_utils.mjs'
 
 
 // complex expressions to avoid 'if', 'else', and 'return' keywords
@@ -17,7 +17,7 @@ const
           ? v(el, k)
 
         : v?.call // event handlers
-          ? _elr_evt(el, [k, v, v.opt])
+          ? _el_on(el, k, v, v.opt)
 
         : _el_set(el, _dash_name(k), v) // attribute values
       ), el),
