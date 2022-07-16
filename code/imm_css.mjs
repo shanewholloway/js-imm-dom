@@ -1,5 +1,5 @@
-import {tag, tsvg} from './imm_dom.mjs'
-export {imm, imm_set, imm_tag, tag, imm_svg_tag, tsvg} from './imm_dom.mjs'
+import {tag} from './imm_dom.mjs'
+export {imm, imm_set, imm_tag, tag} from './imm_dom.mjs'
 
 export function _imm_css_link() {
   let el_doc = new DOMParser().parseFromString('<!DOCTYPE html><style></style>', 'text/html')
@@ -52,12 +52,8 @@ export const imm_css = /* #__PURE__ */
 export const imm_style = (...args) =>
   tag('style', imm_css(...args))
 
-export const imm_svg_style = (...args) =>
-  tsvg('style', imm_css(...args))
-
 export {
   imm_css as default,
   imm_css as css,
-  imm_style as style,
-  imm_svg_style as svg_style,
+  imm_style as style
 }

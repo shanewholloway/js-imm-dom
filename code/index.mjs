@@ -8,6 +8,7 @@ export * from './imm_dom_core.mjs'
 export * from './imm_dom_async.mjs'
 export * from './imm_dom.mjs'
 export * from './imm_dom_ns.mjs'
+export * from './imm_svg.mjs'
 export * from './imm_css.mjs'
 
 export * from './imm_tmpl_core.mjs'
