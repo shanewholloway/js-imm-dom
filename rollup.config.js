@@ -17,12 +17,18 @@ export default [
   ... add_esm('imm_dom_core'),
   ... add_esm('imm_dom'),
   ... add_esm('imm_dom_ns'),
+  ... add_esm('imm_svg'),
   ... add_esm('imm_css'),
+
+  ... add_esm('imm_htag'),
+  ... add_esm('imm_h1'),
+  ... add_esm('imm_h'),
 
   ... add_esm('imm_tmpl_core'),
   ... add_esm('imm_tmpl'),
 
   ... add_esm('imm_elem_core'),
+  ... add_esm('imm_elem_model'),
   ... add_esm('imm_elem'),
   ... add_esm('imm_elem_raf'),
   ... add_esm('imm_clone'),

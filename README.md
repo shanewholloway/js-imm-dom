@@ -106,19 +106,24 @@ Inspired by:
 
 ## Size Cost in Bytes
 
-To be embedded in each web component custom element,
-the individual pieces must be small.
+To be embedded in each web component custom element, the individual pieces must be small.
+Thus `imm-dom` is _designed to include only the parts actually used_
+when paired with a tree-shaking tool like [rollup][].
 
-The entire library is ~ **8500 bytes** minified; ~ **3500 brotli**.
-However, the library is _designed to include only the parts actually used_.
-Perfect for pairing with a tree-shaking tool like [rollup][].
+One component might only use `imm_set()` from `imm_dom_core.mjs` for ~ **1000 bytes** minified; ~ **540 brotli**.
 
-| module          |   brotli | minified |   source |
-|:----------------|---------:|---------:|---------:|
-| `index`         |   3383 B |   8281 B |  18652 B |
-| `imm_elem`      |   1153 B |   2609 B |   6674 B |
-| `imm_tmpl`      |    897 B |   1816 B |   5428 B |
-| `imm_dom`       |    603 B |   1142 B |   3069 B |
+An web component may take advantage of `ImmElem` from `imm_elem.mjs` for ~ **2800 bytes** minified; ~ **1300 brotli**.
+
+A heavy rendering component may take advantage of `ImmRAF` from `imm_elem_raf.mjs` for ~ **3200 bytes** minified; ~ **1500 brotli**.
+
+The entire library is ~ **9000 bytes** minified; ~ **4000 brotli** -- perfect for bundling a larger web component library and sharing structure.
+
+| module           |   brotli | minified |   source |
+|:-----------------|---------:|---------:|---------:|
+| `index`          |   3755 B |   8923 B |  20507 B |
+| `imm_dom`        |    711 B |   1294 B |   3463 B |
+| `imm_elem`       |   1247 B |   2756 B |   7223 B |
+| `imm_tmpl`       |    971 B |   1928 B |   5604 B |
 
 See auto-generated [compressed size report](./docs/compressed.md).
 

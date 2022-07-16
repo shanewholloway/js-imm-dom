@@ -1,0 +1,5 @@
+--no-vcs-ignore
+--clear
+--restart
+--debounce
+250

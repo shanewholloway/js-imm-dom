@@ -23,7 +23,7 @@ async function stat_outputs() {
     kind = kind ? kind.replace(/^\./,'')
       : name === name0 ? 'raw' : 'min'
 
-    let row = by_name[name] || {name: `\`${name}\``.padEnd(15)}
+    let row = by_name[name] || {name: `\`${name}\``.padEnd(16)}
     row[kind] = `${size}`.padStart(6, ' ')
     by_name[name] = row
   }
@@ -38,9 +38,9 @@ async function show_stat_table(by_name) {
 
   out.write(`# Summary Size Cost in Bytes\n`)
   out.write(`\n`)
-  out.write(`| module          |   brotli | minified |   source |\n`)
-  out.write(`|:----------------|---------:|---------:|---------:|\n`)
-  for (let k of ['index', 'imm_elem', 'imm_tmpl', 'imm_dom']) {
+  out.write(`| module           |   brotli | minified |   source |\n`)
+  out.write(`|:-----------------|---------:|---------:|---------:|\n`)
+  for (let k of ['index', 'imm_dom', 'imm_elem', 'imm_tmpl']) {
     let o = by_name[k]
     out.write(`| ${o.name} | ${o.br} B | ${o.min} B | ${o.raw} B |\n`)
   }
@@ -49,8 +49,8 @@ async function show_stat_table(by_name) {
 
   out.write(`## Size of Immediate-mode DOM tools\n`)
   out.write(`\n`)
-  out.write(`| module          |   brotli | minified |   source |\n`)
-  out.write(`|:----------------|---------:|---------:|---------:|\n`)
+  out.write(`| module           |   brotli | minified |   source |\n`)
+  out.write(`|:-----------------|---------:|---------:|---------:|\n`)
   for (let o of Object.values(by_name))
     out.write(`| ${o.name} | ${o.br} B | ${o.min} B | ${o.raw} B |\n`)
   out.write(`\n`)
