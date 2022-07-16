@@ -1,4 +1,8 @@
-import {_dash_name, _is_attr_dict, _is_iter, _el_set, _el_on} from './imm_utils.mjs'
+import {
+  _dash_name, _pairs,
+  _is_attr_dict, _is_iter,
+  _el_set, _el_on,
+} from './imm_utils.mjs'
 
 
 // complex expressions to avoid 'if', 'else', and 'return' keywords
@@ -45,7 +49,7 @@ export function imm(el, ...args) {
       // replace attrs with null in args
       1 === len ? args = null : args[0] = null
 
-      attrs = Object.entries(attrs)
+      attrs = _pairs(attrs)
       attrs.reduce(_imm_aop, el)
 
       // prepend children found in attrs.z
