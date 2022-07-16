@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Immediate-mode DOM tools</title>
+
+  <link rel='icon' href='data:image/png;base64,' />
+  <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
+
+  <style>
+    body {
+      max-width: 80ch;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    script[data-example] {
+      margin: 2rem 0;
+      display: block;
+      font-family: monospace;
+      font-size: 12pt;
+      white-space: pre;
+    }
+  </style>
+  <script>
+    window._show_example = el => {
+      console.log(el)
+      document.querySelector('#example')
+        .append(el)
+      return el
+    }
+  </script>
+</head>
+
+<body>
+  <section>
+    <h2>Demo of <code>imm_h</code></h2>
+    <hr />
+    <div id='example'></div>
+    <hr />
+<script type=module data-example>
+import {imm_h} from '../code/imm_h.mjs'
+
+let h_lst = 
+  ['main',
+    ['heading',
+      ['h1.title',
+        { style: {color: 'rebeccapurple'} },
+        'h1.title'],
+    ],
+    ['aside.menu',
+      { style: {font_size: '22px'} },
+      ['ul',
+        ['li', 'first'],
+        ['li', 'second'],
+        ['li', 'third'],
+      ],
+    ],
+    ['section',
+      ['h2',
+        { style: {'background': 'rgba(0 0 255 / 0.5)'} },
+        'An h2 heading'],
+      ['p',
+        'Very similar to HTML text, ',
+        'but expressed as an object tree. '],
+      ['p',
+        'Easy to store in JSON or CBOR ',
+        'to achieve of LISP-like DOM fragments ',
+        'of HTML or SVG elements.' ],
+    ],
+  ];
+
+let el = imm_h(h_lst)
+
+_show_example(el)
+</script>
+  </section>
+  <script src='/livereload.js'></script>
+</body>
+</html>
