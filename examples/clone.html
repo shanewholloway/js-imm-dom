@@ -36,6 +36,15 @@
       import { html } from '../code/imm_dom_ns.mjs'
       import { ImmElem } from '../code/imm_elem.mjs'
       import { ImmClone } from '../code/imm_clone.mjs'
+
+      console.log(`using localStorage.theme %o`,
+        localStorage.theme)
+      console.group(`change and refresh with:`)
+      console.log(`localStorage.theme = '[data-first]'`)
+      console.log(`localStorage.theme = '[data-second]'`)
+      console.log(`localStorage.theme = '[data-shadow]'`)
+      console.groupEnd()
+
       window.ImmClone = ImmClone // playground!
       ImmClone.define('imm-clone')
       ImmElem.elem('imm-demo', () => [

@@ -3,24 +3,26 @@ import { ImmCore } from './imm_elem_core.mjs'
 export { ImmCore } from './imm_elem_core.mjs'
 
 
-const _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
+let _wcdd = /* #__PURE__ */ { // ImmElem web component double dispatch
   c: o => o._render_(true), // -- connectedCallback()
 
   // look for an '^attr_name' method on self. If exists, call it with attribute change details.
   ac: (o,v) => o._refresh_(), // -- attributeChangedCallback()
 
   '': o => o._stop_(), // -- disconnectedCallback()
-}
-const _wctick = async o => (await o)._render_()
 
-export class ImmElem extends ImmCore {
+  r: async o => (await o)._render_(), // debounce _refresh_/_render_ for ImmElem
+}
+
+export class ImmElem extends ImmCore._wc_(_wcdd, z => ({render:z})) {
   // init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
   // render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
   // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */
   // render0$(/* ns, el, tgt */) { /* called on reconnected render ; return element to _show_() onto _tgt_ */
 
-  static _zuse(fn) { return {render: fn} }
-  static elem(dfn, proto_) { return this.dom(dfn, proto_, {_tgt_: 0}) }
+  static elem(dfn, proto_) {
+    return this.dom(dfn, proto_, {_tgt_: 0})
+  }
 
   //--------------------------------------
   // web component composed implementation
@@ -31,8 +33,6 @@ export class ImmElem extends ImmCore {
     _imm_cp(this, this._bind_(this))
     this.init?.(... this._z_)
   }
-
-  _wc_(el,op,v) { _wcdd[op](this,v) }
 
   _init_tgt_(_tgt_) {
     _tgt_ ||= 0 !== _tgt_ ? this
@@ -87,12 +87,12 @@ export class ImmElem extends ImmCore {
 
   _bind_(self) {
     // bind ._show_, ._add_, and ._refresh_ as closures
-    let _show_ = self._show_.bind(self)
+    let {_wc_, _z_} = self, _show_ = self._show_.bind(self)
     return ({
       _show_,
       _add_: node => _show_(node, 1),
       _refresh_: p => p?.then?.(self._refresh_)
-        || (self._z_[3] ||= _wctick(self)) // _debounce _refresh_ via Promise
+        || (_z_[3] ||= _wc_(self, 'r')) // _debounce _refresh_ via Promise
     })
   }
 }
