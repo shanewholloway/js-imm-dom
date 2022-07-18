@@ -12,6 +12,6 @@ export const
 
   imm_wcqx = (key, el_ctx, q) =>
     (el_ctx = imm_wcsel(el_ctx, `[data-${key}]`))
-      .querySelector(q || el_ctx.dataset[key])
+      ?.querySelector(q || el_ctx.dataset[key])
 
 export {imm_wcqx as imm_qx}
