@@ -9,7 +9,7 @@ export const
       && !_is_iter(a)
 
 const
-  _arv_style = (s,[k,v]) => `${s}${_dash_name(k)}: ${v};`,
+  _arv_style = (s,[k,v]) => `${s}${_dash_name(k)}:${v};`,
   _av = (k, v) =>
     true === v ? '' // true indicates presence ('')
     : v.trim ? v // string -- use it

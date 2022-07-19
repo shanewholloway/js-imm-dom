@@ -1,8 +1,6 @@
-import { _is_iter } from './imm_utils.mjs'
 import { imm_tag } from './imm_dom.mjs'
-import { imm_htag } from './imm_htag.mjs'
+import { _imm_h } from './imm_htag.mjs'
 
-export const imm_h1 = /* #__PURE__ */
-  imm_htag(imm_tag)
+const imm_h1 = h_lst => _imm_h(imm_tag, h_lst)
 
-export { imm_tag, imm_h1 as default }
+export { imm_tag, imm_h1, imm_h1 as default }

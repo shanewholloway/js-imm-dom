@@ -1,4 +1,4 @@
-import { _is_iter } from './imm_utils.mjs'
+import { _is_iter, _is_attr_dict } from './imm_utils.mjs'
 
 const 
   _imm_h = (h_tag, h_lst) =>
@@ -9,9 +9,24 @@ const
       : (_is_iter(v)
             ? h_lst[idx] = _imm_h(h_tag, v)
             : v
-        , h_tag)
+        , h_tag),
 
-export const imm_htag = h_tag =>
-  h_lst => _imm_h(h_tag, h_lst)
+  _hafn = (attrs, match, op, value) => (
+    '.' === op
+      ? attrs.class = `${attrs.class||''} ${value}`
+      : attrs.id = value // # === op
+    , ''),
 
-export {imm_htag as default}
+  _htag = h_tag => (... h_lst) => (
+    // ensure [1] is an attribute dict
+    _is_attr_dict(h_lst[1]) || h_lst.splice(1,0,{}),
+
+    // replace tag name, #id, and .class
+    h_lst[0] = h_lst[0].replaceAll(
+      /\s*([.#])([^.#\s]*)\s*/g,
+      _hafn.bind(0, h_lst[1])),
+
+    // return our fixedup h_lst
+    h_tag(... h_lst))
+
+export { _htag, _imm_h }

@@ -11,7 +11,6 @@ export * from './imm_dom_ns.mjs'
 export * from './imm_svg.mjs'
 export * from './imm_css.mjs'
 
-export * from './imm_htag.mjs'
 export * from './imm_h1.mjs'
 export * from './imm_h.mjs'
 
