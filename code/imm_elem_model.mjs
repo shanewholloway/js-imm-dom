@@ -1,11 +1,9 @@
 import { ImmCore } from './imm_elem_core.mjs'
 
-let _nsdd = /* #__PURE__ */ { // ImmElem web component double dispatch
-  c: o => o.update?.(o._ns_, o), // -- connectedCallback()
-}
-
 export const ImmNS = /* #__PURE__ */
-  ImmCore._wc_(_nsdd, z => ({update:z}))
+  ImmCore._wc_({
+      c: o => o.update?.(o._ns_, o), // -- connectedCallback()
+    }, z => ({update:z}))
 
 /*
 export class ImmNS
