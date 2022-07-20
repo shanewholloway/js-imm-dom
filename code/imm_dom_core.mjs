@@ -1,7 +1,10 @@
 import {
   _dash_name, _pairs,
   _is_attr_dict, _is_iter,
-  _el_set, _el_on,
+  _el_set, _el_on, _imm_cp
+} from './imm_utils.mjs'
+export {
+  _imm_cp
 } from './imm_utils.mjs'
 
 
@@ -68,8 +71,5 @@ export const
   _imm0 = el => (el.textContent = '', el),
   imm_set = (el, ...args) => imm(_imm0(el), ...args),
 
-  _imm_b = iterable => [... iterable].flatMap(_imm_cf),
-
-  _imm_cp = (tgt, src, key) =>
-    Object.assign(tgt, key ? {[key]:src} : src)
+  _imm_b = iterable => [... iterable].flatMap(_imm_cf)
 

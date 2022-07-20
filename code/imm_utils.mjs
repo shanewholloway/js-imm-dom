@@ -8,21 +8,17 @@ export const
       && !a.nodeType && !a.toDOM
       && !_is_iter(a)
 
-const
-  _arv_style = (s,[k,v]) => `${s}${_dash_name(k)}:${v};`,
-  _av = (k, v) =>
-    true === v ? '' // true indicates presence ('')
-    : v.trim ? v // string -- use it
-    : 'style' === k ? _pairs(v).reduce(_arv_style,'') // style object to CSS source
-    : v
-
 export const
+  _imm_cp = (tgt, src, key) =>
+    Object.assign(tgt, key ? {[key]:src} : src),
+
   _el_on = (el, ...z) => ( el.addEventListener(...z), el ),
   _el_get = (el,k) => (k=el.getAttribute(k), ''==k || k),
   _el_has = (el,k) => el.hasAttribute(k),
   _el_set = (el,k,v) => (
     (null == v || false === v
       ? el.removeAttribute(k) // false or nullish is semantically removeAttribute()
-      : el.setAttribute(k, _av(k,v))
+      : _is_obj(v) == {style: 1}[k] ? _imm_cp(el[k], v) // use object assign for known keys: style
+      : el.setAttribute(k, true === v ? '' : v)
     ), 1)
 
