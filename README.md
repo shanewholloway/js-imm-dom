@@ -120,10 +120,10 @@ The entire library is ~ **9000 bytes** minified; ~ **4000 brotli** -- perfect fo
 
 | module           |   brotli | minified |   source |
 |:-----------------|---------:|---------:|---------:|
-| `index`          |   3719 B |   8872 B |  20377 B |
-| `imm_dom`        |    708 B |   1293 B |   3462 B |
-| `imm_elem`       |   1247 B |   2755 B |   7222 B |
-| `imm_tmpl`       |    970 B |   1927 B |   5603 B |
+| `index`          |   3650 B |   8796 B |  20302 B |
+| `imm_dom`        |    644 B |   1209 B |   3282 B |
+| `imm_elem`       |   1194 B |   2670 B |   7139 B |
+| `imm_tmpl`       |    932 B |   1852 B |   5448 B |
 
 See auto-generated [compressed size report](./docs/compressed.md).
 
