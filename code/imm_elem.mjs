@@ -3,19 +3,19 @@ import { ImmCore } from './imm_elem_core.mjs'
 export { ImmCore } from './imm_elem_core.mjs'
 
 
-const _ImmElem0 = /* #__PURE__ */
-  ImmCore._wc_({ // ImmElem web component double dispatch
-      c: o => o._render_(true), // -- connectedCallback()
+export class ImmElem
+  extends /* #__PURE__ */
+    ImmCore._wc_({ // ImmElem web component double dispatch
+        c: o => o._render_(true), // -- connectedCallback()
 
-      // look for an '^attr_name' method on self. If exists, call it with attribute change details.
-      ac: (o,v) => o._refresh_(), // -- attributeChangedCallback()
+        // look for an '^attr_name' method on self. If exists, call it with attribute change details.
+        ac: (o,v) => o._refresh_(), // -- attributeChangedCallback()
 
-      '': o => o._stop_(), // -- disconnectedCallback()
+        '': o => o._stop_(), // -- disconnectedCallback()
 
-      r: async o => (await o)._render_(), // debounce _refresh_/_render_ for ImmElem
-    }, z => ({render:z}))
-
-export class ImmElem extends _ImmElem0 {
+        r: async o => (await o)._render_(), // debounce _refresh_/_render_ for ImmElem
+      }, z => ({render:z}))
+{
   // init(/* ns, el, tgt */) { /* return _tgt_ (optional) */ }
   // render(/* ns, el, tgt */) { /* return element to _show_() onto _tgt_ */ }
   // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */

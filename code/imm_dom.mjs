@@ -1,13 +1,11 @@
 import {imm, imm_set} from './imm_dom_core.mjs'
 export {imm, imm_set} from './imm_dom_core.mjs'
 
-const /* #__PURE__ */ _w3ns = {
-  svg: 'http://www.w3.org/2000/svg',
-  html: 'http://www.w3.org/1999/xhtml',
-  $: 'html' }
-
 export function imm_dom(host, tagns) {
-  tagns = { ... _w3ns, ... tagns }
+  tagns = {
+    $: 'html', html: 'http://www.w3.org/1999/xhtml',
+    svg: 'http://www.w3.org/2000/svg',
+    ... tagns }
   let
     _tag0 = (tag, ns) => (
       // split xml-tag like namespace prefix

@@ -1,4 +1,5 @@
 export const
+  _I_ = x=>x,
   _dash_name = s => s?.replace(/_/g, '-'),
   _prop_name = s => s?.replace(/-/g, '_'),
   _pairs = o => Object.entries(o),

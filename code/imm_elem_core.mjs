@@ -1,9 +1,9 @@
-import { _el_set, _dash_name } from './imm_utils.mjs'
+import { _I_, _el_set, _dash_name } from './imm_utils.mjs'
 import { _imm_cp } from './imm_dom_core.mjs'
 import { with_ns_attr } from './imm_pxy.mjs'
 
 
-const _ce = /* #__PURE__ */ customElements
+const _ce = /* #__PURE__ */ _I_(customElements)
 const _subclass_unless = (klass, args) =>
   true === args[0] ? (args.shift(), klass)
   : class extends klass {}
@@ -73,7 +73,7 @@ export class Imm0 extends HTMLElement {
 }
 
 
-export class ImmCore extends with_ns_attr(Imm0) {
+export class ImmCore extends /* #__PURE__ */ with_ns_attr(Imm0) {
   static dom(dfn, proto_, kw) {
     if (proto_)
       kw = {...kw, ... (

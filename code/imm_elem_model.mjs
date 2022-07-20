@@ -7,7 +7,8 @@ export const ImmNS = /* #__PURE__ */
 
 /*
 export class ImmNS
-  extends ImmCore._wc_(_nsdd, , z => ({update:z}))
+  extends #__PURE__
+    ImmCore._wc_(_nsdd, , z => ({update:z}))
 {
   // update(ns, el) {}
   static _zuse(z) { return {update: z} }

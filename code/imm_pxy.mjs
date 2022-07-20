@@ -1,27 +1,27 @@
-import {_dash_name, _prop_name, _el_get, _el_has, _el_set} from './imm_utils.mjs'
+import {_I_, _dash_name, _prop_name, _el_get, _el_has, _el_set} from './imm_utils.mjs'
 
 
-const _imm_pxy_gset = /* #__PURE__ */  {
+const _imm_pxy_gset = /* #__PURE__ */ _I_({
   get: (fn,k) => fn(k),
   set: (fn,k,v) => (fn(k,v), 1),
-}
+})
 export const imm_pxy_gset = fn =>
   new Proxy(fn, _imm_pxy_gset)
 
 
-const _imm_pxy = /* #__PURE__ */  {
+const _imm_pxy = /* #__PURE__ */ _I_({
   get(tag_fn, key, ns) {
     let r = tag_fn[key]
     if (undefined === r && /[a-z]/.test(key))
       ns[key] = r = tag_fn
         .bind(null, _dash_name(key))
-    return r }}
+    return r }})
 
 export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
   ({ __proto__: new Proxy(tag_fn, _imm_pxy), ... kw })
 
 const
-  _imm_pxy_attr = /* #__PURE__ */ {
+  _imm_pxy_attr = /* #__PURE__ */ _I_({
     // use k.trim to avoid Symbols
     get: ({$},k) => k.trim && (_el_get($, _dash_name(k)) || _el_get($, k)),
     has: ({$},k) => k.trim && (_el_has($, _dash_name(k)) || _el_has($, k)),
@@ -30,7 +30,7 @@ const
 
     // update the proxy for each attribute to leverage default implementation of getOwnPropertyDescriptor()
     ownKeys: pxy => pxy.$.getAttributeNames().map(k => (k=_prop_name(k), pxy[k] = k)),
-  }
+  })
 
 export const imm_pxy_attr = el =>
   new Proxy({$:el}, _imm_pxy_attr)
