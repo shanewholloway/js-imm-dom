@@ -46,8 +46,16 @@ export class ImmElem
       -1,        // _z_[3] : _refresh_ block, set to -1 'before' connectedCallback
       ]
     Object.defineProperties(this, {
-      _tgt_: {get: () => _z_[2], set: v => _z_[2]=v},
-      _z_: {value: _z_} })
+      _tgt_: {
+        get: () => _z_[2],
+        set: _tgt_ => {
+          // append the new target node if not attached
+          _tgt_.parentNode || _z_[2].append(_tgt_)
+          _z_[2] = _tgt_
+        },
+      },
+      _z_: {value: _z_},
+    })
   }
 
   _render_(is_reconnect) {
