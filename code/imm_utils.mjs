@@ -12,6 +12,7 @@ export const
 export const
   _imm_cp = (tgt, src, key) =>
     Object.assign(tgt, key ? {[key]:src} : src),
+  _ce = /* #__PURE__ */ _I_(customElements),
 
   _el_on = (el, ...z) => ( el.addEventListener(...z), el ),
   _el_get = (el,k) => (k=el.getAttribute(k), ''==k || k),
@@ -19,7 +20,7 @@ export const
   _el_set = (el,k,v) => (
     (null == v || false === v
       ? el.removeAttribute(k) // false or nullish is semantically removeAttribute()
-      : _is_obj(v) == {style: 1}[k] ? _imm_cp(el[k], v) // use object assign for known keys: style
+      : _is_obj(v) == {style: 1}[k] ? _imm_cp(el[k], v) // use object assign for known keys: style; note true==1 but false!=undefined
       : el.setAttribute(k, true === v ? '' : v)
     ), 1)
 

@@ -1,4 +1,3 @@
-import { _I_ } from './imm_utils.mjs'
 import {imm, imm_set} from './imm_dom_core.mjs'
 export {imm, imm_set} from './imm_dom_core.mjs'
 
@@ -33,7 +32,7 @@ export const
     imm(el.ownerDocument.createElement(tag), ...args),
 
   imm_tag = /* #__PURE__ */
-    _I_(imm_dom(document))
+    imm_dom(document)
 
 export {
   imm_tag as default,

@@ -1,9 +1,8 @@
-import { _I_, _el_set, _dash_name } from './imm_utils.mjs'
+import { _el_set, _dash_name, _ce } from './imm_utils.mjs'
 import { _imm_cp } from './imm_dom_core.mjs'
 import { with_ns_attr } from './imm_pxy.mjs'
 
 
-const _ce = /* #__PURE__ */ _I_(customElements)
 const _subclass_unless = (klass, args) =>
   true === args[0] ? (args.shift(), klass)
   : class extends klass {}
@@ -25,9 +24,9 @@ export const
 
 export {imm_define as imm_define_when}
 export async function imm_define(klass, tag, ...when) {
-  for (let k of tag.when || when)
-    if (k) await k.then ? k : _ce.whenDefined(k)
-  _ce.define(_dash_name(tag.tag || tag), klass, tag.options)
+  for (let k of when)
+    if (k) await k.trim ? _ce.whenDefined(k) : k
+  _ce.define(_dash_name(tag), klass, tag.options)
   return klass
 }
 
