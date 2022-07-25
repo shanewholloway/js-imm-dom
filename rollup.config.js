@@ -33,6 +33,7 @@ export default [
   ... add_esm('imm_elem_raf'),
   ... add_esm('imm_clone'),
   ... add_esm('imm_qx'),
+  ... add_esm('imm_legacy'),
   ... add_esm('imm_dialog'),
 
   ... add_esm('beta/imm_elem_auto'),
