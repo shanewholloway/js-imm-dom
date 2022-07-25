@@ -1,5 +1,7 @@
+import { _I_ } from './imm_utils.mjs'
 import {imm, imm_set} from './imm_dom_core.mjs'
 export {imm, imm_set} from './imm_dom_core.mjs'
+
 
 export function imm_dom(host, tagns) {
   tagns = {
@@ -26,7 +28,12 @@ export function imm_dom(host, tagns) {
   return tag_fn.tag = tag_fn
 }
 
-export const imm_tag = /* #__PURE__ */ imm_dom(document)
+export const
+  imm_otag = (el, tag, ...args) =>
+    imm(el.ownerDocument.createElement(tag), ...args),
+
+  imm_tag = /* #__PURE__ */
+    _I_(imm_dom(document))
 
 export {
   imm_tag as default,
