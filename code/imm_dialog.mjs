@@ -6,7 +6,12 @@ export function imm_dialog_ctx(evt_name='resolve-dialog') {
     emit: (e, detail) => imm_emit(e.target || e, evt_name, detail),
 
     async showModal(el_tgt, el_body) {
-      let [ans, close] = imm_defer_v()
+      let [ans, done] = imm_defer_v()
+      let close = evt => {
+        evt.stopPropagation()
+        done(evt)
+      }
+
       let el_dialog = imm_tag('dialog',
         {close, [evt_name]: close}, el_body)
 
