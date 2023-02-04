@@ -23,6 +23,9 @@ const
         : '@' === k0 // hook callback
           ? v(el, k)
 
+        : 0 == k0 // use as target element from attrs
+          ? el = v
+
         : v?.call // event handlers
           ? _el_on(el, k, v, v.opt)
 
@@ -45,15 +48,16 @@ const
 
 
 export function imm(el, ...args) {
+  if (! el?.nodeType) args.unshift(el)
   let len=args.length, attrs=args[0]
 
-  if (0 < len && el?.nodeType) {
+  if (0 < len) {
     if (_is_attr_dict(attrs)) {
       // replace attrs with null in args
       1 === len ? args = null : args[0] = null
 
       attrs = _pairs(attrs)
-      attrs.reduce(_imm_aop, el)
+      el = attrs.reduce(_imm_aop, el)
 
       // prepend children found in attrs.z
       attrs.z && el.prepend(... _imm_b(attrs.z))
