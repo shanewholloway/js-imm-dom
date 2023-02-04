@@ -21,7 +21,7 @@ const
           ? _imm_cp(el, v, k.split('=')[1])
 
         : '@' === k0 // hook callback
-          ? v(el, k)
+          ? v.call ? v(el, k) : v[k.slice(1)||'append'](el)
 
         : 0 == k0 // use as target element from attrs
           ? el = v
