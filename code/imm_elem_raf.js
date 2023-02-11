@@ -1,5 +1,5 @@
-import {imm_raf} from './imm_raf.mjs'
-import {ImmElem} from './imm_elem.mjs'
+import {imm_raf} from './imm_raf.js'
+import {ImmElem} from './imm_elem.js'
 
 export const ImmRAF = /* #__PURE__ */
   with_imm_raf(ImmElem)

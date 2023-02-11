@@ -20,8 +20,8 @@
   </imm-raf-demo>
 
   <script type=module>
-    import {ImmRAF} from './code/imm_elem_raf.mjs'
-    import {html} from './code/imm_dom_ns.mjs'
+    import {ImmRAF} from './code/imm_elem_raf.js'
+    import {html} from './code/imm_dom_ns.js'
 
     let ts0 = Date.now()
 

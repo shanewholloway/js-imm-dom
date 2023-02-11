@@ -1,7 +1,7 @@
-import { _ce } from './imm_utils.mjs'
-import { imm_defer_v  } from './imm_async.mjs'
-import { imm_mixin } from './imm_elem_core.mjs'
-import { imm_tag } from './imm_dom.mjs'
+import { _ce } from './imm_utils.js'
+import { imm_defer_v  } from './imm_async.js'
+import { imm_mixin } from './imm_elem_core.js'
+import { imm_tag } from './imm_dom.js'
 
 export const with_legacy = (base=HTMLElement) =>
   class extends base {

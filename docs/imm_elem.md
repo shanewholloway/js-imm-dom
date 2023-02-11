@@ -19,8 +19,8 @@ In both cases of the *light* and *shadow* DOM, custom elements inherit from `Imm
   </imm-demo>
 
   <script type=module>
-    import {imm_tmpl} from './code/imm_tmpl.mjs'
-    import {ImmElem} from './code/imm_elem.mjs'
+    import {imm_tmpl} from './code/imm_tmpl.js'
+    import {ImmElem} from './code/imm_elem.js'
 
     class DemoElem extends ImmElem {
       render(ns) {
@@ -50,8 +50,8 @@ In both cases of the *light* and *shadow* DOM, custom elements inherit from `Imm
   </imm-demo>
 
   <script type=module>
-    import {imm_tmpl} from './code/imm_tmpl.mjs'
-    import {ImmElem} from './code/imm_elem.mjs'
+    import {imm_tmpl} from './code/imm_tmpl.js'
+    import {ImmElem} from './code/imm_elem.js'
 
     ImmElem.dom('imm-demo', ns =>
       imm_tmpl`
@@ -72,8 +72,8 @@ In both cases of the *light* and *shadow* DOM, custom elements inherit from `Imm
   </imm-demo-alt>
 
   <script type=module>
-    import {imm_tmpl} from './code/imm_tmpl.mjs'
-    import {ImmElem} from './code/imm_elem.mjs'
+    import {imm_tmpl} from './code/imm_tmpl.js'
+    import {ImmElem} from './code/imm_elem.js'
 
     ImmElem.elem('imm-demo-alt', ns =>
       imm_tmpl`
@@ -136,7 +136,7 @@ setTimeout(defineWc, 3000);
 
 ## Docs
 
-### Module `imm_elem_core.mjs` and `imm_elem.mjs`
+### Module `imm_elem_core.js` and `imm_elem.js`
 
 - `ImmElem` uses *direct rendering* on connected or attribute change.
   - extends `ImmCore`
@@ -173,6 +173,6 @@ setTimeout(defineWc, 3000);
 
 - `imm_when(name) : HTMLElement` polyfills `customElements.whenDefined()` to return the defined element.
 
-### Module `imm_elem_raf.mjs`
+### Module `imm_elem_raf.js`
 - `ImmRAF` is an extension of `ImmElem` with `requestAnimationFrame` *batched rendering* on connected or attribute change.
 - `with_imm_raf(ImmKlass : ImmElem)` creates a dynamic subclass of `ImmKlass` with `requestAnimationFrame` *batched rendering* on connected or attribute change.

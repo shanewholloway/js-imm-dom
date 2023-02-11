@@ -2,10 +2,10 @@ import {
   _dash_name, _pairs,
   _is_attr_dict, _is_iter,
   _el_set, _el_on, _imm_cp
-} from './imm_utils.mjs'
+} from './imm_utils.js'
 export {
   _imm_cp
-} from './imm_utils.mjs'
+} from './imm_utils.js'
 
 
 // complex expressions to avoid 'if', 'else', and 'return' keywords

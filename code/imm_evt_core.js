@@ -1,4 +1,4 @@
-import { _el_on, _pairs } from './imm_utils.mjs'
+import { _el_on, _pairs } from './imm_utils.js'
   
 
 export function imm_emit0(tgt, evt, opt) {

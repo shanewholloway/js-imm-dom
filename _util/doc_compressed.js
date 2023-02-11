@@ -10,7 +10,7 @@ stat_outputs()
 async function stat_outputs() {
   let dir = await readdir(local_path)
   dir = dir
-    .filter(e => e.includes('.mjs'))
+    .filter(e => e.includes('.js'))
     .sort()
 
   let by_name = {}
@@ -18,7 +18,7 @@ async function stat_outputs() {
   for (let e of dir) {
     let {size} = await stat(`${local_path}/${e}`)
 
-    let [name0, kind] = e.split('.mjs')
+    let [name0, kind] = e.split('.js')
     let name = name0.replace(/\.min$/,'')
     kind = kind ? kind.replace(/^\./,'')
       : name === name0 ? 'raw' : 'min'

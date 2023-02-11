@@ -11,7 +11,7 @@ el_h3.append('my demo title')
 el_article.append('some body text')
 ```
 
-##### Using `imm_set` from `imm_dom_core.mjs`
+##### Using `imm_set` from `imm_dom_core.js`
 
 `imm_set` will clear `textContent` before appending new content.
 
@@ -74,7 +74,7 @@ For all element children, appended or prepended:
 
 Arrays are flattened and their contents evaluated per above.
 
-### Module `imm_dom_core.mjs`
+### Module `imm_dom_core.js`
 
 `imm(element : HTMLElement, attributes, children) : HTMLElement`
 - Utility to iterate through attributes and call `element.setAttribute()`, then iterate children and call `element.append()`.

@@ -1,4 +1,4 @@
-import {_I_, _dash_name, _prop_name, _el_get, _el_has, _el_set} from './imm_utils.mjs'
+import {_I_, _dash_name, _prop_name, _el_get, _el_has, _el_set} from './imm_utils.js'
 
 
 const _imm_pxy_gset = /* #__PURE__ */ _I_({

@@ -1,5 +1,5 @@
 
-import {imm_svg} from './esm/imm_dom_ns.mjs'
+import {imm_svg} from './esm/imm_dom_ns.js'
 
 let d = imm_svg.svg(
     {class:'chart',

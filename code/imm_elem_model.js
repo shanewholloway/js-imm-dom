@@ -1,4 +1,4 @@
-import { ImmCore } from './imm_elem_core.mjs'
+import { ImmCore } from './imm_elem_core.js'
 
 export const ImmNS = /* #__PURE__ */
   ImmCore._wc_({

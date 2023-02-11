@@ -22,7 +22,7 @@ el_tmpl.innerHTML = `
 el_tmpl.content.cloneNode(true)
 ```
 
-##### Using `imm_tmpl` from `imm_tmpl.mjs`
+##### Using `imm_tmpl` from `imm_tmpl.js`
 
 ```javascript
 imm_tmpl`
@@ -34,7 +34,7 @@ imm_tmpl`
 
 ## Docs
 
-### Module `imm_tmpl.mjs`
+### Module `imm_tmpl.js`
 
 - `imm_tmpl(parts, ...args) : HTMLDocumentFragment`
 
@@ -60,7 +60,7 @@ imm_tmpl`
 
 
 
-### Module `imm_tmpl_core.mjs`
+### Module `imm_tmpl_core.js`
 
 - `_imm_tmpl_link(invoke_arg) : function`
 

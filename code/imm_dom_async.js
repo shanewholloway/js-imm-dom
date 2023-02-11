@@ -1,5 +1,5 @@
-import {imm} from './imm_dom_core.mjs'
-export {imm, imm_set} from './imm_dom_core.mjs'
+import {imm} from './imm_dom_core.js'
+export {imm, imm_set} from './imm_dom_core.js'
 
 export const imma = (el_placeholder, el_promise, attrs) =>
   (_imma(el_placeholder, el_promise, attrs)

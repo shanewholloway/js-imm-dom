@@ -1,5 +1,5 @@
-import {tag} from './imm_dom.mjs'
-export {imm, imm_set, imm_tag, tag} from './imm_dom.mjs'
+import {tag} from './imm_dom.js'
+export {imm, imm_set, imm_tag, tag} from './imm_dom.js'
 
 export function _imm_css_link() {
   let el_doc = new DOMParser().parseFromString('<!DOCTYPE html><style></style>', 'text/html')

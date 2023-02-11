@@ -20,7 +20,7 @@ Create the following structure using `imm-dom`:
 </article>
 ```
 
-##### Using `imm_tag` from `imm_dom.mjs`
+##### Using `imm_tag` from `imm_dom.js`
 
 ```javascript
 tag('article', {class: 'awesome'},
@@ -28,7 +28,7 @@ tag('article', {class: 'awesome'},
   'some body text')
 ```
 
-##### Using `imm_html` from `imm_dom_ns.mjs`
+##### Using `imm_html` from `imm_dom_ns.js`
 
 ```javascript
 imm_html.article({class: 'awesome'},
@@ -39,7 +39,7 @@ imm_html.article({class: 'awesome'},
 
 ## Docs
 
-### Module `imm_dom.mjs`
+### Module `imm_dom.js`
 
 - `tag` alias for `imm_tag = imm_dom(document)`
 - `tsvg` alias for `imm_svg_tag = imm_dom(document, 'http://www.w3.org/2000/svg')`
@@ -51,7 +51,7 @@ imm_html.article({class: 'awesome'},
   Also includes `tag_fn.text` bound to `host.createTextNode`.
 
 
-### Module `imm_dom_ns.mjs`
+### Module `imm_dom_ns.js`
 
 - `html` alias for `imm_html = imm_pxy(imm_tag)`
 - `svg` alias for `imm_svg = imm_pxy(imm_svg_tag)`
@@ -59,7 +59,7 @@ imm_html.article({class: 'awesome'},
 Syntactic sugar to express a tags as a function calls.
 
 
-### Module `imm_pxy.mjs`
+### Module `imm_pxy.js`
 
 - `imm_pxy_tag(tag_fn, kw=tag_fn)`
 

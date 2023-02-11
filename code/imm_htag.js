@@ -1,4 +1,4 @@
-import { _is_iter, _is_attr_dict } from './imm_utils.mjs'
+import { _is_iter, _is_attr_dict } from './imm_utils.js'
 
 const 
   _imm_h = (h_tag, h_lst) =>

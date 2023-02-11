@@ -17,7 +17,7 @@ imm_emit(some_elem, 'my_awesome_event',
 ```
 
 
-### Module `imm_evt_core.mjs`
+### Module `imm_evt_core.js`
 
 - `imm_emit(target : HTMLElement, evt : string, detail, opt) : Boolean`
   Dispatches custom event with detail from target element
@@ -34,7 +34,7 @@ imm_emit(some_elem, 'my_awesome_event',
   Dispatches `new CustomEvent(evt, opt)` from target element
 
 
-### Module `imm_async.mjs`
+### Module `imm_async.js`
 
 - `imm_defer() : {promise, resolve(), reject()}`
   Returns a new deferred in named form.

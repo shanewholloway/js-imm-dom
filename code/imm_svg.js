@@ -1,7 +1,7 @@
-import { imm_dom } from './imm_dom.mjs'
-import { imm_pxy_tag } from './imm_pxy.mjs'
+import { imm_dom } from './imm_dom.js'
+import { imm_pxy_tag } from './imm_pxy.js'
 
-export { imm, imm_set } from './imm_dom_core.mjs'
+export { imm, imm_set } from './imm_dom_core.js'
 
 
 export const imm_svg_tag = /* #__PURE__ */

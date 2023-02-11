@@ -1,5 +1,5 @@
-import {imm_emit, imm_defer_v} from './imm_evt.mjs'
-import {imm_tag, imm} from './imm_dom.mjs'
+import {imm_emit, imm_defer_v} from './imm_evt.js'
+import {imm_tag, imm} from './imm_dom.js'
 
 export function imm_dialog_ctx(evt_name='resolve-dialog') {
   return {

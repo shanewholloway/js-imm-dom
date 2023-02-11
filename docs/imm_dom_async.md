@@ -2,7 +2,7 @@
 
 ## Examples
 
-##### Using `imma` from `imm_dom_async.mjs`
+##### Using `imma` from `imm_dom_async.js`
 
 ```javascript
 imma(
@@ -71,7 +71,7 @@ Client.dom("my-client");
 
 ## Docs
 
-### Module `imm_dom_async.mjs`
+### Module `imm_dom_async.js`
 
 `imma(el_placeholder : HTMLElement, el_promise : Promise<HTMLElement>, attributes) : HTMLElement`
 

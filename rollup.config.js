@@ -1,5 +1,5 @@
 import rpi_dgnotify from 'rollup-plugin-dgnotify'
-import { terser as rpi_terser } from 'rollup-plugin-terser'
+import rpi_terser from '@rollup/plugin-terser'
 
 let is_watch = process.argv.includes('--watch')
 const _rpi_min_ = is_watch
@@ -44,16 +44,14 @@ export default [
 
 
 function * add_esm(src_name, umd_module) {
-  const input = `code/${src_name}.mjs`
+  const input = `code/${src_name}.js`
   yield ({ input, plugins: [], output: [
-      { file: `esm/${src_name}.mjs`, format: 'es', sourcemap: true },
       { file: `esm/${src_name}.js`, format: 'es', sourcemap: true },
       umd_module && { file: `umd/${umd_module}.js`, format: 'umd', name: umd_module, sourcemap: true },
-    ].filter(Boolean)})
+    ]})
 
   yield ({ input, plugins: _rpi_min_, output: [
-      { file: `esm/${src_name}.min.mjs`, format: 'es', sourcemap: false },
       { file: `esm/${src_name}.min.js`, format: 'es', sourcemap: false },
       umd_module && { file: `umd/${umd_module}.min.js`, format: 'umd', name: umd_module, sourcemap: false },
-    ].filter(Boolean)})
+    ]})
 }

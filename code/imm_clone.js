@@ -1,4 +1,4 @@
-import { Imm0 } from './imm_elem_core.mjs'
+import { Imm0 } from './imm_elem_core.js'
 
 export const ImmClone = /* #__PURE__ */
   Imm0._wc_({c: el => imm_clone(el, el.getAttribute('query')) })

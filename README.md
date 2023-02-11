@@ -46,7 +46,7 @@ Read more in [docs/README.md](./docs/README.md)
   </imm-demo-cdn>
 
   <script type=module>
-    import {imm_html as h, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.mjs'
+    import {imm_html as h, ImmElem} from 'https://cdn.jsdelivr.net/npm/imm-dom@latest/esm/index.js'
 
     ImmElem.elem('imm-demo-cdn', ns =>
       h.article(
@@ -110,11 +110,11 @@ To be embedded in each web component custom element, the individual pieces must 
 Thus `imm-dom` is _designed to include only the parts actually used_
 when paired with a tree-shaking tool like [rollup][].
 
-One component might only use `imm_set()` from `imm_dom_core.mjs` for ~ **1000 bytes** minified; ~ **540 brotli**.
+One component might only use `imm_set()` from `imm_dom_core.js` for ~ **1000 bytes** minified; ~ **540 brotli**.
 
-An web component may take advantage of `ImmElem` from `imm_elem.mjs` for ~ **2800 bytes** minified; ~ **1300 brotli**.
+An web component may take advantage of `ImmElem` from `imm_elem.js` for ~ **2800 bytes** minified; ~ **1300 brotli**.
 
-A heavy rendering component may take advantage of `ImmRAF` from `imm_elem_raf.mjs` for ~ **3200 bytes** minified; ~ **1500 brotli**.
+A heavy rendering component may take advantage of `ImmRAF` from `imm_elem_raf.js` for ~ **3200 bytes** minified; ~ **1500 brotli**.
 
 The entire library is ~ **9000 bytes** minified; ~ **4000 brotli** -- perfect for bundling a larger web component library and sharing structure.
 

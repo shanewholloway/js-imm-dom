@@ -1,4 +1,4 @@
-import {ImmElem} from '../imm_elem.mjs'
+import {ImmElem} from '../imm_elem.js'
 
 export function _imm_attr_spy(klass, fn_target) {
   // Proxy spy to find observed attributes

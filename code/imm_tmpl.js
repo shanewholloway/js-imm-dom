@@ -1,5 +1,5 @@
-import { imm } from './imm_dom_core.mjs'
-import { imm_tmpl_link } from './imm_tmpl_core.mjs'
+import { imm } from './imm_dom_core.js'
+import { imm_tmpl_link } from './imm_tmpl_core.js'
 
 export const imm_tmpl = /* #__PURE__ */
   imm_tmpl_link((el_tgt, is_replace, arg) => {

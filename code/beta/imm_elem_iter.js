@@ -1,5 +1,5 @@
-import {ImmElem} from '../imm_elem.mjs'
-import {with_imm_raf} from '../imm_elem_raf.mjs'
+import {ImmElem} from '../imm_elem.js'
+import {with_imm_raf} from '../imm_elem_raf.js'
 
 export class ImmIter extends ImmElem {
   disconnectedCallback() {

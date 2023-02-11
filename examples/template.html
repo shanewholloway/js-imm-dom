@@ -23,7 +23,7 @@
     <div id='demo_tmpl'></div>
 
     <script type=module>
-      import {imm_tmpl} from '../code/imm_tmpl.mjs'
+      import {imm_tmpl} from '../code/imm_tmpl.js'
       window.imm_tmpl = imm_tmpl // playground!
 
       let my_widget = ns =>
@@ -53,8 +53,8 @@
     </imm-demo-alt>
 
     <script type=module>
-      import {imm_tmpl} from '../code/imm_tmpl.mjs'
-      import {ImmElem} from '../code/imm_elem.mjs'
+      import {imm_tmpl} from '../code/imm_tmpl.js'
+      import {ImmElem} from '../code/imm_elem.js'
 
       ImmElem.observe('timestamp').dom('imm-demo', ns =>
         imm_tmpl`

@@ -1,5 +1,5 @@
-import {imm, imm_set} from './imm_dom_core.mjs'
-export {imm, imm_set} from './imm_dom_core.mjs'
+import {imm, imm_set} from './imm_dom_core.js'
+export {imm, imm_set} from './imm_dom_core.js'
 
 
 export function imm_dom(host, tagns) {

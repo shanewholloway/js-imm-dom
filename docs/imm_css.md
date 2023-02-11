@@ -12,7 +12,7 @@ Create the following structure using `imm-dom`:
 </p>
 ```
 
-##### Using `imm_css` from `imm_css.mjs`
+##### Using `imm_css` from `imm_css.js`
 
 ```javascript
 imm_html.p(
@@ -26,7 +26,7 @@ imm_html.p(
 ```
 
 
-##### Using `imm_style` from `imm_css.mjs`
+##### Using `imm_style` from `imm_css.js`
 
 Create the following `<style>` tag using `imm-dom`:
 
@@ -75,7 +75,7 @@ imm( document.head, $style );
 
 ## Docs
 
-### Module `imm_css.mjs`
+### Module `imm_css.js`
 
 - `imm_style(parts, ...args) : HTMLStyleElement` is JavaScript tagged
   template function alias for creating style tags: `imm_tag('style',

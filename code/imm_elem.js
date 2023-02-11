@@ -1,6 +1,6 @@
-import { _imm0, _imm_b, _imm_cp } from './imm_dom_core.mjs'
-import { ImmCore } from './imm_elem_core.mjs'
-export { ImmCore } from './imm_elem_core.mjs'
+import { _imm0, _imm_b, _imm_cp } from './imm_dom_core.js'
+import { ImmCore } from './imm_elem_core.js'
+export { ImmCore } from './imm_elem_core.js'
 
 
 export class ImmElem
