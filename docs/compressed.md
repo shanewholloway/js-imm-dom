@@ -2,9 +2,9 @@
 
 | module           |   brotli | minified |   source |
 |:-----------------|---------:|---------:|---------:|
-| `index`          |   3910 B |   9462 B |  21672 B |
+| `index`          |   3924 B |   9482 B |  21714 B |
 | `imm_dom`        |    697 B |   1344 B |   3562 B |
-| `imm_elem`       |   1203 B |   2684 B |   7317 B |
+| `imm_elem`       |   1211 B |   2704 B |   7359 B |
 | `imm_tmpl`       |    951 B |   1918 B |   5623 B |
 
 
@@ -19,10 +19,10 @@
 | `imm_dom`        |    697 B |   1344 B |   3562 B |
 | `imm_dom_core`   |    532 B |    924 B |   2660 B |
 | `imm_dom_ns`     |    761 B |   1426 B |   3848 B |
-| `imm_elem`       |   1203 B |   2684 B |   7317 B |
+| `imm_elem`       |   1211 B |   2704 B |   7359 B |
 | `imm_elem_core`  |    750 B |   1677 B |   3743 B |
 | `imm_elem_model` |    707 B |   1553 B |   3625 B |
-| `imm_elem_raf`   |   1382 B |   3095 B |   8363 B |
+| `imm_elem_raf`   |   1384 B |   3115 B |   8405 B |
 | `imm_evt`        |    390 B |    824 B |   1386 B |
 | `imm_evt_core`   |    302 B |    621 B |   1036 B |
 | `imm_h`          |    789 B |   1474 B |   4071 B |
@@ -35,5 +35,5 @@
 | `imm_svg`        |    784 B |   1461 B |   3894 B |
 | `imm_tmpl`       |    951 B |   1918 B |   5623 B |
 | `imm_tmpl_core`  |    410 B |    722 B |   2179 B |
-| `index`          |   3910 B |   9462 B |  21672 B |
+| `index`          |   3924 B |   9482 B |  21714 B |
 
