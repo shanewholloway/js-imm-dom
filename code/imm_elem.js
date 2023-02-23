@@ -21,8 +21,9 @@ export class ImmElem
   // render0(/* ns, el, tgt */) { /* called on first render ; return element to _show_() onto _tgt_ */
   // render0$(/* ns, el, tgt */) { /* called on reconnected render ; return element to _show_() onto _tgt_ */
 
-  static elem(dfn, proto_) {
-    return this.dom(dfn, proto_, {_tgt_: 0})
+  static elem(dfn, proto_, shadow) {
+    return this.dom(dfn, proto_, {
+        _tgt_: el => el.attachShadow({mode: 'open', ...shadow}) })
   }
 
   //--------------------------------------
@@ -35,9 +36,8 @@ export class ImmElem
     this.init?.(... this._z_)
   }
 
-  _init_tgt_(_tgt_) {
-    _tgt_ ||= 0 !== _tgt_ ? this
-      : this.attachShadow({mode: 'open'})
+  _init_tgt_(_tgt_=this) {
+    _tgt_ = _tgt_.nodeType ? tgt : _tgt_(this)
 
     let _z_ = [
       this._ns_, // _z_[0] : attribute proxy namespace
