@@ -1,5 +1,5 @@
 import {
-  _dash_name, _pairs,
+  _dash_name,
   _is_attr_dict, _is_iter,
   _el_set, _el_on, _imm_cp
 } from './imm_utils.js'
@@ -56,7 +56,7 @@ export function imm(el, ...args) {
       // replace attrs with null in args
       1 === len ? args = null : args[0] = null
 
-      attrs = _pairs(attrs)
+      attrs = Object.entries(attrs)
       el = attrs.reduce(_imm_aop, el)
 
       // prepend children found in attrs.z

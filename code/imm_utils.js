@@ -2,7 +2,6 @@ export const
   _I_ = x=>x,
   _dash_name = s => s?.replace(/_/g, '-'),
   _prop_name = s => s?.replace(/-/g, '_'),
-  _pairs = o => Object.entries(o),
   _is_obj = a => 'object' === typeof a && null !== a,
   _is_iter = a => _is_obj(a) && Symbol.iterator in a,
   _is_attr_dict = a => _is_obj(a)

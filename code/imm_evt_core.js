@@ -1,4 +1,4 @@
-import { _el_on, _pairs } from './imm_utils.js'
+import { _el_on } from './imm_utils.js'
   
 
 export function imm_emit0(tgt, evt, opt) {
@@ -15,7 +15,7 @@ export function imm_wcemit(tgt, evt, detail, opt) {
 
 
 export function imm_on(el, ns, xfn=f=>f) {
-  ns = ns[0] ? ns : _pairs(ns)
+  ns = ns[0] ? ns : Object.entries(ns)
   for (let [n,f,o] of ns)
     _el_on(el, n, xfn(f), o)
   return el
