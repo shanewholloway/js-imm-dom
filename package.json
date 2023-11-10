@@ -24,9 +24,9 @@
     ".": "./esm/index.js"
   },
   "devDependencies": {
-    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-terser": "^0.4.4",
     "qsrv": "^0.2.8",
-    "rollup": "^3.15.0",
+    "rollup": "^3.29.4",
     "rollup-plugin-dgnotify": "^0.1.8"
   },
   "scripts": {
