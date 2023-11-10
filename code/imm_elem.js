@@ -37,7 +37,7 @@ export class ImmElem
   }
 
   _init_tgt_(_tgt_=this) {
-    _tgt_ = _tgt_.nodeType ? tgt : _tgt_(this)
+    _tgt_ = _tgt_.nodeType ? _tgt_ : _tgt_(this)
 
     let _z_ = [
       this._ns_, // _z_[0] : attribute proxy namespace
