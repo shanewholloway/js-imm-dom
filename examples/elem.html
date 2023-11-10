@@ -31,18 +31,25 @@
       import { ImmElem } from '../code/imm_elem.js'
 
       class ImmDemo extends ImmElem.observe('timestamp') {
+        static _ns_ = {
+          fallback: "example",
+        }
+
         render(ns) {
           this.render$ = _do_update
 
           // ns interaction with a valueless attribute
           if ('mybool' in ns) console.log('(using .has) mybool is set')
           if (true === ns.mybool) console.log('(using .get) mybool accessed and === true')
+          if ('fallback' in ns) console.log('(using .has) fallback is not set')
+          if ("example" == ns.fallback) console.log('(using .get default) fallback accessed and === "example"')
 
           let el_time = html.time(`${ns.timestamp}`)
           return html.article({class: ns.kind},
-            html.h3(`${ns.title}`),
+            html.h3(ns.title),
             html.slot('Body text Slot'),
             html.br(),
+            html.p('Value of .fallback: ', html.code(`${ns.fallback}`)),
             el_time)
 
           function _do_update() {

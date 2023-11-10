@@ -23,21 +23,22 @@ export const imm_pxy_tag = (tag_fn, kw=tag_fn) =>
 const
   _imm_pxy_attr = /* #__PURE__ */ _I_({
     // use k.trim to avoid Symbols
-    get: ({$},k) => k.trim && (_el_get($, _dash_name(k)) || _el_get($, k)),
+    get: ({$,_},k) => k.trim && (_el_get($, _dash_name(k)) ?? _el_get($, k) ?? _?.[k]),
     has: ({$},k) => k.trim && (_el_has($, _dash_name(k)) || _el_has($, k)),
     set: ({$},k,v) => _el_set($, _dash_name(k), v),
+    // set to null is delete
     deleteProperty: ({$},k) => _el_set($, _dash_name(k)) || _el_set($, k),
 
     // update the proxy for each attribute to leverage default implementation of getOwnPropertyDescriptor()
-    ownKeys: pxy => pxy.$.getAttributeNames().map(k => (k=_prop_name(k), pxy[k] = k)),
+    ownKeys: pxy => Array.from(pxy.$.getAttributeNames(), k => (k=_prop_name(k), pxy[k] ??= k)),
   })
 
-export const imm_pxy_attr = el =>
-  new Proxy({$:el}, _imm_pxy_attr)
+export const imm_pxy_attr = ($,_) =>
+  new Proxy({$,_}, _imm_pxy_attr) // $ is element, _ is the attribute default value fallback
 
 export const with_ns_attr = ImmKlass =>
   class extends ImmKlass {
-    get _ns_() { return imm_pxy_attr(this) }
+    get _ns_() { return imm_pxy_attr(this, this.constructor._ns_) }
   }
 
 
