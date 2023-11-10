@@ -2,10 +2,10 @@
 
 | module           |   brotli | minified |   source |
 |:-----------------|---------:|---------:|---------:|
-| `index`          |   3924 B |   9482 B |  21714 B |
-| `imm_dom`        |    697 B |   1344 B |   3562 B |
-| `imm_elem`       |   1211 B |   2704 B |   7359 B |
-| `imm_tmpl`       |    951 B |   1918 B |   5623 B |
+| `index`          |   3963 B |   9547 B |  21832 B |
+| `imm_dom`        |    701 B |   1352 B |   3535 B |
+| `imm_elem`       |   1247 B |   2780 B |   7496 B |
+| `imm_tmpl`       |    979 B |   1922 B |   5596 B |
 
 
 ## Size of Immediate-mode DOM tools
@@ -14,26 +14,26 @@
 |:-----------------|---------:|---------:|---------:|
 | `imm_async`      |    145 B |    212 B |    404 B |
 | `imm_clone`      |    499 B |   1012 B |   2162 B |
-| `imm_css`        |    995 B |   1974 B |   4839 B |
-| `imm_dialog`     |    867 B |   1684 B |   4327 B |
-| `imm_dom`        |    697 B |   1344 B |   3562 B |
-| `imm_dom_core`   |    532 B |    924 B |   2660 B |
-| `imm_dom_ns`     |    761 B |   1426 B |   3848 B |
-| `imm_elem`       |   1211 B |   2704 B |   7359 B |
-| `imm_elem_core`  |    750 B |   1677 B |   3743 B |
-| `imm_elem_model` |    707 B |   1553 B |   3625 B |
-| `imm_elem_raf`   |   1384 B |   3115 B |   8405 B |
-| `imm_evt`        |    390 B |    824 B |   1386 B |
-| `imm_evt_core`   |    302 B |    621 B |   1036 B |
-| `imm_h`          |    789 B |   1474 B |   4071 B |
-| `imm_h1`         |    686 B |   1286 B |   3576 B |
+| `imm_css`        |   1003 B |   1982 B |   4812 B |
+| `imm_dialog`     |    876 B |   1692 B |   4300 B |
+| `imm_dom`        |    701 B |   1352 B |   3535 B |
+| `imm_dom_core`   |    539 B |    928 B |   2633 B |
+| `imm_dom_ns`     |    759 B |   1416 B |   3821 B |
+| `imm_elem`       |   1247 B |   2780 B |   7496 B |
+| `imm_elem_core`  |    791 B |   1755 B |   3878 B |
+| `imm_elem_model` |    753 B |   1631 B |   3760 B |
+| `imm_elem_raf`   |   1414 B |   3191 B |   8542 B |
+| `imm_evt`        |    388 B |    814 B |   1354 B |
+| `imm_evt_core`   |    302 B |    611 B |   1004 B |
+| `imm_h`          |    798 B |   1482 B |   4044 B |
+| `imm_h1`         |    694 B |   1294 B |   3549 B |
 | `imm_htag`       |    290 B |    406 B |    993 B |
-| `imm_legacy`     |    905 B |   1764 B |   4382 B |
-| `imm_pxy`        |    510 B |    977 B |   2152 B |
-| `imm_qx`         |   1028 B |   2268 B |   4915 B |
+| `imm_legacy`     |    917 B |   1772 B |   4355 B |
+| `imm_pxy`        |    546 B |   1045 B |   2287 B |
+| `imm_qx`         |   1066 B |   2336 B |   5023 B |
 | `imm_raf`        |    208 B |    314 B |    601 B |
-| `imm_svg`        |    784 B |   1461 B |   3894 B |
-| `imm_tmpl`       |    951 B |   1918 B |   5623 B |
+| `imm_svg`        |    769 B |   1451 B |   3867 B |
+| `imm_tmpl`       |    979 B |   1922 B |   5596 B |
 | `imm_tmpl_core`  |    410 B |    722 B |   2179 B |
-| `index`          |   3924 B |   9482 B |  21714 B |
+| `index`          |   3963 B |   9547 B |  21832 B |
 
