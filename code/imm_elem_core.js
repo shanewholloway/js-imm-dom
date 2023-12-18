@@ -1,5 +1,4 @@
-import { _el_set, _dash_name, _ce } from './imm_utils.js'
-import { _imm_cp } from './imm_dom_core.js'
+import { _el_set, _dash_name, _ce, _imm_cp } from './imm_utils.js'
 import { with_ns_attr } from './imm_pxy.js'
 
 

@@ -3,9 +3,7 @@ import {
   _is_attr_dict, _is_iter,
   _el_set, _el_on, _imm_cp
 } from './imm_utils.js'
-export {
-  _imm_cp
-} from './imm_utils.js'
+export { _imm_cp }
 
 
 // complex expressions to avoid 'if', 'else', and 'return' keywords
@@ -30,20 +28,7 @@ const
           ? _el_on(el, k, v, v.opt)
 
         : _el_set(el, _dash_name(k), v) // attribute values
-      ), el),
-
-  // .flatMap(_imm_cf) interpretation of imm child elements and iterables
-  _imm_cf = c => (
-      // allow opt-in coersion
-      c &&= c.toDOM?.(c) || c.valueOf(c),
-
-      null == c ? [] // filter nullish
-
-      : c.nodeType ? [c] // pass-through nodes
-
-      : _is_iter(c) ? _imm_b(c) // recursively reduce arrays and iterables
-
-      : ''+c ) // otherwise force toString()
+      ), el)
 
 
 
@@ -73,7 +58,21 @@ export function imm(el, ...args) {
 export const
   // clear all inner content (text and html)
   _imm0 = el => (el.textContent = '', el),
-  imm_set = (el, ...args) => imm(_imm0(el), ...args),
+  imm_set = (el, ...args) => imm(_imm0(el), ...args)
 
-  _imm_b = iterable => [... iterable].flatMap(_imm_cf)
+
+export function * _imm_b(iterable) {
+  // Recursive interpretation of imm child elements.
+  // Works with arrays, nodelists, and other iterables
+  for (let c of iterable)
+    if (null != c) {
+      c = c.toDOM?.(c) ?? c.valueOf(c)
+
+      if (_is_iter(c))
+        yield * _imm_b(c)
+      else
+        yield c.nodeType ? c // pass-through nodes
+            : ''+c // otherwise force toString()
+    }
+}
 
