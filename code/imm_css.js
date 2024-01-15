@@ -1,12 +1,15 @@
 import {tag} from './imm_dom.js'
-export {imm, imm_set, imm_tag, tag} from './imm_dom.js'
+export * from './imm_dom.js'
+
+import {immq} from './imm_query.js'
+export * from './imm_query.js'
+
+import {imm_parse} from './imm_parse.js'
+export * from './imm_parse.js'
+
 
 export function _imm_css_link() {
-  let el_doc = new DOMParser().parseFromString('<!DOCTYPE html><style></style>', 'text/html')
-  let el_style = el_doc.querySelector('style')
-  let el = el_doc.body
-  let z = el.style
-
+  let [,,el_style,el] = immq('*', imm_parse('<style>'))
   let wm_cache = new WeakMap()
   return (parts, ...args) => {
     if ('string' === typeof parts)
@@ -21,7 +24,7 @@ export function _imm_css_link() {
     if (!valid)
       throw SyntaxError('imm_css invalid template')
 
-    let i, s=''+parts[0], len=Math.min(args.length, parts.length-1)
+    let i, s=''+parts[0], len=Math.min(args.length, parts.length-1), z=el.style
     for (i=0; i<len; i++) {
       // use style.setProperty to use the browser to parse and validate css values
       z.setProperty('--v', args[i])

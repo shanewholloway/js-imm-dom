@@ -11,6 +11,7 @@ export * from './imm_dom_ns.js'
 export * from './imm_svg.js'
 export * from './imm_css.js'
 
+export * from './imm_parse.js'
 export * from './imm_h1.js'
 export * from './imm_h.js'
 
