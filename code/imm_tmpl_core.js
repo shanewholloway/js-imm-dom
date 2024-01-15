@@ -1,3 +1,8 @@
+import { immq } from './imm_query.js'
+export { immq } from './imm_query.js'
+import { _imm_clone } from './imm_clone.js'
+export { _imm_clone } from './imm_clone.js'
+
 // _tkey prefix from valid custom element name of [4.13.3: Core concepts][WHATWG ]
 //
 // [WHATWG]: https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-core-concepts
@@ -13,8 +18,8 @@ export function imm_tmpl_link(invoke_arg) {
       wm_cache.set(parts,
         el = _imm_tmpl_c(parts))
 
-    el = el.content.cloneNode(true)
-    for (let tgt_elem of el.querySelectorAll(_tqsel)) {
+    el = _imm_clone(el)
+    for (let tgt_elem of immq(_tqsel, el)) {
       // remove the tag key -- intentionally ugly!
       let idx = + tgt_elem.getAttribute(_tkey)
       tgt_elem.removeAttribute(_tkey)
@@ -41,7 +46,7 @@ export function _imm_tmpl_c(parts) {
   kinds.fill(1)
 
   // mark found attributes
-  for (let each of el0.content.querySelectorAll(_tqsel))
+  for (let each of immq(_tqsel, el0.content))
     kinds[+each.getAttribute(_tkey)] = 2
 
   // render correctly as node or attribute
