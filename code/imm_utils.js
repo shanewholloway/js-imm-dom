@@ -6,9 +6,8 @@ export const
   _is_iter = a => _is_obj(a) && Symbol.iterator in a,
   _is_attr_dict = a => _is_obj(a)
       && !a.nodeType && !a.toDOM
-      && !_is_iter(a)
+      && !_is_iter(a),
 
-export const
   _imm_cp = (tgt, src, key) =>
     Object.assign(tgt, key ? {[key]:src} : src),
   _ce = /* #__PURE__ */ _I_(customElements),

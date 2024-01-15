@@ -22,6 +22,7 @@ export * from './imm_elem_model.js'
 export * from './imm_elem.js'
 export * from './imm_elem_raf.js'
 export * from './imm_clone.js'
+export * from './imm_qx_core.js'
 export * from './imm_qx.js'
 export * from './imm_legacy.js'
 
