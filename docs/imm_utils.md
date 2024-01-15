@@ -6,7 +6,7 @@ Several utilities are available in `imm-dom` for convenience:
 
 In order to provide a framework for accessing higher level components, `imm-dom` provides a "query" mechanism for setting data attributes on parent nodes which also doubles as a more efficient way to `querySelector` the component set with `imm_set_qx`.
 
-From `imm_query.js`:
+From `imm_qx.js`:
 
 | API Function | Arguments | Usage |
 | --- | --- | --- |
