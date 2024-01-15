@@ -1,9 +1,10 @@
 import {
   _dash_name,
   _is_attr_dict, _is_iter,
-  _el_set, _el_on, _imm_cp
+  _el_set, _el_on,
+  _imm0, _imm_cp
 } from './imm_utils.js'
-export { _imm_cp }
+export { _imm0, _imm_cp }
 
 
 // complex expressions to avoid 'if', 'else', and 'return' keywords
@@ -57,7 +58,6 @@ export function imm(el, ...args) {
 
 export const
   // clear all inner content (text and html)
-  _imm0 = el => (el.textContent = '', el),
   imm_set = (el, ...args) => imm(_imm0(el), ...args)
 
 

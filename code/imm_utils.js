@@ -8,8 +8,12 @@ export const
       && !a.nodeType && !a.toDOM
       && !_is_iter(a),
 
+  _immt = (el,text='') => (el.textContent=text, el),
+  _imm0 = el => _immt(el,''),
   _imm_cp = (tgt, src, key) =>
-    Object.assign(tgt, key ? {[key]:src} : src),
+    key ? (tgt[key]=src, tgt)
+        : Object.assign(tgt, src),
+
   _ce = /* #__PURE__ */ _I_(customElements),
 
   _el_on = (el, ...z) => ( el.addEventListener(...z), el ),
