@@ -1,56 +1,48 @@
+import {_immt} from './imm_utils.js'
 import {tag} from './imm_dom.js'
 export * from './imm_dom.js'
-
-import {immq} from './imm_query.js'
-export * from './imm_query.js'
 
 import {imm_parse} from './imm_parse.js'
 export * from './imm_parse.js'
 
 
-export function _imm_css_link() {
-  let [,,el_style,el] = immq('*', imm_parse('<style>'))
-  let wm_cache = new WeakMap()
-  return (parts, ...args) => {
-    if ('string' === typeof parts)
-      parts = [parts]
+export function _imm_cssx() {
+  var _wm_cache = new WeakMap()
 
-    let valid = wm_cache.get(parts)
-    if (undefined === valid)
-      wm_cache.set(parts,
-        valid = _css_valid(
-          parts.join('var(--z);')))
+  // use DOMParser for a full document so that cssRules populate
+  var _el = imm_parse('<style>').head.lastChild, _zy=_el.style
+  var _try_css = css_sz => (_el.style = css_sz, _immt(_el, css_sz))
+  var _css_prop = v => ( _zy.setProperty('--v', v), v && _zy.getPropertyValue('--v') )
 
-    if (!valid)
+
+  return function imm_css(parts, ...args) {
+    // use <style> textContent and style property for browser-based validation
+    var i, res, _valid=_wm_cache.get(res=parts)
+    if (null == _valid) {
+      var {style:[a], sheet:{cssRules: [b]}} =
+        _try_css(parts.trim ? parts : parts.join('var(--z);'))
+
+      _try_css('')
+      _wm_cache.set(parts, _valid = a || b ? 1 : 0)
+    }
+
+    if (!_valid)
       throw SyntaxError('imm_css invalid template')
 
-    let i, s=''+parts[0], len=Math.min(args.length, parts.length-1), z=el.style
-    for (i=0; i<len; i++) {
-      // use style.setProperty to use the browser to parse and validate css values
-      z.setProperty('--v', args[i])
-      s += z.getPropertyValue('--v') + parts[i+1]
+    if (!res.trim) {
+      // if not a string, use speedy indexed for loop
+      for (i=0, res=''; i<parts.length; i++) {
+        // use style.setProperty to use the browser to parse and validate css values
+        res += parts[i] + _css_prop(args[i])
+      }
+      _css_prop('')
     }
-    z.removeProperty('--v')
-    return s
-  }
-
-  function _css_valid(css_sz) {
-    el.style = css_sz
-    let valid = !! el.style.cssText
-    el.style = '' // clear state
-
-    if (!valid) {
-      el_style.innerText = css_sz
-      valid = 0 !== el_style.sheet.cssRules.length
-      el_style.innerText = '' // clear state
-    }
-
-    return valid
+    return res
   }
 }
 
 export const imm_css = /* #__PURE__ */
-  _imm_css_link()
+  _imm_cssx()
 
 export const imm_style = (...args) =>
   tag('style', imm_css(...args))
@@ -60,3 +52,4 @@ export {
   imm_css as css,
   imm_style as style
 }
+
