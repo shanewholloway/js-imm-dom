@@ -34,23 +34,24 @@ const
 
 
 export function imm(el, ...args) {
-  if (! el?.nodeType) args.unshift(el)
-  let len=args.length, attrs=args[0]
+  let attrs = args[0]
+  ; _is_attr_dict(el)
+        ? el = (attrs=el)[0] // el is attrs[0], and attrs is zeroth argument
+    : _is_attr_dict(attrs)
+        ? args[0] = null // attrs is args[0]; remove
+    : attrs = null // no attrs in this invocation
 
-  if (0 < len) {
-    if (_is_attr_dict(attrs)) {
-      // replace attrs with null in args
-      1 === len ? args = null : args[0] = null
-
-      attrs = Object.entries(attrs)
-      el = attrs.reduce(_imm_aop, el)
+  if (null != el) {
+    if (null != attrs) {
+      ;(attrs = Object.entries(attrs))
+        .reduce(_imm_aop, el)
 
       // prepend children found in attrs.z
-      attrs.z && el.prepend(... _imm_b(attrs.z))
+      el.prepend(... _imm_b(attrs.z))
     }
 
     // append arguments as children
-    args && el.append(... _imm_b(args))
+    el.append(... _imm_b(args))
   }
   return el
 }
@@ -64,7 +65,7 @@ export const
 export function * _imm_b(iterable) {
   // Recursive interpretation of imm child elements.
   // Works with arrays, nodelists, and other iterables
-  for (let c of iterable)
+  for (let c of iterable || [])
     if (null != c) {
       c = c.toDOM?.(c) ?? c.valueOf(c)
 
