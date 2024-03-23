@@ -2,6 +2,10 @@ import rpi_dgnotify from 'rollup-plugin-dgnotify'
 import rpi_terser from '@rollup/plugin-terser'
 
 let is_watch = process.argv.includes('--watch')
+const external = [
+  /http[s]?:\/\//,
+]
+
 const _rpi_min_ = is_watch
   ? [ rpi_dgnotify() ]
   : [ rpi_dgnotify(), rpi_terser() ]
@@ -39,18 +43,23 @@ export default [
   ... add_esm('beta/imm_elem_auto'),
   ... add_esm('beta/imm_elem_iter'),
 
+  ... add_esm('util/blob'),
+  ... add_esm('util/inline_page'),
+  ... add_esm('util/inline_js'),
+  ... add_esm('util/inline_css'),
+
   ... add_esm('index', 'imm_dom'),
 ]
 
 
 function * add_esm(src_name, umd_module) {
   const input = `code/${src_name}.js`
-  yield ({ input, plugins: [], output: [
+  yield ({ input, plugins: [], external, output: [
       { file: `esm/${src_name}.js`, format: 'es', sourcemap: true },
       umd_module && { file: `umd/${umd_module}.js`, format: 'umd', name: umd_module, sourcemap: true },
     ]})
 
-  yield ({ input, plugins: _rpi_min_, output: [
+  yield ({ input, plugins: _rpi_min_, external, output: [
       { file: `esm/${src_name}.min.js`, format: 'es', sourcemap: false },
       umd_module && { file: `umd/${umd_module}.min.js`, format: 'umd', name: umd_module, sourcemap: false },
     ]})
