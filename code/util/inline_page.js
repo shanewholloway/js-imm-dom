@@ -15,7 +15,8 @@ export async function doc_inline_page(el_root=window.document) {
   return dom_as_html_src(el_root)
 }
 
-export const doc_inline_page_download = (filename, el_root) =>
-  as_download(filename ?? 'inline-page.html', mime_html,
-    doc_inline_page(el_root))
+export const doc_inline_page_download = (filename, el_root=window.document) =>
+  as_download(
+    filename ?? `inline-${el_root.location.pathname.split('/').pop()}`,
+    mime_html, doc_inline_page(el_root))
 
