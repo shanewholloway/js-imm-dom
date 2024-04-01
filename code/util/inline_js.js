@@ -13,17 +13,18 @@ export async function inline_script(el, opt={}) {
   if (!format.trim) return
 
   opt.format ??= format
+  let js_code
   if (el.src) { // script with src url
-    let js_code = await bundle_javascript(el.src, opt)
-    el.textContent = ''
-    el.src = await as_dataurl(mime_js, js_code)
+    js_code = await bundle_javascript(el.src, opt)
 
   } else { // inline script
     let href = (el.ownerDocument ?? document).location.href
     let modules = new Map([[href, el.textContent]])
-    let js_code = await bundle_javascript(modules, opt)
-    el.textContent = js_code
+    js_code = await bundle_javascript(modules, opt)
   }
+
+  el.textContent = ''
+  el.src = await as_dataurl(mime_js, js_code)
   return el
 }
 
