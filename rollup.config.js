@@ -47,6 +47,7 @@ export default [
   ... add_esm('util/inline_page'),
   ... add_esm('util/inline_js'),
   ... add_esm('util/inline_css'),
+  ... add_esm('util/inline_json'),
 
   ... add_esm('index', 'imm_dom'),
 ]

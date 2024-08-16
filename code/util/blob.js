@@ -11,11 +11,14 @@ export const as_dataurl = async (mimetype, ...args) =>
 export const as_download = async (filename, mimetype, ...args) =>
   blob_as_download(filename, await as_blob(mimetype, ...args) )
 
-export const blob_as_download = (filename, blob) =>
-  _as_download_elem(filename, URL.createObjectURL(blob))
+export const blob_as_download = (opt, blob=opt.blob) =>
+  _as_download_elem(opt, URL.createObjectURL(blob))
 
-export const _as_download_elem = (filename, href) =>
-  Object.assign(document.createElement('a'), { download: filename, href })
+export const _as_download_elem = (opt, href) =>
+  Object.assign(document.createElement('a'),
+    'string' === typeof opt
+      ? {download: opt, textContent: opt}
+      : opt, {href})
 
 export async function blob_as_dataurl(blob) {
   blob = await blob
