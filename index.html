@@ -7,7 +7,7 @@
 
   <link rel='icon' href='data:image/png;base64,' />
   <link rel='stylesheet' crossorigin='anonymous' href='https://cdn.jsdelivr.net/npm/purecss@1.0.1/build/pure-min.css' />
-  <script src='./umd/imm_dom.js'></script>
+  <script src='./umd/imm_dom.js' data-inline></script>
 
   <style>
     body {
@@ -19,7 +19,7 @@
 </head>
 
 <body>
-  <main>
+  <main class="alpha beta gamma" data-extra=1942 data-inline-remove='class:beta attr:data-extra'>
     <h3>Examples</h3>
     <ul>
       <li><a href='./examples/dom.html' >imm_dom example</a></li>
@@ -43,5 +43,13 @@
     </ul>
     -->
   </main>
+  <footer class=bogus data-inline-remove='class inner'><small>See console</small></footer>
+
+  <script type=module data-inline-remove>
+    import {doc_inline_page, download_doc_inline_page, doc_inline_page_download} from './esm/util/inline_page.js'
+    Object.assign(window, {doc_inline_page, download_doc_inline_page, doc_inline_page_download})
+    console.log('Try tools from %o', './esm/util/inline_page.js')
+    console.log({doc_inline_page, download_doc_inline_page, doc_inline_page_download})
+  </script>
 </body>
 </html>
