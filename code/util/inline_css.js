@@ -9,15 +9,25 @@ export const doc_inline_css = (el_root=window.document) =>
 
 
 export async function inline_stylesheet(el) {
-  let css_src = cssom_as_css_src(el.sheet)
-  let _dataurl = await as_dataurl(mime_css, css_src)
-  el.href = _dataurl
-  return el
+  try {
+    let css_src = cssom_as_css_src(el.sheet)
+    let _dataurl = await as_dataurl(mime_css, css_src)
+    el.href = _dataurl
+    return el
+  } catch (err) {
+    console.warn('Error inlining stylesheet', el)
+    return null
+  }
 }
 
 export async function inline_style(el) {
-  let css_src = cssom_as_css_src(el.sheet)
-  el.textContent = css_src
-  return el
+  try {
+    let css_src = cssom_as_css_src(el.sheet)
+    el.textContent = css_src
+    return el
+  } catch (err) {
+    console.warn('Error inlining style', el)
+    return null
+  }
 }
 
