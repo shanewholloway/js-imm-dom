@@ -14,10 +14,9 @@ export function imm_wcemit(tgt, evt, detail, opt) {
   return imm_emit(tgt, evt, detail, {composed: true, ...opt}) }
 
 
-export function imm_on(el, ns, xfn=f=>f) {
-  ns = ns[0] ? ns : Object.entries(ns)
-  for (let [n,f,o] of ns)
-    _el_on(el, n, xfn(f), o)
+export function imm_on(el, ns, opt) {
+  for (let [evt, evt_fn] of Object.entries(ns))
+    _el_on(el, evt, evt_fn, opt)
   return el
 }
 

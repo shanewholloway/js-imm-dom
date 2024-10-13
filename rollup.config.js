@@ -22,6 +22,7 @@ export default [
   ... add_esm('imm_dom'),
   ... add_esm('imm_dom_ns'),
   ... add_esm('imm_svg'),
+  ... add_esm('imm_xhtml'),
   ... add_esm('imm_css'),
 
   ... add_esm('imm_htag'),

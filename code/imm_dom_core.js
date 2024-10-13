@@ -12,12 +12,12 @@ const
   // .reduce(_imm_aop, el) interpretation of imm attribute dictionary semantics
   _imm_aop = (el,[k,v],k0,attrs) => (
       k0 = k[0]
-      , (
-        '$' === k0 // children to prepend
+      , ( '_' === k0 ? attrs[k]=v
+        : '$' === k0 // children to prepend
           ? (attrs.z ||= []).push(v)
 
         : '=' === k0 // direct property assignment
-          ? _imm_cp(el, v, k.split('=')[1])
+          ? _imm_cp(el, v, k.slice(1))
 
         : '@' === k0 // hook callback
           ? v.call ? v(el, k) : v[k.slice(1)||'append'](el)
@@ -26,7 +26,7 @@ const
           ? el = v
 
         : v?.call // event handlers
-          ? _el_on(el, k, v, v.opt)
+          ? _el_on(el, k, v)
 
         : _el_set(el, _dash_name(k), v) // attribute values
       ), el)
@@ -47,11 +47,11 @@ export function imm(el, ...args) {
         .reduce(_imm_aop, el)
 
       // prepend children found in attrs.z
-      el.prepend(... _imm_b(attrs.z))
+      el.prepend(... _imm_b(attrs.z, attrs._sep))
     }
 
     // append arguments as children
-    el.append(... _imm_b(args))
+    el.append(... _imm_b(args, attrs?._sep))
   }
   return el
 }
@@ -62,7 +62,7 @@ export const
   imm_set = (el, ...args) => imm(_imm0(el), ...args)
 
 
-export function * _imm_b(iterable) {
+export function * _imm_b(iterable, _sep) {
   // Recursive interpretation of imm child elements.
   // Works with arrays, nodelists, and other iterables
   for (let c of iterable || [])
@@ -71,9 +71,12 @@ export function * _imm_b(iterable) {
 
       if (_is_iter(c))
         yield * _imm_b(c)
-      else
+      else {
         yield c.nodeType ? c // pass-through nodes
             : ''+c // otherwise force toString()
+
+        if (null != _sep) yield _sep
+      }
     }
 }
 

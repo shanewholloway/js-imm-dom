@@ -1,10 +1,12 @@
-import { _el_set, _dash_name, _ce, _imm_cp } from './imm_utils.js'
+import { _el_set, _dash_name, _imm_cp } from './imm_utils.js'
 import { with_ns_attr } from './imm_pxy.js'
 
 
 const _subclass_unless = (klass, args) =>
   true === args[0] ? (args.shift(), klass)
   : class extends klass {}
+
+const _ce = globalThis.customElements
 
 export const
   imm_ac_on = el =>

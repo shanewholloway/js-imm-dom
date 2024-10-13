@@ -1,4 +1,3 @@
-import { _ce } from './imm_utils.js'
 import { imm_defer_v  } from './imm_async.js'
 import { imm_mixin } from './imm_elem_core.js'
 import { imm_tag } from './imm_dom.js'
@@ -32,9 +31,9 @@ export const with_legacy = (base=HTMLElement) =>
 
 export function imm_legacy(opt) {
   let {tag, once, base} = opt.trim ? {tag:opt} : opt
-  let klass = _ce.get(tag)
+  let klass = customElements.get(tag)
   if (! klass) {
-    _ce.define(tag, klass=with_legacy(base))
+    customElements.define(tag, klass=with_legacy(base))
     once && once(klass, tag)
   }
   return klass
