@@ -34,6 +34,6 @@ export async function blob_as_dataurl(blob) {
 export const cssom_as_css_src = (cssom) =>
   Array.from(cssom.cssRules, rule => rule.cssText).join('\n')
 
-export const dom_as_html_src = (dom) =>
-  new XMLSerializer().serializeToString(dom)
+export const dom_as_html_src = (dom) => 9 !== dom.nodeType ? dom.outerHTML :
+  `<!DOCTYPE ${dom.doctype.name}>\n${dom.documentElement.outerHTML}\n`
 

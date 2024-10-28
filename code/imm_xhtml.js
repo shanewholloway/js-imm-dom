@@ -12,6 +12,6 @@ export const imm_xhtml = /* #__PURE__ */
 
 
 export {
-  imm_xhtml as xhtml
+  imm_xhtml as xhtml,
   imm_xhtml as default
 }
