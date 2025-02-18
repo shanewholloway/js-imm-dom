@@ -14,6 +14,8 @@ export const
 
   _el_on = (el, evt, evt_fn, opt) =>
     el.addEventListener(evt, evt_fn, evt_fn.opt ?? opt),
+  _el_off = (el, evt, evt_fn, opt) =>
+    el.removeEventListener(evt, evt_fn, evt_fn.opt ?? opt),
 
   _el_get = (el,k) => (k=el.getAttribute(k), ''==k || k),
   _el_has = (el,k) => el.hasAttribute(k),
