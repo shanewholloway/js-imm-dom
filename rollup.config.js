@@ -11,6 +11,8 @@ const _rpi_min_ = is_watch
   : [ rpi_dgnotify(), rpi_terser() ]
 
 export default [
+  ... add_esm('imm_tiny'),
+
   ... add_esm('imm_pxy'),
   ... add_esm('imm_raf'),
 
