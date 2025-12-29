@@ -1,6 +1,5 @@
 import { _qs_by_attr } from './_inline_util.js'
 
-/* #__PURE__ */
 const _inline_remove_ops = {
   $true: el => el.remove(),
   $all: el => el.remove(),

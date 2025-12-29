@@ -1,7 +1,10 @@
 export const mime_html = 'text/html'
 export const mime_css = 'text/css'
 export const mime_js = 'text/javascript'
+export const mime_json = 'application/json'
 
+export const _as_blob = (mimetype, ...z) =>
+  new Blob(z, {type: mimetype})
 export const as_blob = async (mimetype, ...args) =>
   new Blob(await Promise.all(args), {type: mimetype})
 
