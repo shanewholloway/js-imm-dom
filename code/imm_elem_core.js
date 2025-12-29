@@ -13,9 +13,9 @@ export const
     (old, value, attr) =>
       _el_set(el, attr, value),
 
-  imm_when = tag_name =>
-    _ce.whenDefined(tag_name)
-      .then(el => el || _ce.get(tag_name)),
+  imm_when = tag =>
+    _ce.whenDefined(tag = tag.tagName || tag)
+      .then(klass => klass || _ce.get(tag)),
 
   imm_mixin = (klass, ... args) => (
     klass = _subclass_unless(klass, args),

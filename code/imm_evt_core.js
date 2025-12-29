@@ -1,17 +1,15 @@
 import { _el_on, _el_off } from './imm_utils.js'
   
 
-export function imm_emit0(tgt, evt, opt) {
-  return tgt.dispatchEvent(new CustomEvent(evt, opt)) }
-
-export function imm_emit_at(tgt, evt, detail, opt) {
-  return imm_emit0(tgt, evt, {...opt, detail}) }
-
-export function imm_emit(tgt, evt, detail, opt) {
-  return imm_emit0(tgt, evt, {bubbles: true, cancelable: true, ...opt, detail}) }
-
-export function imm_wcemit(tgt, evt, detail, opt) {
-  return imm_emit(tgt, evt, detail, {composed: true, ...opt}) }
+const _opt_bc = {bubbles: true, cancelable: true}
+export const imm_emit0 = (tgt, evt, opt) =>
+  tgt.dispatchEvent(new CustomEvent(evt, opt))
+export const imm_emit_at = (tgt, evt, detail, opt) =>
+  imm_emit0(tgt, evt, {...opt, detail})
+export const imm_emit = (tgt, evt, detail, opt) =>
+  imm_emit0(tgt, evt, {..._opt_bc, ...opt, detail})
+export const imm_wcemit = (tgt, evt, detail, opt) =>
+  imm_emit0(tgt, evt, {composed: true, ..._opt_bc, ...opt, detail})
 
 
 export function _el_evt(_elfn, el, ns, opt) {
@@ -19,6 +17,10 @@ export function _el_evt(_elfn, el, ns, opt) {
     _el_on(el, evt, evt_fn, opt)
   return el
 }
+
+export const imm_once = (el, evt, opt) =>
+  new Promise(fn =>
+    _el_on(el, evt, fn, {... opt, once: true}))
 
 export const imm_on = (el, ns, opt) =>
   _el_evt(_el_on, el, ns, opt)

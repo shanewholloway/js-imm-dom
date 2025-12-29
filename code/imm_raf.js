@@ -2,6 +2,9 @@ export const imm_raf_sym =
   imm_raf.sym = Symbol.for('imm_raf')
 
 let _raf_p=0, _raf_map = new Map()
+const _raf_notify = ([obj, x]) =>
+  obj[imm_raf_sym]?.(imm_raf, x)
+
 
 export function imm_raf(obj, x) {
   if (null != obj && !_raf_map.has(obj))
@@ -18,10 +21,7 @@ function _raf_tick() {
   _raf_map = new Map()
   _raf_p = 0
 
-  coll.map(_raf_notify)
+  coll.forEach(_raf_notify)
 }
-
-async function _raf_notify([obj, x]) {
-  obj[await imm_raf_sym](imm_raf, x) }
 
 export default imm_raf
