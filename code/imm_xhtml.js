@@ -5,7 +5,7 @@ export { imm, imm_set } from './imm_dom_core.js'
 
 export const imm_xhtml_tag = /* #__PURE__ */
   imm_dom(document,
-    tag => document.createElementNS('http://www.w3.org/2000/svg', tag))
+    tag => document.createElementNS('https://www.w3.org/1999/xhtml/', tag))
 
 export const imm_xhtml = /* #__PURE__ */
   imm_pxy_tag(imm_xhtml_tag)

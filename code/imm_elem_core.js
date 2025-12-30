@@ -2,6 +2,7 @@ import { _el_set, _dash_name, _imm_cp } from './imm_utils.js'
 import { with_ns_attr } from './imm_pxy.js'
 
 
+// #__NO_SIDE_EFFECTS__
 const _subclass_unless = (klass, args) =>
   true === args[0] ? (args.shift(), klass)
   : class extends klass {}
@@ -72,8 +73,7 @@ export class Imm0 extends HTMLElement {
   }
 }
 
-
-export class ImmCore extends /* #__PURE__ */ with_ns_attr(Imm0) {
+export class ImmCore extends with_ns_attr(Imm0) {
   static dom(dfn, proto_, kw) {
     if (proto_)
       kw = {...kw, ... (

@@ -4,6 +4,7 @@ import {ImmElem} from './imm_elem.js'
 export const ImmRAF = /* #__PURE__ */
   with_imm_raf(ImmElem)
 
+// #__NO_SIDE_EFFECTS__
 export function with_imm_raf(ImmKlass) {
   if (ImmKlass[imm_raf.sym])
     throw new Error()

@@ -1,6 +1,7 @@
 import {imm_emit, imm_defer_v} from './imm_evt.js'
 import {imm_tag, imm} from './imm_dom.js'
 
+// #__NO_SIDE_EFFECTS__
 export function imm_dialog_ctx(evt_name='resolve-dialog') {
   return {
     emit: (e, detail) => imm_emit(e.target || e, evt_name, detail),
@@ -25,5 +26,4 @@ export function imm_dialog_ctx(evt_name='resolve-dialog') {
   }
 }
 
-export const imm_dialog = /* #__PURE__ */
-  imm_dialog_ctx()
+export const imm_dialog = imm_dialog_ctx()

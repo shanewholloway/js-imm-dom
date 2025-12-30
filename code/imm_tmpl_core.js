@@ -1,5 +1,3 @@
-import { immq } from './imm_query.js'
-export { immq } from './imm_query.js'
 import { _imm_clone } from './imm_clone.js'
 export { _imm_clone } from './imm_clone.js'
 
@@ -8,6 +6,7 @@ export { _imm_clone } from './imm_clone.js'
 // [WHATWG]: https://html.spec.whatwg.org/multipage/custom-elements.html#custom-elements-core-concepts
 const _tkey = 'I\u2133-'+Date.now(), _tqsel = '['+_tkey+']', _ttype = 'text/x-'+_tkey
 
+// #__NO_SIDE_EFFECTS__
 export function imm_tmpl_link(invoke_arg) {
   let wm_cache = new WeakMap()
   return (parts, ...args) => {
@@ -19,7 +18,7 @@ export function imm_tmpl_link(invoke_arg) {
         el = _imm_tmpl_c(parts))
 
     el = _imm_clone(el)
-    for (let tgt_elem of immq(_tqsel, el)) {
+    for (let tgt_elem of el.querySelectorAll(_tqsel)) {
       // remove the tag key -- intentionally ugly!
       let idx = + tgt_elem.getAttribute(_tkey)
       tgt_elem.removeAttribute(_tkey)
@@ -35,6 +34,7 @@ export function imm_tmpl_link(invoke_arg) {
   }
 }
 
+// #__NO_SIDE_EFFECTS__
 export function _imm_tmpl_c(parts) {
   // Compile into template element with keyed attributes and nodes
 
@@ -46,13 +46,14 @@ export function _imm_tmpl_c(parts) {
   kinds.fill(1)
 
   // mark found attributes
-  for (let each of immq(_tqsel, el0.content))
+  for (let each of el0.content.querySelectorAll(_tqsel))
     kinds[+each.getAttribute(_tkey)] = 2
 
   // render correctly as node or attribute
   return _imm_tmpl_r(parts, kinds)
 }
 
+// #__NO_SIDE_EFFECTS__
 export function _imm_tmpl_r(parts, kinds) {
   // Render into template element with keyed attributes.
 

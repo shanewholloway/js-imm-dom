@@ -1,4 +1,5 @@
 
+// #__NO_SIDE_EFFECTS__
 export function imm_defer_ctx(as_res=((...args) => args)) {
   let y,n,_pset = (a,b) => { y=a, n=b }
   return p => (p = new Promise(_pset), as_res(p, y, n))

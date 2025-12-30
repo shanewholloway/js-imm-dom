@@ -6,6 +6,7 @@ import {imm_parse} from './imm_parse.js'
 export * from './imm_parse.js'
 
 
+// #__NO_SIDE_EFFECTS__
 export function _imm_cssx() {
   var _wm_cache = new WeakMap()
 
@@ -44,6 +45,7 @@ export function _imm_cssx() {
 export const imm_css = /* #__PURE__ */
   _imm_cssx()
 
+// #__NO_SIDE_EFFECTS__
 export const imm_style = (...args) =>
   tag('style', imm_css(...args))
 

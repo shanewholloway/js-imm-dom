@@ -5,7 +5,7 @@ export const imm_tmpl = /* #__PURE__ */
   imm_tmpl_link((el_tgt, is_replace, arg) => {
     if (is_replace) {
       // replace element entirely
-      let el_new = 'function' === typeof arg
+      let el_new = arg?.call
         ? arg(el_tgt, is_replace, imm)
         : arg || ''
 
@@ -16,7 +16,7 @@ export const imm_tmpl = /* #__PURE__ */
     } else {
       // in-place element update
 
-      if ('function' === typeof arg) {
+      if (arg.call) {
         // delegate to function
         arg(el_tgt, false, imm)
       } else {
@@ -28,19 +28,21 @@ export const imm_tmpl = /* #__PURE__ */
 
 export default imm_tmpl
 
+// #__NO_SIDE_EFFECTS__
 export const imm_tmpl_f = (...args) =>
   imm_tmpl(...args).firstElementChild
 
+// #__NO_SIDE_EFFECTS__
 export const imm_tmpl_l = (...args) =>
   imm_tmpl(...args).lastElementChild
 
+// #__NO_SIDE_EFFECTS__
 export function imm_flat(tgt, host) {
-  if ('string' === typeof tgt || tgt == null || tgt.nodeType)
+  if (tgt == null || tgt.nodeType || tgt.trim)
     return tgt
 
   let fragment = (host.ownerDocument || host).createDocumentFragment()
-  for (let e of tgt)
-    fragment.append(e)
+  fragment.append(... tgt)
   return fragment
 }
 

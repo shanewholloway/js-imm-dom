@@ -2,6 +2,7 @@ import { imm_defer_v  } from './imm_async.js'
 import { imm_mixin } from './imm_elem_core.js'
 import { imm_tag } from './imm_dom.js'
 
+// #__NO_SIDE_EFFECTS__
 export const with_legacy = (base=HTMLElement) =>
   class extends base {
     static M = new Map()

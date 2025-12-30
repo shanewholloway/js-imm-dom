@@ -33,6 +33,7 @@ export const imm_evt = (el, ns, opt) => (
   () => el &&= void _el_evt(_el_off, el, ns, opt))
 
 
+// #__NO_SIDE_EFFECTS__
 export const with_emit0 = ImmKlass =>
   class extends ImmKlass {
     emit0(evt, detail) {
