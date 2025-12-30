@@ -24,12 +24,15 @@
     ".": "./esm/index.js"
   },
   "devDependencies": {
+    "@jsy-lang/jsy": "^0.10.9",
     "@rollup/plugin-terser": "^0.4.4",
     "rollup": "^4.32.0",
-    "vite": "^7.3.0"
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
   },
   "scripts": {
     "vite": "vite",
+    "serve": "vite",
     "clean": "rm -rf ./esm/* ./umd/*",
     "build": "rollup --config",
     "watch": "rollup --config --watch",
@@ -38,6 +41,6 @@
     "postcompress": "node ./_util/doc_compressed.js docs/compressed.md",
     "prepublishOnly": "npm -s run compress",
     "pretest": "npm -s run build",
-    "test": "true"
+    "test": "vitest"
   }
 }
