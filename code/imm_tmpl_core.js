@@ -1,5 +1,5 @@
-import { _imm_clone } from './imm_clone.js'
-export { _imm_clone } from './imm_clone.js'
+export const
+  _imm_clone = el => (el.content || el).cloneNode(true)
 
 // _tkey prefix from valid custom element name of [4.13.3: Core concepts][WHATWG ]
 //

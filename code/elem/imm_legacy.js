@@ -1,6 +1,5 @@
-import { imm_defer_v  } from './imm_async.js'
 import { imm_mixin } from './imm_elem_core.js'
-import { imm_tag } from './imm_dom.js'
+import { imm_tag } from '../dom/imm_dom.js'
 
 // #__NO_SIDE_EFFECTS__
 export const with_legacy = (base=HTMLElement) =>
@@ -15,12 +14,12 @@ export const with_legacy = (base=HTMLElement) =>
     }
 
     static async _import({el, ...opt}) {
-      let dp = imm_defer_v(),
+      let dp = Promise.withResolvers(),
         el_script = imm_tag('script',
-          {...opt, load: dp[1], error: dp[2]})
+          {...opt, load: dp.resolve, error: dp.reject})
 
       let p = el_script.ready =
-        dp[0].then(opt.load, opt.error)
+        dp.promise.then(opt.load, opt.error)
         .finally(() => el_script.remove())
 
       ;(el || document.head)

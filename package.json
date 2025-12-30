@@ -1,6 +1,6 @@
 {
   "name": "imm-dom",
-  "version": "0.4.1",
+  "version": "0.5.0-0",
   "description": "Immediate-mode DOM tools",
   "license": "BSD-2-Clause",
   "author": "Shane Holloway <shane.holloway@ieee.org>",
@@ -25,16 +25,16 @@
   },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
-    "qsrv": "^0.2.8",
-    "rollup": "^4.32.0"
+    "rollup": "^4.32.0",
+    "vite": "^7.3.0"
   },
   "scripts": {
-    "serve": "qsrv -p 8081 -- index.html ./esm ./examples",
+    "vite": "vite",
     "clean": "rm -rf ./esm/* ./umd/*",
     "build": "rollup --config",
-    "watch": "npm -s run build -- --watch",
+    "watch": "rollup --config --watch",
     "precompress": "rm -rf esm/* ; npm -s run build",
-    "compress": "gzip -k esm/*.min.js ; brotli esm/*.min.js",
+    "compress": "gzip -k esm/*.min.js esm/**/*.min.js ; brotli esm/*.min.js esm/**/*.min.js",
     "postcompress": "node ./_util/doc_compressed.js docs/compressed.md",
     "prepublishOnly": "npm -s run compress",
     "pretest": "npm -s run build",

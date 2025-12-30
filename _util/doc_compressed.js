@@ -4,28 +4,30 @@ import {stat, readdir} from 'fs/promises'
 const out_doc_path = process.argv[2]
 const local_path = './esm'
 
-stat_outputs()
+stat_outputs('./esm/', './esm/dom/')
   .then(show_stat_table)
 
-async function stat_outputs() {
-  let dir = await readdir(local_path)
-  dir = dir
-    .filter(e => e.includes('.js'))
-    .sort()
-
+async function stat_outputs(...local_path_args) {
   let by_name = {}
 
-  for (let e of dir) {
-    let {size} = await stat(`${local_path}/${e}`)
+  for (let local_path of local_path_args) {
+    let dir = await readdir(local_path)
+    dir = dir
+      .filter(e => e.includes('.js'))
+      .sort()
 
-    let [name0, kind] = e.split('.js')
-    let name = name0.replace(/\.min$/,'')
-    kind = kind ? kind.replace(/^\./,'')
-      : name === name0 ? 'raw' : 'min'
+    for (let e of dir) {
+      let {size} = await stat(`${local_path}/${e}`)
 
-    let row = by_name[name] || {name: `\`${name}\``.padEnd(16)}
-    row[kind] = `${size}`.padStart(6, ' ')
-    by_name[name] = row
+      let [name0, kind] = e.split('.js')
+      let name = name0.replace(/\.min$/,'')
+      kind = kind ? kind.replace(/^\./,'')
+        : name === name0 ? 'raw' : 'min'
+
+      let row = by_name[name] || {name: `\`${name}\``.padEnd(16)}
+      row[kind] = `${size}`.padStart(6, ' ')
+      by_name[name] = row
+    }
   }
   return by_name
 }
@@ -42,7 +44,8 @@ async function show_stat_table(by_name) {
   out.write(`|:-----------------|---------:|---------:|---------:|\n`)
   for (let k of ['index', 'imm_dom', 'imm_elem', 'imm_tmpl']) {
     let o = by_name[k]
-    out.write(`| ${o.name} | ${o.br} B | ${o.min} B | ${o.raw} B |\n`)
+    if (o)
+      out.write(`| ${o.name} | ${o.br} B | ${o.min} B | ${o.raw} B |\n`)
   }
   out.write(`\n`)
   out.write(`\n`)

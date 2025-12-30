@@ -1,10 +1,9 @@
 export const
   _dash_name = s => s?.replace(/_/g, '-'),
-  _prop_name = s => s?.replace(/-/g, '_'),
 
   _is_obj = a => 'object' === typeof a && null !== a && !a.nodeType,
   _is_iter = a => _is_obj(a) && Symbol.iterator in a,
-  _is_attr_dict = a => _is_obj(a) && !(a.toDOM || Symbol.iterator in a),
+  _is_attrs = a => _is_obj(a) && !(a.toDOM || Symbol.iterator in a),
 
   _immt = (el,text='') => ((el.nodeType ? el : el[0]).textContent=text, el),
   _imm0 = el => el ? _immt(el,'') : el,

@@ -1,9 +1,9 @@
 import {
   _dash_name,
-  _is_attr_dict, _is_iter,
+  _is_attrs, _is_iter,
   _el_set, _el_on,
   _imm0, _imm_cp
-} from './imm_utils.js'
+} from './imm_dom_utils.js'
 export { _imm0, _imm_cp }
 
 
@@ -11,10 +11,13 @@ export { _imm0, _imm_cp }
 const
   // .reduce(_imm_aop, el) interpretation of imm attribute dictionary semantics
   _imm_aop = (el,[k,v],k0,attrs) => (
-      '$=@_0'.includes(k0=k[0])
+      '$/=@_0'.includes(k0=k[0])
       ? ( // prefix match
         '$' === k0 // children to prepend
-          ? (attrs.z ||= []).push(v)
+          ? _imm_b(attrs.z ??= [], v)
+
+        : '/' === k0 // clear and prepend children
+          ? (attrs.c=true, _imm_b(attrs.z ??= [], v))
 
         : '=' === k0 // direct property assignment
           ? _imm_cp(el, v, k.slice(1))
@@ -39,26 +42,28 @@ const
       // return element for reduce protocol
       , el)
 
+  , _with_sep = (sep, list) => (sep
+      ? list.flatMap((e,i) => i===0 ? [e] : [sep, e])
+      : list)
+
 
 export function imm(el, ...args) {
-  let attrs = args[0]
-  ; _is_attr_dict(el)
-        ? el = (attrs=el)[0] // el is attrs[0], and attrs is zeroth argument
-    : _is_attr_dict(attrs)
-        ? args[0] = null // attrs is args[0]; remove
-    : attrs = null // no attrs in this invocation
+  let z1, attrs=_is_attrs(el) ? [el] : []
+  for (let a of args)
+    if (undefined !== z1) _imm_b(z1, a)
+    else if (_is_attrs(a)) attrs.push(a)
+    else _imm_b(z1=[], a)
 
-  if (null != el) {
-    if (null != attrs) {
-      ;(attrs = Object.entries(attrs))
-        .reduce(_imm_aop, el)
+  attrs = attrs.flatMap(Object.entries)
+  el = attrs.reduce(_imm_aop, el)
+  if (el) {
+    if (attrs.c) el.textContent = ''
 
-      // prepend children found in attrs.z
-      el.prepend(... _imm_b(attrs.z, attrs._sep))
-    }
+    // prepend children found in attrs.z
+    el.prepend(... _with_sep(attrs._sep, attrs.z))
 
-    // append arguments as children
-    el.append(... _imm_b(args, attrs?._sep))
+    // append (maybe nested) children
+    el.append(... _with_sep(attrs._sep, z1))
   }
   return el
 }
@@ -66,10 +71,11 @@ export function imm(el, ...args) {
 
 export const
   // clear all inner content (text and html)
-  imm_set = (el, ...args) => imm(_imm0(el), ...args)
+  imm_set = (el, ...args) => imm(el, {'/':null}, ...args)
 
 
-export function * _imm_b(iterable, _sep) {
+
+export function _imm_b(list, iterable) {
   // Recursive interpretation of imm child elements.
   // Works with arrays, nodelists, and other iterables
   for (let c of iterable || [])
@@ -77,13 +83,11 @@ export function * _imm_b(iterable, _sep) {
       c = c.toDOM?.(c) ?? c.valueOf(c)
 
       if (_is_iter(c))
-        yield * _imm_b(c, _sep)
-      else {
-        yield c.nodeType ? c // pass-through nodes
-            : ''+c // otherwise force toString()
-
-        if (_sep) yield _sep
-      }
+        _imm_b(list, c)
+      else list.push(
+        c.nodeType ? c // pass-through nodes
+            : ''+c) // otherwise force toString()
     }
+  return list
 }
 

@@ -1,5 +1,4 @@
-import { imm_dom } from './imm_dom.js'
-import { imm_pxy_tag } from './imm_pxy.js'
+import { imm_dom, imm_pxy_tag } from './imm_dom.js'
 export * from './imm_dom_core.js'
 
 export const imm_svg_tag = /* #__PURE__ */

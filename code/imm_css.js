@@ -1,10 +1,6 @@
-import {_immt} from './imm_utils.js'
-import {tag} from './imm_dom.js'
-export * from './imm_dom.js'
-
-import {imm_parse} from './imm_parse.js'
-export * from './imm_parse.js'
-
+import {_immt} from './dom/imm_dom_utils.js'
+import {tag, imm_parse} from './dom/imm_dom.js'
+export * from './dom/imm_dom.js'
 
 // #__NO_SIDE_EFFECTS__
 export function _imm_cssx() {

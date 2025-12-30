@@ -1,5 +1,5 @@
-import {imm_emit, imm_defer_v} from './imm_evt.js'
-import {imm_tag, imm} from './imm_dom.js'
+import {imm_emit} from './imm_evt_core.js'
+import {imm_tag, imm} from './dom/imm_dom.js'
 
 // #__NO_SIDE_EFFECTS__
 export function imm_dialog_ctx(evt_name='resolve-dialog') {
@@ -7,10 +7,10 @@ export function imm_dialog_ctx(evt_name='resolve-dialog') {
     emit: (e, detail) => imm_emit(e.target || e, evt_name, detail),
 
     async showModal(el_tgt, el_body) {
-      let [ans, done] = imm_defer_v()
+      let dp = Promise.withResolvers()
       let close = evt => {
         evt.stopPropagation()
-        done(evt)
+        dp.resolve(evt)
       }
 
       let el_dialog = imm_tag('dialog',
@@ -19,7 +19,7 @@ export function imm_dialog_ctx(evt_name='resolve-dialog') {
       imm(el_tgt, el_dialog)
       el_dialog.showModal()
 
-      ans = await ans
+      let ans = await dp.promise
       el_dialog.remove()
       return ans.type == evt_name ? ans.detail : null
     }

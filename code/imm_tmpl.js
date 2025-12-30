@@ -1,4 +1,4 @@
-import { imm } from './imm_dom_core.js'
+import { imm } from './dom/imm_dom_core.js'
 import { imm_tmpl_link } from './imm_tmpl_core.js'
 
 export const imm_tmpl = /* #__PURE__ */
