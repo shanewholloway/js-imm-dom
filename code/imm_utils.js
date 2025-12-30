@@ -4,7 +4,7 @@ export const
 
   _is_obj = a => 'object' === typeof a && null !== a && !a.nodeType,
   _is_iter = a => _is_obj(a) && Symbol.iterator in a,
-  _is_attr_dict = a => _is_obj(a) && !(a.toDOM || Symbol.iterator in a),
+  _is_attrs = a => _is_obj(a) && !(a.toDOM || Symbol.iterator in a),
 
   _immt = (el,text='') => (el ? el.textContent=text : 0, el),
   _imm_el = el => el && (el.nodeType ? el : el[0]),

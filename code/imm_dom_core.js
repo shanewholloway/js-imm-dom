@@ -1,6 +1,6 @@
 import {
   _dash_name,
-  _is_attr_dict, _is_iter,
+  _is_attrs, _is_iter,
   _el_set, _el_on,
   _imm0, _imm_cp
 } from './imm_utils.js'
@@ -39,9 +39,9 @@ const
 
 export function imm(el, ...args) {
   let attrs = args[0]
-  ; _is_attr_dict(el)
+  ; _is_attrs(el)
         ? el = (attrs=el)[0] // el is attrs[0], and attrs is zeroth argument
-    : _is_attr_dict(attrs)
+    : _is_attrs(attrs)
         ? args[0] = null // attrs is args[0]; remove
     : attrs = null // no attrs in this invocation
 

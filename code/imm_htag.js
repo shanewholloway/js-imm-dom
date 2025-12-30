@@ -1,4 +1,4 @@
-import { _is_iter, _is_attr_dict } from './imm_utils.js'
+import { _is_iter, _is_attrs } from './imm_utils.js'
 
 const 
   _imm_h = (h_tag, h_lst) =>
@@ -19,7 +19,7 @@ const
 
   _htag = h_tag => (... h_lst) => (
     // ensure [1] is an attribute dict
-    _is_attr_dict(h_lst[1]) || h_lst.splice(1,0,{}),
+    _is_attrs(h_lst[1]) || h_lst.splice(1,0,{}),
 
     // replace tag name, #id, and .class
     h_lst[0] = h_lst[0].replaceAll(
