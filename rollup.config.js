@@ -1,8 +1,10 @@
 import rpi_terser from '@rollup/plugin-terser'
+//import rpi_jsy from '@jsy-lang/jsy/esm/rollup.js'
 
 let is_watch = process.argv.includes('--watch')
 const external = [ /http[s]?:\/\//, ]
 
+const _rpi_xform_ = [] //[ rpi_jsy() ]
 const _rpi_min_ = is_watch ? [] : [ rpi_terser() ]
 
 export default [
@@ -65,5 +67,5 @@ function * add_esm(src_name, umd_module) {
       )
   }
 
-  yield {input, external, output}
+  yield {input, plugins: _rpi_xform_, external, output}
 }

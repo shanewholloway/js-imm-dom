@@ -1,0 +1,217 @@
+import { expect, describe, it, vi } from 'vitest'
+
+import {imm, imm_set} from './imm_dom_core.js'
+
+const mock_el = (kw, proto=null) => @:
+  __proto__: @{}
+    __proto__: proto
+    nodeType: 'mock' // truthy value
+
+    valueOf: vi.fn(c => c)
+    //getAttribute: vi.fn()
+    //hasAttribute: vi.fn()
+    setAttribute: vi.fn()
+    removeAttribute: vi.fn()
+
+    addEventListener: vi.fn()
+    //removeEventListener: vi.fn()
+
+    append: vi.fn()
+    prepend: vi.fn()
+
+  ...kw
+
+
+for let imm_fn of [imm, imm_set] ::
+  describe @ `${imm_fn.name} function`, @::
+
+    function check_imm_result(el) ::
+      if imm_fn === imm_set ::
+        expect(el.textContent).toEqual('')
+
+      else if imm_fn === imm ::
+        expect(el.textContent).toBeUndefined()
+
+    describe @ 'basic', @::
+      it @ 'just the element', @::
+        expect(typeof imm_fn).toBe('function')
+
+        let el = mock_el()
+        imm_fn(el)
+
+        imm_fn({0: el})
+        check_imm_result(el)
+
+      it @ 'resillient to null element', @::
+        imm_fn(null)
+        imm_fn(null, {class: 'bingo'})
+        imm_fn(null, {class: 'bingo'}, 'some', 'text')
+
+      it @ 'resillient to null element in attrs form', @::
+        imm_fn({})
+        imm_fn({class: 'bingo'})
+        imm_fn({class: 'bingo'}, 'some', 'text')
+
+
+    describe @ 'attributes', @::
+      it @ 'set attributes', @::
+        let el = mock_el()
+        imm_fn(el, {class: 'bingo', some_name: 'value'})
+
+        check_imm_result(el)
+        expect(el.setAttribute.mock.calls).toEqual @#
+          ['class', 'bingo']
+          ['some-name', 'value']
+
+      it @ 'remove attributes', @::
+        let el = mock_el()
+        imm_fn(el, {a: null, 'b-m': void 0, c_n: false})
+
+        check_imm_result(el)
+        expect(el.removeAttribute.mock.calls).toEqual @#
+          ['a'], ['b-m'], ['c-n']
+
+      it @ 'set style attribute', @::
+        let el = mock_el({style: {}})
+        imm_fn @: 0: el, style: @{} 'font-color': 'red', 'display': 'flex'
+
+        check_imm_result(el)
+        expect(el.setAttribute).toHaveBeenCalledTimes(0)
+        expect(el.style).toEqual @:
+          'display': 'flex'
+          'font-color': 'red'
+
+
+    describe @ 'append children', @::
+      it @ 'append text', @::
+        let el = mock_el()
+        imm_fn(el, 'some', 'text')
+        imm_fn({0: el}, 'more', 'text')
+
+        check_imm_result(el)
+        expect(el.append.mock.calls).toEqual @#
+          ['some', 'text'],
+          ['more', 'text'],
+
+      it @ 'append mixed', @::
+        let el = mock_el(), el_child = mock_el()
+        imm_fn(el, 'some', el_child, 'text')
+
+        check_imm_result(el)
+        expect(el.append.mock.calls).toEqual @#
+          ['some', el_child, 'text'],
+
+        expect(el_child.valueOf).toHaveBeenCalledTimes(1)
+
+      it @ 'append nested iterable children', @::
+        let el = mock_el()
+        imm_fn(el, 'some', ['nested', Iterator.from(['abc', 'def'])], 'text')
+
+        check_imm_result(el)
+        expect(el.append.mock.calls).toEqual @#
+          @[] 'some', 'nested', 'abc', 'def', 'text'
+
+
+
+    describe @ 'prepend children', @::
+      it @ 'prepend text', @::
+        let el = mock_el()
+        imm_fn(el, {$: ['some', 'text']})
+        imm_fn({0: el, $: ['more', 'text']})
+
+        check_imm_result(el)
+        expect(el.prepend.mock.calls).toEqual @#
+          ['some', 'text'],
+          ['more', 'text'],
+
+      it @ 'prepend mixed', @::
+        let el = mock_el(), el_child = mock_el()
+        imm_fn(el, {$label: ['some', el_child, 'text']})
+
+        check_imm_result(el)
+        expect(el.prepend.mock.calls).toEqual @#
+          ['some', el_child, 'text'],
+
+        expect(el_child.valueOf).toHaveBeenCalledTimes(1)
+
+      it @ 'prepend nested iterable children', @::
+        let el = mock_el()
+        imm_fn(el, {$one:'some', $two: ['nested', Iterator.from(['abc', 'def'])], $last: 'text'})
+
+        check_imm_result(el)
+        expect(el.prepend.mock.calls).toEqual @#
+          @[] 'some', 'nested', 'abc', 'def', 'text'
+
+
+    describe @ 'events', @::
+      it @ 'event with simple name', @::
+        let el = mock_el()
+        imm_fn(el, { simple(evt) {} })
+
+        check_imm_result(el)
+        expect(el.addEventListener).toHaveBeenCalledTimes(1)
+        expect(el.addEventListener.mock.calls[0][0]).toEqual('simple')
+
+      it @ 'event with dashed name', @::
+        let el = mock_el()
+        imm_fn(el, { 'some-other': evt => null, })
+
+        check_imm_result(el)
+        expect(el.addEventListener).toHaveBeenCalledTimes(1)
+        expect(el.addEventListener.mock.calls[0][0]).toEqual('some-other')
+
+      it @ 'event with underscore name', @::
+        let el = mock_el()
+        imm_fn(el, { some_event(evt) {}, })
+
+        check_imm_result(el)
+        expect(el.addEventListener).toHaveBeenCalledTimes(1)
+        expect(el.addEventListener.mock.calls[0][0]).toEqual('some_event')
+
+
+    describe @ 'assignment', @::
+      it @ 'assing values', @::
+        let el = mock_el()
+        imm_fn(el, {'=': {first: 1942, second: 'bingo'}, '=third': 2142})
+
+        check_imm_result(el)
+        expect(el.first).toEqual(1942)
+        expect(el.second).toEqual('bingo')
+        expect(el.third).toEqual(2142)
+
+      it @ 'assing nested', @::
+        let el = mock_el()
+        imm_fn @: 0: el, '=nested': {first: 1942, second: 'bingo', 'third': 2142}
+
+        check_imm_result(el)
+        expect(el.nested).toEqual({first: 1942, second: 'bingo', 'third': 2142})
+
+
+    describe @ 'callback', @::
+      it @ 'call function', @::
+        let el = mock_el(), fn = vi.fn()
+        imm_fn(el, {'@': fn, '@other': fn})
+
+        check_imm_result(el)
+        expect(fn).toHaveBeenCalledTimes(2)
+        expect(fn).toHaveBeenCalledWith(el, '@')
+        expect(fn).toHaveBeenCalledWith(el, '@other')
+
+      it @ 'call append method on value', @::
+        let el = mock_el(), tgt = {append: vi.fn()}
+        imm_fn(el, {'@': tgt })
+
+        check_imm_result(el)
+        expect(tgt.append).toHaveBeenCalledTimes(1)
+        expect(tgt.append).toHaveBeenCalledWith(el)
+
+      it @ 'call method on value', @::
+        let el = mock_el(), lst=['init']
+        imm_fn(el, {'@push': lst})
+
+        check_imm_result(el)
+        expect(lst).toEqual @# 'init', el
+
+        imm_fn(el, {'@unshift': lst})
+        expect(lst).toEqual @# el, 'init', el
+

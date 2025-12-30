@@ -24,12 +24,16 @@
     ".": "./esm/index.js"
   },
   "devDependencies": {
+    "@jsy-lang/jsy": "^0.10.9",
     "@rollup/plugin-terser": "^0.4.4",
     "qsrv": "^0.2.8",
-    "rollup": "^4.32.0"
+    "rollup": "^4.32.0",
+    "vite": "^7.3.0",
+    "vitest": "^4.0.16"
   },
   "scripts": {
-    "serve": "qsrv -p 8081 -- index.html ./esm ./examples",
+    "vite": "vite",
+    "serve": "vite",
     "clean": "rm -rf ./esm/* ./umd/*",
     "build": "rollup --config",
     "watch": "npm -s run build -- --watch",
@@ -38,6 +42,6 @@
     "postcompress": "node ./_util/doc_compressed.js docs/compressed.md",
     "prepublishOnly": "npm -s run compress",
     "pretest": "npm -s run build",
-    "test": "true"
+    "test": "vitest"
   }
 }

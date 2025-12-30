@@ -91,7 +91,7 @@ export class ImmElem extends _ImmElemBase
 
       // otherwise use DOM _tgt_.append with _imm_b for iterables
       || (retain ? _tgt_ : _imm0(_tgt_))
-            .append(... _imm_b([node]))
+            .append(... _imm_b([], [node]))
       )
   }
 
