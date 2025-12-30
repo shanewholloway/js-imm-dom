@@ -7,30 +7,37 @@ import {
 export { _imm0, _imm_cp }
 
 
-// complex expressions to avoid 'if', 'else', and 'return' keywords
+// complex expressions to avoid keywords like 'if', 'else', 'return', 'switch', 'case', 'default'.
 const
   // .reduce(_imm_aop, el) interpretation of imm attribute dictionary semantics
   _imm_aop = (el,[k,v],k0,attrs) => (
-      k0 = k[0]
-      , ( '_' === k0 ? attrs[k]=v
-        : '$' === k0 // children to prepend
+      '$=@_0'.includes(k0=k[0])
+      ? ( // prefix match
+        '$' === k0 // children to prepend
           ? (attrs.z ||= []).push(v)
 
         : '=' === k0 // direct property assignment
           ? _imm_cp(el, v, k.slice(1))
 
         : '@' === k0 // hook callback
-          ? v.call ? v(el, k) : v[k.slice(1)||'append'](el)
+          ? (v.call ? v(el,k) : v[k.slice(1)||'append'](el))
 
-        : 0 == k0 // use as target element from attrs
-          ? el = v
+        : '_' === k0 // pass-through attrs, like _sep=' '
+          ? attrs[k] = v
 
-        : v?.call // event handlers
-          ? _el_on(el, k, v)
+        // : 0 == k ? el = v // key of 0 indicates element in attrs[0]; however, this case is already handled by imm()
 
-        : _el_set(el, _dash_name(k), v) // attribute values
-      ), el)
+        : 0) // unreachable case
 
+      // non-prefixed
+      : v?.call // event handlers
+        ? _el_on(el, k, v)
+
+      // otherwise, attirbute values
+      : _el_set(el, _dash_name(k), v)
+
+      // return element for reduce protocol
+      , el)
 
 
 export function imm(el, ...args) {
@@ -70,12 +77,12 @@ export function * _imm_b(iterable, _sep) {
       c = c.toDOM?.(c) ?? c.valueOf(c)
 
       if (_is_iter(c))
-        yield * _imm_b(c)
+        yield * _imm_b(c, _sep)
       else {
         yield c.nodeType ? c // pass-through nodes
             : ''+c // otherwise force toString()
 
-        if (null != _sep) yield _sep
+        if (_sep) yield _sep
       }
     }
 }
