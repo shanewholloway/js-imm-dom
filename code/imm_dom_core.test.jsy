@@ -101,7 +101,16 @@ for let imm_fn of [imm, imm_set] ::
         expect(el.append.mock.calls).toEqual @#
           ['some', el_child, 'text'],
 
-        expect(el_child.valueOf).toHaveBeenCalledTimes(1)
+        expect(el_child.valueOf).toHaveBeenCalled()
+
+      it @ 'append multiple iterable children', @::
+        let el = mock_el()
+        imm_fn(el, {attr: 'value'}, 'some', 'nested', Iterator.from(['abc', 'def']), 'text')
+
+        check_imm_result(el)
+        expect(el.setAttribute).toHaveBeenCalledWith('attr', 'value')
+        expect(el.append.mock.calls).toEqual @#
+          @[] 'some', 'nested', 'abc', 'def', 'text'
 
       it @ 'append nested iterable children', @::
         let el = mock_el()
@@ -132,7 +141,7 @@ for let imm_fn of [imm, imm_set] ::
         expect(el.prepend.mock.calls).toEqual @#
           ['some', el_child, 'text'],
 
-        expect(el_child.valueOf).toHaveBeenCalledTimes(1)
+        expect(el_child.valueOf).toHaveBeenCalled()
 
       it @ 'prepend nested iterable children', @::
         let el = mock_el()

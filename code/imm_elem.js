@@ -1,4 +1,4 @@
-import { _imm0, _imm_b, _imm_cp } from './imm_dom_core.js'
+import { _imm0, _imm_c, _imm_cp } from './imm_dom_core.js'
 import { ImmCore } from './imm_elem_core.js'
 export { ImmCore } from './imm_elem_core.js'
 
@@ -89,9 +89,9 @@ export class ImmElem extends _ImmElemBase
       // on Promises
       : node.then?.(retain ? this._add_ : this._show_)
 
-      // otherwise use DOM _tgt_.append with _imm_b for iterables
+      // otherwise use DOM _tgt_.append with _imm_c for iterables
       || (retain ? _tgt_ : _imm0(_tgt_))
-            .append(... _imm_b([], [node]))
+            .append(... _imm_c([],node))
       )
   }
 
