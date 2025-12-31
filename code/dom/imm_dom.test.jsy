@@ -1,0 +1,51 @@
+import { expect, describe, it, vi } from 'vitest'
+
+import { imm_html, imm, imm_join } from './imm_dom.js'
+import {ImmMockElement, ImmMockDocument} from './imm_mock.jsy'
+
+const mock_doc = new ImmMockDocument()
+
+describe @ 'imm_html via Proxy', @::
+  it @ 'namespace caching', @::
+    const html = imm_html.$use(mock_doc)
+
+    expect({... html}).toEqual @:
+      $doc: mock_doc
+
+    expect(html.div).toBe(html.div)
+    expect({... html}).toEqual @:
+      $doc: mock_doc
+      div: html.div
+
+    expect(html.section).toBe(html.section)
+    expect({... html}).toEqual @:
+      $doc: mock_doc
+      div: html.div
+      section: html.section
+
+  it @ 'div', @::
+    const html = imm_html.$use(mock_doc)
+
+    let el = html.div({id: 'abc', class: 'neato'}, 'text', 'content')
+    expect(el.tagName).toEqual('div')
+
+    expect(el.attrs).toEqual @: id: 'abc', class: 'neato'
+    expect(el.content).toEqual @# 'text', 'content'
+
+  it @ 'nav using imm_join', @::
+    const html = imm_html.$use(mock_doc)
+
+    let el = html.nav @
+      imm_join @ '\n',
+        html.li @ 'first'
+        html.li @ 'second'
+        html.li @ 'third'
+
+    expect(el.htreeExpr()).toEqual @#
+      'nav', {},
+      @[] 'li', {}, 'first'
+      '\n'
+      @[] 'li', {}, 'second'
+      '\n'
+      @[] 'li', {}, 'third'
+

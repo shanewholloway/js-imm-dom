@@ -1,5 +1,5 @@
 import {
-  _dash_name,
+  _dash_name, _rx_tag,
   _is_attrs, _is_iter,
   _el_set, _el_on,
   _imm0, _imm_cp
@@ -72,7 +72,15 @@ export const _imm_c = (result, content) => (
       : result.push(content.nodeType ? content : ''+content) // otherwise pass-through nodes; otherwise force toString()
   , result)
 
-export const imm_join = (sep, content, result=[]) =>
-  _imm_c(result, content)
-    .flatMap((e,i) => i ? [e] : [sep??' ', e])
+export const imm_join = (sep, ...content) =>
+  _imm_c([], content)
+    .flatMap((e,i) => i ? [sep??' ', e] : [e] )
+
+export const _imm_tag_ = /* #__PURE__ */
+  new Proxy({}, {
+    get(inner, key, outer) {
+      if (_rx_tag.test(key))
+        return outer[key] = outer._imm_(imm, _dash_name(key), outer.$doc ?? document) // bind and cache new tag
+    }
+  })
 

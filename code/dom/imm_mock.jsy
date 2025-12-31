@@ -1,0 +1,43 @@
+
+export class ImmMockDocument ::
+  createElement(tagName) ::
+    return new ImmMockElement(tagName)
+
+
+export class ImmMockElement ::
+  attrs = {}
+  content = []
+  // events = {}
+
+  constructor(tagName, kw) ::
+    this.tagName = tagName
+
+  get nodeType() :: return 'mock'
+
+  hasAttribute(k) :: Object.hasOwn(this.attrs,k)
+  getAttribute(k) :: return this.attrs[k]
+  setAttribute(k,v) :: this.attrs[k] = v
+  removeAttribute(k) :: delete this.attrs[k]
+
+  set textContent(v) :: this.content.length = 0
+
+  append(...z) :: this.content.push(...z)
+  prepend(...z) :: this.content.unshift(...z)
+
+  get style() :: return this.attrs.style ??= {}
+  set style(v) :: this.attrs.style = v
+
+  addEventListener(evt_name, evt_fn) ::
+    let events = this.events ??= {__proto__: null}
+    let evts = events[evt_name] ??= new Set()
+    evts.add(evt_fn)
+
+  removeEventListener(evt_name, evt_fn) ::
+    let evts = (this.events)?.[evt_name]
+    evts?.delete(evt_fn)
+
+  toJSON() :: return this.htreeExpr()
+  htreeExpr() ::
+    let z = this.content.map(c => c?.htreeExpr?.() ?? c)
+    return [this.tagName, this.attrs, ... z]
+

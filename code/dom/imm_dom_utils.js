@@ -1,5 +1,6 @@
 export const
   _dash_name = s => s?.replace(/_/g, '-'),
+  _rx_tag = /^[a-zA-Z][a-zA-Z_-]+$/,
 
   _is_obj = a => 'object' === typeof a && null !== a && !a.nodeType,
   _is_iter = a => _is_obj(a) && Symbol.iterator in a,

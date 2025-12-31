@@ -2,9 +2,9 @@ import { expect, describe, it, vi } from 'vitest'
 
 import {imm, imm_set} from './imm_dom_core.js'
 
-const mock_el = (kw, proto=null) => @:
+const mock_el = (kw) => @:
   __proto__: @{}
-    __proto__: proto
+    __proto__: null
     nodeType: 'mock' // truthy value
 
     valueOf: vi.fn(c => c)
@@ -19,6 +19,7 @@ const mock_el = (kw, proto=null) => @:
     append: vi.fn()
     prepend: vi.fn()
 
+  style: {}
   ...kw
 
 
