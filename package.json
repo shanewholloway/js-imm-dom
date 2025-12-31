@@ -41,6 +41,6 @@
     "postcompress": "node ./_util/doc_compressed.js docs/compressed.md",
     "prepublishOnly": "npm -s run compress",
     "pretest": "npm -s run build",
-    "test": "vitest"
+    "test": "vitest run"
   }
 }

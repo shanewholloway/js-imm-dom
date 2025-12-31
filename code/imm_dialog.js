@@ -1,5 +1,5 @@
 import {imm_emit} from './imm_evt_core.js'
-import {imm_tag, imm} from './dom/imm_dom.js'
+import {imm_html, imm} from './dom/imm_dom.js'
 
 // #__NO_SIDE_EFFECTS__
 export function imm_dialog_ctx(evt_name='resolve-dialog') {
@@ -13,7 +13,7 @@ export function imm_dialog_ctx(evt_name='resolve-dialog') {
         dp.resolve(evt)
       }
 
-      let el_dialog = imm_tag('dialog',
+      let el_dialog = imm_html.dialog(
         {close, [evt_name]: close}, el_body)
 
       imm(el_tgt, el_dialog)

@@ -1,14 +1,12 @@
-import {_immt} from './dom/imm_dom_utils.js'
-import {tag, imm_parse} from './dom/imm_dom.js'
-export * from './dom/imm_dom.js'
 
 // #__NO_SIDE_EFFECTS__
-export function _imm_cssx() {
+function _imm_cssx() {
   var _wm_cache = new WeakMap()
 
   // use DOMParser for a full document so that cssRules populate
-  var _el = imm_parse('<style>').head.lastChild, _zy=_el.style
-  var _try_css = css_sz => (_el.style = css_sz, _immt(_el, css_sz))
+  var _el = new DOMParser().parseFromString('<!DOCTYPE html><style></style>','text/html').head.lastChild
+  var _zy=_el.style
+  var _try_css = css_sz => (_el.style = css_sz, _el.textContent = css_sz)
   var _css_prop = v => ( _zy.setProperty('--v', v), v && _zy.getPropertyValue('--v') )
 
 
@@ -41,13 +39,9 @@ export function _imm_cssx() {
 export const imm_css = /* #__PURE__ */
   _imm_cssx()
 
-// #__NO_SIDE_EFFECTS__
-export const imm_style = (...args) =>
-  tag('style', imm_css(...args))
 
 export {
   imm_css as default,
   imm_css as css,
-  imm_style as style
 }
 
