@@ -6,9 +6,8 @@ export const _imm_html_ = {
   __proto__: _imm_tag_,
   $use($doc) { return {__proto__: _imm_html_, $doc} },
 
-  _imm_: (imm, tag, doc) =>
-    (...args) =>
-      imm(doc.createElement(tag),...args),
+  _imm_: (imm, tag, doc) => imm.bind(doc, tag),
+    //(...args) => imm(doc.createElement(tag),...args),
 }
 export const imm_html = { __proto__: _imm_html_ }
 export {
@@ -18,7 +17,7 @@ export {
 
 
 export function imma(el_spot, el_promise, attrs) {
-  el_spot ??= imm_html.div()
+  el_spot ??= imm('div')
   el_spot.ready = Promise.resolve(el_promise)
     .then(el_ready => el_spot.replaceWith(imm(el_ready, attrs)))
   return el_spot

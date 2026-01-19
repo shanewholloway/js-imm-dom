@@ -2,9 +2,9 @@ import {
   _dash_name, _rx_tag,
   _is_attrs, _is_iter,
   _el_set, _el_on,
-  _imm0, _imm_cp
+  _imm_cp
 } from './imm_dom_utils.js'
-export { _imm0, _imm_cp }
+export { _imm_cp }
 
 
 // complex expressions to avoid keywords like 'if', 'else', 'return', 'switch', 'case', 'default'.
@@ -42,7 +42,10 @@ const
 
 
 export function imm(el, ...args) {
-  el &&= el.nodeType ? el : (args.unshift(el), el[0])
+  el &&= el.nodeType ? el
+    : el.trim ? (this ?? document).createElement(el)
+    : (args.unshift(el), el[0])
+
   args = args.flatMap(_aop_attrs)
   if (el) {
     let z0=[], z1=[], clear
@@ -74,7 +77,7 @@ export const _imm_c = (result, content) => (
 
 export const imm_join = (sep, ...content) =>
   _imm_c([], content)
-    .flatMap((e,i) => i ? [sep??' ', e] : [e] )
+    .flatMap((e,i) => i ? [''+sep, e] : [e] )
 
 export const _imm_tag_ = /* #__PURE__ */
   new Proxy({}, {

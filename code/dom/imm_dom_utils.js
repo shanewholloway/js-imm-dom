@@ -6,8 +6,6 @@ export const
   _is_iter = a => _is_obj(a) && Symbol.iterator in a,
   _is_attrs = a => _is_obj(a) && !(a.toDOM || Symbol.iterator in a),
 
-  _immt = (el,text='') => ((el.nodeType ? el : el[0]).textContent=text, el),
-  _imm0 = el => el ? _immt(el,'') : el,
   _imm_cp = (tgt, src, key) =>
     key ? (tgt[key]=src, tgt)
         : Object.assign(tgt, src),
