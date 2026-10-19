@@ -179,7 +179,7 @@ for let imm_fn of [imm, imm_set] ::
 
 
     describe @ 'assignment', @::
-      it @ 'assing values', @::
+      it @ 'assign values', @::
         let el = mock_el()
         imm_fn(el, {'=': {first: 1942, second: 'bingo'}, '=third': 2142})
 
@@ -188,7 +188,7 @@ for let imm_fn of [imm, imm_set] ::
         expect(el.second).toEqual('bingo')
         expect(el.third).toEqual(2142)
 
-      it @ 'assing nested', @::
+      it @ 'assign nested', @::
         let el = mock_el()
         imm_fn @: 0: el, '=nested': {first: 1942, second: 'bingo', 'third': 2142}
 
